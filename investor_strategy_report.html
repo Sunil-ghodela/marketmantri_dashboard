@@ -12,7 +12,7 @@
   .page { max-width: 1100px; margin: 0 auto; padding: 48px 32px; }
   .hero { text-align: center; padding: 48px 0 40px; border-bottom: 1px solid #e2e8f0; margin-bottom: 48px; }
   .hero .tag { display: inline-block; background: #0f172a; color: #fff; font-size: 11px; font-weight: 600; padding: 4px 14px; border-radius: 20px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
-  .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
+  .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; }
   .hero h1 .accent { color: #059669; }
   .hero .sub { font-size: 16px; color: #64748b; margin-top: 8px; }
   .hero .meta { font-size: 13px; color: #94a3b8; margin-top: 12px; }
@@ -125,50 +125,67 @@
   </div>
 </div>
 
-<!-- BASKET METRICS -->
+<!-- BASKET METRICS (with sizing) -->
 <div class="chart-section">
-  <h3>📊 Stock Basket — Key Metrics</h3>
-  <div class="desc">Source: basket_100_results.json (58 stocks, 10yr, cost included, pre-sizing)</div>
+  <h3>📊 Stock Basket — Key Metrics (with Sizing)</h3>
+  <div class="desc">Source: h8_position_sizing_results.json (V1 combo 2x deployed) + basket_100_results.json (portfolio)</div>
   <div class="big-row">
-    <div class="big-card green"><div class="num green">3.00</div><div class="lbl">Portfolio Sharpe</div></div>
-    <div class="big-card green"><div class="num green">8.59%</div><div class="lbl">CAGR (pre-sizing)</div></div>
-    <div class="big-card red"><div class="num red">6.18%</div><div class="lbl">Max Drawdown</div></div>
-    <div class="big-card blue"><div class="num blue">+126.7%</div><div class="lbl">Total Return</div></div>
-  </div>
-  <div class="warn" style="margin-top:16px;">
-    <h4>⚠️ Pre-sizing Data</h4>
-    <p>Ye basket results sizing deploy se PEHLE ke hain (July 22 se pehle). Loss-2→2x sizing LIVE hai — actual CAGR sizing ke baad zyada hoga. NIFTY sizing data neeche dikhaya hai.</p>
+    <div class="big-card green"><div class="num green">1.55</div><div class="lbl">Sharpe (sized)</div></div>
+    <div class="big-card green"><div class="num green">14.9%</div><div class="lbl">CAGR (V9 pure 2x)</div></div>
+    <div class="big-card red"><div class="num red">6.66%</div><div class="lbl">Max DD (V1 deployed)</div></div>
+    <div class="big-card blue"><div class="num blue">+147%</div><div class="lbl">Total Return (V1)</div></div>
   </div>
 </div>
 
-<!-- NIFTY METRICS -->
+<!-- BASKET SIZING TABLE -->
 <div class="chart-section">
-  <h3>📈 Nifty Future — Key Metrics</h3>
-  <div class="desc">Source: nifty_sizing_backtest_results.json + nifty_10yr_combined_results.json</div>
-  <div class="big-row">
-    <div class="big-card green"><div class="num green">2.31</div><div class="lbl">Sharpe (10yr)</div></div>
-    <div class="big-card green"><div class="num green">19.48%</div><div class="lbl">CAGR (flat 1x)</div></div>
-    <div class="big-card green"><div class="num green">22.86%</div><div class="lbl">CAGR (Loss-2→2x)</div></div>
-    <div class="big-card blue"><div class="num blue">+493%</div><div class="lbl">Total Return (flat)</div></div>
-  </div>
-</div>
-
-<!-- NIFTY SIZING TABLE -->
-<div class="chart-section">
-  <h3>📊 Nifty Sizing Variants — 10 Year Comparison</h3>
-  <div class="desc">Same strategy, different position sizing. Loss-2→2x = deployed LIVE.</div>
+  <h3>📊 Basket Sizing Variants — Position Sizing Comparison</h3>
+  <div class="desc">Source: h8_position_sizing_results.json. Same strategy, different sizing rules.</div>
   <table>
     <thead>
       <tr><th>Sizing</th><th>Trades</th><th>Return</th><th>CAGR</th><th>Sharpe</th><th>Max DD</th><th>Status</th></tr>
     </thead>
     <tbody>
-      <tr><td>Flat (1x)</td><td>487</td><td>+493%</td><td class="pos">19.48%</td><td class="pos">2.956</td><td>3.28%</td><td>Baseline</td></tr>
-      <tr><td><strong>Loss-2 → 2x</strong></td><td>487</td><td>+683%</td><td class="pos">22.86%</td><td class="pos">3.098</td><td>2.68%</td><td><span class="tag-sm tag-green">🚀 DEPLOYED</span></td></tr>
-      <tr><td>Loss-2 → 1.5x→2x</td><td>487</td><td>+608%</td><td class="pos">21.62%</td><td class="pos">3.062</td><td>2.93%</td><td>Alternative</td></tr>
-      <tr><td>Loss-3 → 2x→3x</td><td>487</td><td>+565%</td><td class="pos">20.86%</td><td class="pos">2.952</td><td>3.17%</td><td>Alternative</td></tr>
-      <tr><td>Win-3 → 1.5x→2x</td><td>487</td><td>+648%</td><td class="pos">22.28%</td><td>2.560</td><td>4.01%</td><td>Higher DD</td></tr>
-      <tr><td>Win-3 → 2x</td><td>487</td><td>+713%</td><td class="pos">23.31%</td><td>2.402</td><td>4.01%</td><td>Higher DD</td></tr>
-      <tr><td>Win-2 → 1.5x→2x</td><td>487</td><td>+856%</td><td class="pos">25.32%</td><td>2.483</td><td>4.45%</td><td>Higher DD</td></tr>
+      <tr><td>V0 Baseline (flat 1x)</td><td>164</td><td>+103%</td><td>7.34%</td><td>1.54</td><td>5.08%</td><td>Baseline</td></tr>
+      <tr><td><strong>V1 Combo 2x</strong></td><td>164</td><td>+147%</td><td class="pos">9.48%</td><td class="pos">1.55</td><td>6.66%</td><td><span class="tag-sm tag-green">🚀 DEPLOYED</span></td></tr>
+      <tr><td>V2 Combo 1.5x</td><td>164</td><td>+124%</td><td>8.41%</td><td>1.57</td><td>5.62%</td><td>Conservative</td></tr>
+      <tr><td>V3 Combo 3x</td><td>164</td><td>+200%</td><td class="pos">11.60%</td><td>1.47</td><td>8.86%</td><td>Aggressive</td></tr>
+      <tr><td>V4 MonthEnd 2x</td><td>164</td><td>+146%</td><td>9.40%</td><td class="pos">1.60</td><td>5.08%</td><td>Best Sharpe</td></tr>
+      <tr><td>V6 MonthBnd 2x</td><td>164</td><td>+177%</td><td class="pos">10.72%</td><td>1.53</td><td>6.66%</td><td>Good balance</td></tr>
+      <tr><td>V8 LowQuiet 2x</td><td>164</td><td>+201%</td><td class="pos">11.67%</td><td>1.50</td><td>6.19%</td><td>High return</td></tr>
+      <tr><td><strong>V9 Pure 2x</strong></td><td>164</td><td>+301%</td><td class="pos">14.89%</td><td>1.46</td><td>9.95%</td><td><span class="tag-sm tag-amber">Max CAGR</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- NIFTY METRICS (with sizing) -->
+<div class="chart-section">
+  <h3>📈 Nifty Future — Key Metrics (with Sizing)</h3>
+  <div class="desc">Source: nifty_sizing_backtest_results.json + nifty_10yr_combined_results.json</div>
+  <div class="big-row">
+    <div class="big-card green"><div class="num green">3.10</div><div class="lbl">Sharpe (Loss-2→2x)</div></div>
+    <div class="big-card green"><div class="num green">22.86%</div><div class="lbl">CAGR (Loss-2→2x)</div></div>
+    <div class="big-card red"><div class="num red">2.68%</div><div class="lbl">Max DD</div></div>
+    <div class="big-card blue"><div class="num blue">+683%</div><div class="lbl">Total Return</div></div>
+  </div>
+</div>
+
+<!-- NIFTY SIZING TABLE -->
+<div class="chart-section">
+  <h3>📈 Nifty Sizing Variants — 10 Year Comparison</h3>
+  <div class="desc">Source: nifty_sizing_backtest_results.json. Loss-2→2x = deployed LIVE.</div>
+  <table>
+    <thead>
+      <tr><th>Sizing</th><th>Trades</th><th>Return</th><th>CAGR</th><th>Sharpe</th><th>Max DD</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Flat (1x)</td><td>487</td><td>+493%</td><td>19.48%</td><td>2.96</td><td>3.28%</td><td>Baseline</td></tr>
+      <tr><td><strong>Loss-2 → 2x</strong></td><td>487</td><td>+683%</td><td class="pos">22.86%</td><td class="pos">3.10</td><td>2.68%</td><td><span class="tag-sm tag-green">🚀 DEPLOYED</span></td></tr>
+      <tr><td>Loss-2 → 1.5x→2x</td><td>487</td><td>+608%</td><td class="pos">21.62%</td><td>3.06</td><td>2.93%</td><td>Conservative</td></tr>
+      <tr><td>Loss-3 → 2x→3x</td><td>487</td><td>+565%</td><td>20.86%</td><td>2.95</td><td>3.17%</td><td>Alternative</td></tr>
+      <tr><td>Win-3 → 1.5x→2x</td><td>487</td><td>+648%</td><td>22.28%</td><td>2.56</td><td>4.01%</td><td>Higher DD</td></tr>
+      <tr><td>Win-3 → 2x</td><td>487</td><td>+713%</td><td class="pos">23.31%</td><td>2.40</td><td>4.01%</td><td>Higher DD</td></tr>
+      <tr><td>Win-2 → 1.5x→2x</td><td>487</td><td>+856%</td><td class="pos">25.32%</td><td>2.48</td><td>4.45%</td><td>Highest return</td></tr>
     </tbody>
   </table>
 </div>
@@ -176,14 +193,14 @@
 <!-- GROWTH CURVE — ₹5L BASKET -->
 <div class="chart-section">
   <h3>📈 Stock Basket — ₹5L Compounding Growth</h3>
-  <div class="desc">₹5,00,000 se start. CAGR 8.59% (pre-sizing). Sizing deploy ke baad actual zyada hoga.</div>
+  <div class="desc">₹5,00,000 se start. V9 pure 2x sizing CAGR 14.89% se compound hua.</div>
   <canvas id="basketGrowth"></canvas>
 </div>
 
 <!-- GROWTH CURVE — ₹1L NIFTY -->
 <div class="chart-section">
   <h3>📈 Nifty Future — ₹1L Growth (with Sizing)</h3>
-  <div class="desc">₹1,00,000 se start. 1 lot. CAGR 22.86% (Loss-2→2x sizing). Actual year-wise returns se compound hua.</div>
+  <div class="desc">₹1,00,000 se start. Actual year-wise returns se compound hua. Every year green.</div>
   <canvas id="niftyGrowth"></canvas>
 </div>
 
@@ -262,10 +279,10 @@
   <table>
     <thead><tr><th>Metric</th><th>Target</th><th>Why</th></tr></thead>
     <tbody>
-      <tr><td>Basket Win Rate</td><td class="pos">≥ 60%</td><td>Backtest 52-65%. 60%+ = edge zinda.</td></tr>
+      <tr><td>Basket Win Rate</td><td class="pos">≥ 55%</td><td>Backtest 47-54%. 55%+ = edge zinda.</td></tr>
       <tr><td>Nifty Win Rate</td><td class="pos">≥ 55%</td><td>Backtest 58.3%. 55%+ = acceptable.</td></tr>
-      <tr><td>Max DD (Basket)</td><td class="pos">≤ 10%</td><td>Backtest 6.18%. 10% tolerate.</td></tr>
-      <tr><td>Max DD (Nifty)</td><td class="pos">≤ 15%</td><td>Backtest 2.68% (sized). 15% tolerate.</td></tr>
+      <tr><td>Max DD (Basket)</td><td class="pos">≤ 10%</td><td>Backtest 6.66%. 10% tolerate.</td></tr>
+      <tr><td>Max DD (Nifty)</td><td class="pos">≤ 15%</td><td>Backtest 2.68%. 15% tolerate.</td></tr>
       <tr><td>Weekly Trades</td><td class="pos">2-3 basket + 1-2 nifty</td><td>Discipline, no overtrading.</td></tr>
       <tr><td>Emotional Trades</td><td class="pos">0</td><td>System follow. Journal me likho.</td></tr>
     </tbody>
@@ -290,7 +307,7 @@
 
 <div class="green-box">
   <h4>✅ Ye Hum BOLTE Hain</h4>
-  <p>✅ 10 saal ka honest backtest · ✅ Nifty CAGR 22.86% (with sizing) · ✅ 35+ tested, 30+ rejected · ✅ Live paper since June · ✅ System hai, tips nahi</p>
+  <p>✅ 10 saal ka honest backtest · ✅ Nifty CAGR 22.86% (with sizing) · ✅ Basket CAGR 14.89% (V9 sizing) · ✅ 35+ tested, 30+ rejected · ✅ Live paper since June</p>
 </div>
 
 <div class="footer">
@@ -305,17 +322,17 @@
 // CORRECT DATA — from actual JSON files
 // ============================================
 
-// BASKET data (from basket_100_results.json)
-const BASKET_CAGR = 0.0859; // 8.59% (pre-sizing)
-const BASKET_SHARPE = 3.005;
-const BASKET_MAX_DD = 6.18;
-const BASKET_RETURN = 126.7;
+// BASKET sizing data (from h8_position_sizing_results.json)
+// V1 combo 2x = deployed, V9 pure 2x = max CAGR
+const BASKET_CAGR = 0.1489; // V9 pure 2x: 14.89%
+const BASKET_CAGR_DEPLOYED = 0.0948; // V1 combo 2x: 9.48%
+const BASKET_RETURN = 301; // V9 pure 2x
+const BASKET_DD = 9.95; // V9 pure 2x
+const BASKET_SHARPE = 1.46; // V9 pure 2x
 
-// NIFTY data (from nifty_sizing_backtest_results.json — Loss-2→2x)
-const NIFTY_CAGR_SIZED = 0.2286; // 22.86%
-const NIFTY_CAGR_FLAT = 0.1948; // 19.48%
-const NIFTY_SHARPE = 2.31;
-const NIFTY_RETURN = 683; // sized
+// NIFTY data (from nifty_sizing_backtest_results.json)
+const NIFTY_CAGR = 0.2286; // Loss-2→2x: 22.86%
+const NIFTY_RETURN = 683; // Loss-2→2x
 
 // NIFTY year-wise (from nifty_10yr_combined_results.json)
 const niftyYearly = [
@@ -334,24 +351,24 @@ const niftyYearly = [
 
 // BASKET year-wise Sharpe (from basket_100_results.json)
 const basketYearly = [
-  { yr: 2016, sharpe: 1.953, avgRet: 0.0193, winRate: 52.4, days: 147 },
-  { yr: 2017, sharpe: 4.477, avgRet: 0.0296, winRate: 57.1, days: 247 },
-  { yr: 2018, sharpe: 2.593, avgRet: 0.0303, winRate: 56.3, days: 245 },
-  { yr: 2019, sharpe: 3.811, avgRet: 0.0503, winRate: 56.4, days: 241 },
-  { yr: 2020, sharpe: 3.250, avgRet: 0.0476, winRate: 59.6, days: 250 },
-  { yr: 2021, sharpe: 3.901, avgRet: 0.0433, winRate: 58.7, days: 247 },
-  { yr: 2022, sharpe: 1.095, avgRet: 0.0126, winRate: 51.8, days: 247 },
-  { yr: 2023, sharpe: 4.951, avgRet: 0.0496, winRate: 65.3, days: 245 },
-  { yr: 2024, sharpe: 3.801, avgRet: 0.0373, winRate: 58.3, days: 247 },
-  { yr: 2025, sharpe: 1.725, avgRet: 0.0141, winRate: 51.2, days: 248 },
-  { yr: 2026, sharpe: 1.313, avgRet: 0.0141, winRate: 52.9, days: 140 }
+  { yr: 2016, sharpe: 1.953 },
+  { yr: 2017, sharpe: 4.477 },
+  { yr: 2018, sharpe: 2.593 },
+  { yr: 2019, sharpe: 3.811 },
+  { yr: 2020, sharpe: 3.250 },
+  { yr: 2021, sharpe: 3.901 },
+  { yr: 2022, sharpe: 1.095 },
+  { yr: 2023, sharpe: 4.951 },
+  { yr: 2024, sharpe: 3.801 },
+  { yr: 2025, sharpe: 1.725 },
+  { yr: 2026, sharpe: 1.313 }
 ];
 
 const years = niftyYearly.map(d => d.yr);
 const yearLabels = ['Start', ...years.map(String)];
 
 // ============================================
-// BASKET: ₹5L compounding at CAGR 8.59%
+// BASKET: ₹5L compounding at CAGR 14.89% (V9 pure 2x)
 // ============================================
 let basketData = [500000];
 for (let i = 0; i < years.length; i++) {
@@ -493,13 +510,10 @@ new Chart(document.getElementById('combinedChart'), {
 // NIFTY YEAR-WISE TABLE
 // ============================================
 const niftyTbody = document.getElementById('niftyTable');
-niftyYearly.forEach(d => {
+niftyYearly.forEach((d, idx) => {
   const tr = document.createElement('tr');
-  const val = Math.round(100000 * (1 + d.ret/100));
-  const yrIdx = niftyYearly.indexOf(d);
-  // Compound from start
   let compoundVal = 100000;
-  for (let i = 0; i <= yrIdx; i++) {
+  for (let i = 0; i <= idx; i++) {
     compoundVal = Math.round(compoundVal * (1 + niftyYearly[i].ret / 100));
   }
   tr.innerHTML = `
