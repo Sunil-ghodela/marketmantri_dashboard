@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MarketMantri — Sajid ke liye</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  html, body { background: #fafafa; color: #1a1a2e; font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  
+  .slide { 
+    min-height: 100vh; 
+    padding: 60px 40px; 
+    display: flex; flex-direction: column; justify-content: center;
+    border-bottom: 3px solid #e0e0e0;
+    max-width: 900px; margin: 0 auto;
+  }
+  
+  .slide-num { font-size: 12px; color: #888; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+  
+  h1 { font-size: 36px; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
+  h2 { font-size: 28px; font-weight: 700; margin-bottom: 20px; }
+  h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #333; }
+  
+  .step-badge {
+    display: inline-block; padding: 6px 16px; border-radius: 20px;
+    font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 16px;
+  }
+  .step-1 { background: #dbeafe; color: #1e40af; }
+  .step-2 { background: #dcfce7; color: #166534; }
+  .step-3 { background: #fef3c7; color: #92400e; }
+  
+  .highlight { 
+    background: linear-gradient(120deg: #fff3cd 0%, #ffeeba 100%); 
+    padding: 24px 32px; border-left: 5px solid #d4a017; border-radius: 8px;
+    font-size: 18px; font-style: italic; margin: 20px 0; line-height: 1.6;
+  }
+  
+  .quote {
+    font-size: 20px; font-weight: 600; color: #2c5282;
+    border-left: 4px solid #2c5282; padding-left: 20px; margin: 20px 0;
+  }
+  
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+  th { background: #2d3748; color: white; padding: 12px 16px; text-align: left; }
+  td { padding: 12px 16px; border-bottom: 1px solid #e2e8f0; }
+  tr:nth-child(even) { background: #f7fafc; }
+  
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 20px 0; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+  
+  .card { 
+    background: white; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  
+  .green { color: #16a34a; } .red { color: #dc2626; } .amber { color: #d97706; } .blue { color: #2563eb; }
+  
+  .stat-row { display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
+  .stat { text-align: center; flex: 1; min-width: 120px; }
+  .stat .num { font-size: 32px; font-weight: 800; }
+  .stat .label { font-size: 12px; color: #666; text-transform: uppercase; }
+  
+  ul { margin: 12px 0; padding-left: 24px; }
+  li { margin-bottom: 8px; }
+  
+  .danger { background: #fee2e2; border-left: 4px solid #dc2626; padding: 16px 20px; border-radius: 8px; margin: 16px 0; }
+  .success { background: #dcfce7; border-left: 4px solid #16a34a; padding: 16px 20px; border-radius: 8px; margin: 16px 0; }
+  .warning { background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; border-radius: 8px; margin: 16px 0; }
+  .info { background: #dbeafe; border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 8px; margin: 16px 0; }
+  
+  .footer { text-align: center; color: #888; font-size: 12px; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0e0e0; }
+  .center { text-align: center; }
+  .big { font-size: 48px; font-weight: 800; }
+  
+  .flow-arrow {
+    text-align: center; font-size: 40px; color: #ccc; padding: 20px 0;
+  }
+  
+  .ring-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+  @media (max-width: 600px) { .ring-row { grid-template-columns: 1fr; } }
+  .ring {
+    background: white; border: 2px solid #e5e7eb; border-radius: 12px;
+    padding: 20px; text-align: center;
+  }
+  .ring.active { border-color: #16a34a; background: #f0fdf4; }
+  .ring.ready { border-color: #d97706; background: #fffbeb; }
+  .ring.later { border-color: #d1d5db; background: #f9fafb; }
+  .ring .ring-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .ring .ring-amount { font-size: 24px; font-weight: 800; }
+  .ring .ring-status { font-size: 11px; font-weight: 600; margin-top: 8px; padding: 4px 12px; border-radius: 20px; display: inline-block; }
+  .ring.active .ring-status { background: #dcfce7; color: #16a34a; }
+  .ring.ready .ring-status { background: #fef3c7; color: #d97706; }
+  .ring.later .ring-status { background: #f3f4f6; color: #6b7280; }
+  
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #e5e7eb; }
+  .tl-item { position: relative; margin-bottom: 16px; }
+  .tl-item::before { content: ''; position: absolute; left: -20px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db; }
+  .tl-item.done::before { background: #16a34a; }
+  .tl-item.current::before { background: #d97706; }
+  .tl-date { font-size: 11px; color: #888; font-weight: 600; }
+  .tl-text { font-size: 13px; }
+</style>
+</head>
+<body>
+
+<!-- ========== TITLE ========== -->
+<div class="slide center">
+  <h1>MarketMantri</h1>
+  <p style="font-size: 20px; color: #555; margin-bottom: 30px;">3-Step: Market → System → Paisa</p>
+  
+  <div class="highlight">
+    "Market shortcut nahi hai, aur sirf gambling bhi nahi hai. Yeh ownership, capital, price discovery aur risk-management ka system hai."
+  </div>
+  
+  <div class="stat-row" style="margin-top: 40px;">
+    <div class="stat"><div class="num blue">1</div><div class="label">Market kya hai</div></div>
+    <div class="stat"><div class="num green">2</div><div class="label">System kya hai</div></div>
+    <div class="stat"><div class="num amber">3</div><div class="label">Paisa kaise kamata hai</div></div>
+  </div>
+  
+  <p style="margin-top: 30px; color: #888;">Sunil Kumar · Rishikesh · 2020 se trading · 4 mahine ka research system</p>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- STEP 1: MARKET KYA HAI -->
+<!-- ============================================================ -->
+
+<div class="flow-arrow">▼</div>
+
+<div class="slide">
+  <div class="slide-num">Step 1 / 3 — MARKET KYA HAI</div>
+  <span class="step-badge step-1">STEP 1</span>
+  <h2>Market hai kya?</h2>
+  
+  <div class="quote">
+    "Company ko growth ke liye capital chahiye; investor ko ownership ka exposure chahiye; market dono ko transparent process mein jodta hai."
+  </div>
+  
+  <div class="two-col">
+    <div class="card">
+      <h3>Simple language me</h3>
+      <p>Market wo jagah hai jahan <strong>ownership aur capital milte hain</strong>. Company shares bechkar paisa jama karti hai, investors hissa lete hain, aur secondary market me ye shares aapas me trade hote hain.</p>
+      <p style="margin-top: 12px; font-size: 13px; color: #666;">RBI kehta hai: capital markets economic development ke liye crucial hain — ye financial resources provide karte hain long-term sustainable growth ke liye.</p>
+    </div>
+    <div class="card">
+      <h3>Market me kaun kaun hai</h3>
+      <ul>
+        <li><strong>Companies</strong> — capital raise karti hain</li>
+        <li><strong>Investors</strong> — ownership lete hain</li>
+        <li><strong>Exchanges</strong> — transparent platform dete hain</li>
+        <li><strong>Brokers</strong> — access aur execution dete hain</li>
+        <li><strong>Regulators (SEBI)</strong> — rules banate hain</li>
+        <li><strong>Researchers</strong> — data aur analysis dete hain</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="slide-num">Step 1 / 3 — MARKET KYA HAI</div>
+  <span class="step-badge step-1">STEP 1</span>
+  <h2>Kaun kamata hai, kaise?</h2>
+  
+  <p style="margin-bottom: 16px; color: #666;">Earnings differ by role, time horizon, costs, taxes, risk and luck. Koi ek number nahi hai.</p>
+  
+  <table>
+    <tr><th>Participant</th><th>Kya karta hai</th><th>Kaise kamata hai</th><th>Limitation</th></tr>
+    <tr><td><strong>Companies</strong></td><td>Capital raise karti hai</td><td>Growth se share price badhta hai</td><td>Secondary market price = daily revenue nahi</td></tr>
+    <tr><td><strong>Long-term investors</strong></td><td>Capital supply karte hain</td><td>Dividends + appreciation</td><td>Returns uncertain, long periods me negative ho sakta hai</td></tr>
+    <tr><td><strong>Mutual Funds</strong></td><td>Pooled capital allocate karte hain</td><td>Management fees</td><td>Fund outcomes guaranteed nahi hain</td></tr>
+    <tr><td><strong>Brokers/Exchanges</strong></td><td>Regulated access dete hain</td><td>Brokerage/transaction fees</td><td>Infrastructure provider hain, profit guarantee nahi</td></tr>
+    <tr><td><strong>Traders</strong></td><td>Liquidity dete hain</td><td>Trading gains (risk managed ho to)</td><td>Zero-sum before costs — outcomes sharply vary</td></tr>
+    <tr><td><strong>Research/Technology</strong></td><td>Data aur tools dete hain</td><td>Subscriptions/services</td><td>Tool predict nahi kar sakta returns</td></tr>
+  </table>
+</div>
+
+<!-- NEGATIVE: Market ki burai -->
+<div class="slide">
+  <div class="slide-num">Step 1 / 3 — MARKET KYA HAI (NEGATIVE)</div>
+  <span class="step-badge step-1">STEP 1</span>
+  <h2>Negative ko dekhna zaroori hai</h2>
+  
+  <div class="danger">
+    <strong>SEBI ka data (FY22-FY24):</strong> 93% individual traders ko F&O me nuksaan hua. Aggregate losses ₹1.8 lakh crore se zyada.
+  </div>
+  
+  <div class="warning">
+    <strong>SEBI ka naya study (2026):</strong> Options aur Futures me retail traders ki haalat aur bhi kharab — 9 din me ₹50,000 ka nuksaan average. Jitna zyada trade, utna zyada loss.
+  </div>
+  
+  <div class="danger">
+    <strong>13 Aug 2026 — Sensex Expiry Manipulation:</strong> Do companies mil kar Sensex expiry ke din manipulation kar rahi thin. SEBI ne pakda. Ye dikhata hai ki market me fraud bhi hota hai — system hona zaroori hai taaki tumhare saath aisa na ho.
+  </div>
+  
+  <div class="two-col" style="margin-top: 24px;">
+    <div>
+      <h3>Asli wajah kyun log haarte hain</h3>
+      <ul>
+        <li>"Market" ka matlab sirf intraday/F&O/Telegram tips samajhte hain</li>
+        <li>Selective screenshots of winners dikhate hain</li>
+        <li>"Guaranteed return" ke claims karte hain</li>
+        <li>Hidden leverage use hota hai</li>
+        <li>Losses chhupaye jaate hain</li>
+        <li>Samjhe bina paisa lagate hain</li>
+        <li><strong>System nahi hota — hwa me kaam karte hain</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Sahi approach kya hai</h3>
+      <ul>
+        <li><strong>Samjho</strong> — pehle market ko samjho</li>
+        <li><strong>Negative dekho</strong> — 93% kyun haarte hain</li>
+        <li><strong>System banao</strong> — rules, limits, record</li>
+        <li><strong>Discipline</strong> — rules follow karo</li>
+        <li><strong>Patience</strong> — results waqt leta hai</li>
+        <li><strong>Grow karo system ke saath</strong> — system ke against nahi</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="info" style="margin-top: 20px;">
+    <strong>Key insight:</strong> "Hwa me kuch nahi hota. System chal raha hai to koi model hoga — vo model continuity aur management ka hai. Jo log lagatar sikhta hai, aage badhta hai, system ke jaise dekhta hai — wohi abhi tak tike hain. Baaki sab hwa ho jaate hain."
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- STEP 2: SYSTEM KYA HAI -->
+<!-- ============================================================ -->
+
+<div class="flow-arrow">▼</div>
+
+<div class="slide">
+  <div class="slide-num">Step 2 / 3 — SYSTEM KYA HAI</div>
+  <span class="step-badge step-2">STEP 2</span>
+  <h2>Hamara system kya hai?</h2>
+  
+  <div class="quote">
+    "Hum brokerage, tip service, guaranteed-return service, ya live order desk nahi bana rahe. Hum pehle ek evidence workspace bana rahe hain."
+  </div>
+  
+  <div class="two-col">
+    <div class="card">
+      <h3>System ka matlab kya hai</h3>
+      <ul>
+        <li><strong>Rules pehle se likhe hain</strong> — jab entry/exit karna hai</li>
+        <li><strong>Research continuous hai</strong> — naye ideas test hote rehte hain</li>
+        <li><strong>Record honest hai</strong> — haar bhi dikhti hai, jeet bhi</li>
+        <li><strong>Discipline hai</strong> — rules todna allowed nahi</li>
+        <li><strong>Growth system ke saath hai</strong> — system ke against nahi</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Ye kaise kaam karta hai</h3>
+      <ul>
+        <li><strong>Research → Test → Verdict → Deploy/Reject</strong></li>
+        <li>35+ ideas test kiye — 30+ reject kiye</li>
+        <li>Har rejected idea ka record hai</li>
+        <li>Graveyard visible hai — sirf winners nahi dikhate</li>
+        <li>Dashboard pe sab live dikhta hai</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="slide-num">Step 2 / 3 — SYSTEM KYA HAI</div>
+  <span class="step-badge step-2">STEP 2</span>
+  <h2>Research Discipline — Numbers</h2>
+  
+  <table>
+    <tr><th>Kya kiya</th><th>Result</th><th>Status</th></tr>
+    <tr><td>MACD Momentum Strategy</td><td>Sharpe 2.998 (10yr, 46 stocks, cost-adjusted)</td><td>✅ Deployed (paper)</td></tr>
+    <tr><td>Divergence Filter</td><td>60-70% precision, false breakouts filter</td><td>✅ Live</td></tr>
+    <tr><td>Loss-Streak Filter</td><td>After 2 losses → next trade +0.2443%</td><td>✅ Verified on 2 engines</td></tr>
+    <tr><td>Position Sizing</td><td>Loss-2→2x anti-martingale</td><td>✅ Live</td></tr>
+    <tr><td>Chop-Gate (market-only)</td><td>REJECTED — fails on recent data</td><td>❌ Graveyard</td></tr>
+    <tr><td>Latency Analysis</td><td>15min delay = 26% edge loss</td><td>✅ Found + fixed</td></tr>
+    <tr><td>35+ other hypotheses</td><td>Most rejected — graveyard visible</td><td>📝 All documented</td></tr>
+  </table>
+  
+  <div class="success" style="margin-top: 20px;">
+    <strong>Key numbers:</strong> 4 mahine ka research · 35+ ideas tested · 30+ rejected · 114 paper trades · 46 stocks in basket · Dashboard live
+  </div>
+</div>
+
+<div class="slide">
+  <div class="slide-num">Step 2 / 3 — SYSTEM KYA HAI</div>
+  <span class="step-badge step-2">STEP 2</span>
+  <h2>Safety Net — Kaise bache rehte hain</h2>
+  
+  <div class="highlight">
+    "Risk se bhaagna possible nahi, par risk ko naapna zaroori hai. Road risk ke liye seatbelt, rules aur driving skill chahiye. Market risk ke liye position limits, clean data, written rules, stop conditions aur separate capital chahiye."
+  </div>
+  
+  <div class="two-col">
+    <div class="card">
+      <h3>🔴 Negative ko dekhte hain</h3>
+      <ul>
+        <li>93% traders haarte hain — ye sabse pehle yaad rakhte hain</li>
+        <li>13 Aug manipulation hua — ye bhi dekhte hain</li>
+        <li>SEBI ka naya study — retail aur bhi kamzor</li>
+        <li>Apne paper record me bhi loss hai — chhupate nahi</li>
+        <li>Edge÷cost 0.43× hai — abhi fees gross se zyada</li>
+      </ul>
+      <p style="margin-top: 12px; font-size: 13px; color: #666;"><strong>Negative dekhna zaroori hai — par negative nahi hona.</strong> System isliye hai taaki negative ko samjhe aur uske saath play kare, bhaage nahi.</p>
+    </div>
+    <div class="card">
+      <h3>🟢 Safety mechanisms</h3>
+      <ul>
+        <li><strong>Position limits</strong> — kitna risk lega, pehle set</li>
+        <li><strong>Stop loss</strong> — loss 2% se zyada ho to exit</li>
+        <li><strong>Written rules</strong> — baad me sochne ki zaroorat nahi</li>
+        <li><strong>Separate capital</strong> — sirf wo paisa jo haar sakte ho</li>
+        <li><strong>Paper first</strong> — pehle paper pe, phir real</li>
+        <li><strong>Gate system</strong> — record weak ho to rukenge</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="info" style="margin-top: 20px;">
+    <strong>Research = Business type mahol = Flow:</strong> "Jab research continuous hoti hai, to ek business type ka mahol banta hai. Usme flow banta hai. Market me tab jaake wo sakti hai. Aur har field me yahi hota hai — system chal raha hai to kaam hota hai, system nahi hai to hwa me jaata hai."
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- STEP 3: PAISA KAISE KAMATA HAI -->
+<!-- ============================================================ -->
+
+<div class="flow-arrow">▼</div>
+
+<div class="slide">
+  <div class="slide-num">Step 3 / 3 — PAISA KAISE KAMATA HAI</div>
+  <span class="step-badge step-3">STEP 3</span>
+  <h2>3-Month Plan — ₹50K Capital</h2>
+  
+  <div class="ring-row">
+    <div class="ring active">
+      <div class="ring-name">Options</div>
+      <div class="ring-amount">₹50,000</div>
+      <div class="ring-status">🟢 START HERE</div>
+    </div>
+    <div class="ring ready">
+      <div class="ring-name">Futures</div>
+      <div class="ring-amount">₹1,50,000</div>
+      <div class="ring-status">🟡 READY (baad me)</div>
+    </div>
+    <div class="ring later">
+      <div class="ring-name">Stocks</div>
+      <div class="ring-amount">₹5,00,000</div>
+      <div class="ring-status">⚪ LATER</div>
+    </div>
+  </div>
+  
+  <div class="two-col" style="margin-top: 24px;">
+    <div class="card">
+      <h3>Month 1 — Foundation</h3>
+      <ul>
+        <li>₹50K capital — options me weekly 2-3 positions</li>
+        <li>Strategy ke saath — manual handling</li>
+        <li>Har trade ka record — dashboard pe live</li>
+        <li>Stop loss mandatory — 2% max per trade</li>
+        <li>Weekly review — kya sahi hua, kya nahi</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Month 2 — Validation</h3>
+      <ul>
+        <li>Paper record continue — 60+ signals target</li>
+        <li>Basket research after 29 Aug checkpoint</li>
+        <li>Entry timing optimization</li>
+        <li>Options strategy refinement</li>
+        <li>Dashboard updates — live proof</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="card" style="margin-top: 16px;">
+    <h3>Month 3 — Gate Decision</h3>
+    <ul>
+      <li>Agar record strong → Futures ring unlock (₹1.5L)</li>
+      <li>Agar record weak → Time par rukenge, options pe focus</li>
+      <li>Dono outcomes useful hain — system sikh raha hai</li>
+      <li>Base complete — agle phase ke liye ready</li>
+      <li>Stocks tab — jab paper record complete ho</li>
+    </ul>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="slide-num">Step 3 / 3 — PAISA KAISE KAMATA HAI</div>
+  <span class="step-badge step-3">STEP 3</span>
+  <h2>Kya diya jaayega</h2>
+  
+  <div class="two-col">
+    <div class="card">
+      <h3>✅ Tumhe kya milega</h3>
+      <ul>
+        <li><strong>Live dashboard</strong> — phone pe dekh sakta hai</li>
+        <li><strong>Weekly updates</strong> — kya hua, kya nahi</li>
+        <li><strong>Transparent record</strong> — haar bhi, jeet bhi</li>
+        <li><strong>Written strategy</strong> — kya kar raha hai, kyun</li>
+        <li><strong>Safety net</strong> — stop loss, limits, gates</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>❌ Kya nahi hai</h3>
+      <ul>
+        <li>"Guaranteed profit" — koi honest system nahi bol sakta</li>
+        <li>"Tip service" — ye research hai, tips nahi</li>
+        <li>"Doubling scheme" — aisa kuch nahi</li>
+        <li>"Shortcut to rich" — evidence quality pehle</li>
+        <li>"Live buy/sell calls" — read-only evidence</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="success" style="margin-top: 24px;">
+    <strong>Bottom line:</strong> "Humein ek aisa system banana hai jahan <strong>evidence hero ho</strong> — claim nahi. Agar record strong hua to next gate khulega; agar record weak hua to hum time par rukenge. Dono outcomes useful hain."
+  </div>
+</div>
+
+<!-- CLOSE -->
+<div class="slide center">
+  <div class="slide-num">Closing</div>
+  <h2 style="font-size: 32px;">Close</h2>
+  
+  <div class="highlight" style="font-size: 20px; max-width: 700px; margin: 30px auto;">
+    "Zindagi uncertain hai, isliye market ko hero ya villain banane ki zaroorat nahi. Humein ek aisa system banana hai jahan <strong>evidence hero ho</strong> — claim nahi. Agar record strong hua to next gate khulega; agar record weak hua to hum time par rukenge. Dono outcomes useful hain."
+  </div>
+  
+  <div class="stat-row" style="margin-top: 40px;">
+    <div class="stat"><div class="num green">✅</div><div class="label">Research ready hai</div></div>
+    <div class="stat"><div class="num green">✅</div><div class="label">Dashboard live hai</div></div>
+    <div class="stat"><div class="num green">✅</div><div class="label">Paper record chal raha hai</div></div>
+    <div class="stat"><div class="num blue">🔜</div><div class="label">Next gate: 29 Aug</div></div>
+  </div>
+  
+  <div class="info" style="margin-top: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
+    <strong>Safety boundary:</strong> Ye educational meeting narrative hai, not investment advice. No real capital deployed yet. Paper trading only.
+  </div>
+  
+  <p style="margin-top: 30px; color: #888; font-size: 14px;">
+    References: RBI, SEBI Investor Survey 2025, SEBI 2026 F&O Study, WFE 2026
+  </p>
+</div>
+
+<div class="footer">
+  MarketMantri · Evidence-First Research · marketmantri-research.vercel.app
+</div>
+
+</body>
+</html>

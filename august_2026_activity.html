@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>August 2026 — Monthly Activity Summary</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #f5f5f5; color: #1a1a2e; font: 14px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 30px 24px 60px; }
+  h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+  .subtitle { color: #666666; font-size: 13px; margin-bottom: 28px; }
+  
+  /* Stats row */
+  .stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+  .stat-card { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px 20px; flex: 1; min-width: 140px; }
+  .stat-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #666666; margin-bottom: 4px; }
+  .stat-card .value { font-size: 28px; font-weight: 700; }
+  .stat-card .sub { font-size: 11px; color: #888888; margin-top: 2px; }
+  .green { color: #16a34a; }
+  .red { color: #dc2626; }
+  .amber { color: #d97706; }
+  .cyan { color: #0891b2; }
+  .purple { color: #7c3aed; }
+
+  /* Section */
+  .section { margin-bottom: 28px; }
+  .section-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #e5e7eb; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #e5e7eb; }
+  .day { position: relative; margin-bottom: 16px; }
+  .day::before { content: ''; position: absolute; left: -22px; top: 8px; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db; border: 2px solid #9ca3af; }
+  .day.milestone::before { background: #e6b94f; border-color: #d97706; }
+  .day.milestone-low::before { background: #ff6b6b; border-color: #dc2626; }
+  .day.milestone-good::before { background: #4ade80; border-color: #16a34a; }
+  .day-label { font-size: 12px; font-weight: 700; color: #666666; margin-bottom: 4px; }
+  .day-label .dow { color: #888888; font-weight: 400; }
+  .day-items { padding-left: 0; }
+  .day-items li { font-size: 13px; color: #374151; margin-bottom: 3px; list-style: none; }
+  .day-items li::before { content: '·'; color: #3b4260; margin-right: 8px; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 4px; margin-right: 4px; vertical-align: middle; }
+  .tag-research { background: #dbeafe; color: #1d4ed8; }
+  .tag-apply { background: #1e3a2f; color: #16a34a; }
+  .tag-decision { background: #3a2a1e; color: #d97706; }
+  .tag-bug { background: #3a1e1e; color: #dc2626; }
+  .tag-docs { background: #2a1e3a; color: #7c3aed; }
+  .tag-gig { background: #1e2a3a; color: #0891b2; }
+
+  /* Two columns */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 700px) { .cols { grid-template-columns: 1fr; } }
+
+  /* Bar chart */
+  .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 120px; margin-bottom: 8px; }
+  .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+  .bar { width: 100%; border-radius: 4px 4px 0 0; min-height: 2px; transition: height 0.3s; }
+  .bar-label { font-size: 9px; color: #888888; margin-top: 4px; text-align: center; }
+  .bar-value { font-size: 10px; color: #666666; margin-bottom: 3px; }
+
+  /* Key outcomes */
+  .outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 700px) { .outcome-grid { grid-template-columns: 1fr; } }
+  .outcome { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 16px; }
+  .outcome .o-title { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .outcome .o-desc { font-size: 12px; color: #666666; }
+  .outcome .o-num { font-size: 18px; font-weight: 700; margin-top: 4px; }
+
+  /* Footer */
+  .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #1c2130; font-size: 11px; color: #6b7280; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>August 2026 — Monthly Review</h1>
+  <div class="subtitle">1 Apr – 20 Aug · Dilvergence (personal state) + MarketMantri (research)</div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="label">Total Commits</div>
+      <div class="value cyan">87</div>
+      <div class="sub">dilvergence 51 · marketmantri 36</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Research Items Tested</div>
+      <div class="value purple">12</div>
+      <div class="sub">chop-gate, latency, PRIOR expressiveness...</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Rejections</div>
+      <div class="value red">36</div>
+      <div class="sub">+1 (Mansukh, 13 Aug)</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Active Applications</div>
+      <div class="value amber">2</div>
+      <div class="sub">OneForma · uTest (honest count)</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Paper Trades (Basket)</div>
+      <div class="value green">114</div>
+      <div class="sub">net −₹3,762 · WR 40%</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Edge ÷ Cost</div>
+      <div class="value red">0.43×</div>
+      <div class="sub">was 2.14× on day 8</div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <!-- LEFT: Timeline -->
+    <div>
+      <div class="section">
+        <div class="section-title">📅 Timeline</div>
+        <div class="timeline">
+
+          <div class="day milestone-good">
+            <div class="day-label">Aug 1 <span class="dow">Fri</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-research">research</span>Loss-streak filter discovered — +76.55% (2+ consecutive losses), 11/11 years green</li>
+              <li><span class="tag tag-decision">decision</span>NIFTY B+sized paper engine goes LIVE</li>
+            </ul>
+          </div>
+
+          <div class="day">
+            <div class="day-label">Aug 2-3 <span class="dow">Sat-Sun</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-docs">docs</span>Rejection count corrected 41→35 (2 duplicates, 4 non-rejections)</li>
+              <li><span class="tag tag-research">research</span>NIFTY v2.0.1/v2.0.2 fixes (staleness guard, IST labels)</li>
+              <li><span class="tag tag-docs">docs</span>LinkedIn post + Reddit draft ready</li>
+              <li><span class="tag tag-docs">docs</span>Telegram daily digest v2 (HTML, charts)</li>
+            </ul>
+          </div>
+
+          <div class="day milestone">
+            <div class="day-label">Aug 4 <span class="dow">Mon</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-decision">decision</span>🚫 Dabba trading offer rejected (₹20k/mo, NISM guy)</li>
+              <li><span class="tag tag-research">research</span>Basket sizing lab — W/L rule is worst of four</li>
+              <li><span class="tag tag-gig">gig</span>Josh Santiago DM on LinkedIn — PRIOR review, 3 fixes shipped</li>
+              <li><span class="tag tag-research">research</span>Research survey: 3 more findings from public quant discussion</li>
+            </ul>
+          </div>
+
+          <div class="day milestone-low">
+            <div class="day-label">Aug 5 <span class="dow">Tue</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-decision">decision</span>🔴 Sabse bura din — bank ₹1,490→₹0, SmartWorking rejected</li>
+              <li><span class="tag tag-apply">apply</span>DSA diagnose: mechanics zang khaye — Easy pe 5 koshish</li>
+              <li><span class="tag tag-decision">decision</span>Faisla: ghar nahi jaana — ye faisla hai, majboori nahi</li>
+            </ul>
+          </div>
+
+          <div class="day milestone-good">
+            <div class="day-label">Aug 6 <span class="dow">Wed</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-research">research</span>PRIOR graveyard test — deployed engine expressible, 3 classes not</li>
+              <li><span class="tag tag-apply">apply</span>NeuralTechSoft applied (CEO interview, no aptitude)</li>
+            </ul>
+          </div>
+
+          <div class="day milestone-good">
+            <div class="day-label">Aug 8 <span class="dow">Fri</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-decision">decision</span>✅ Farsh mil gaya — ₹7,000 + kiraya, naya office, 3-4 ghante</li>
+              <li><span class="tag tag-research">research</span>Josh ships 2 primitives — risk [after_losses] + [divergence]</li>
+              <li><span class="tag tag-decision">decision</span>VPS bach gaya — 29/30 Aug checkpoints pakke</li>
+            </ul>
+          </div>
+
+          <div class="day milestone-good">
+            <div class="day-label">Aug 9 <span class="dow">Sat</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-research">research</span>Loss-streak filter reproduced on PRIOR engine — positive claim HOLDS</li>
+              <li><span class="tag tag-research">research</span>Entry timing decay mapped: 2min→97%, 15min→74%, 45min→33%</li>
+              <li><span class="tag tag-docs">docs</span>Reddit post live on r/IndiaAlgoTrading</li>
+              <li><span class="tag tag-docs">docs</span>NIFTY double-writer bug found + FIXED (single writer)</li>
+            </ul>
+          </div>
+
+          <div class="day milestone">
+            <div class="day-label">Aug 10 <span class="dow">Sun</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-decision">decision</span>🎯 "Ek Hi Cheez" — sab chhod ke job ki tyari, 8 hafte</li>
+              <li><span class="tag tag-decision">decision</span>⛔ All forward plans CANCELLED by Sunil</li>
+              <li><span class="tag tag-research">research</span>Chop-gate REJECTED — passes on paper, dies recent half</li>
+              <li><span class="tag tag-research">research</span>Latency story MAR gayi — 15min = hamare hi numbers</li>
+              <li><span class="tag tag-decision">decision</span>Raju back — artist, Tapovan, 50% profit</li>
+            </ul>
+          </div>
+
+          <div class="day">
+            <div class="day-label">Aug 12 <span class="dow">Tue</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-docs">docs</span>4-month timeline chart + daily cold-start system (START_HERE)</li>
+              <li><span class="tag tag-apply">apply</span>5 roles verified LIVE — ready-kit with cover drafts</li>
+              <li><span class="tag tag-apply">apply</span>Mansukh walk-in prep — HR call + pitch</li>
+              <li><span class="tag tag-research">research</span>Basket Day 16: edge÷cost 2.14→0.43 (fees > gross)</li>
+              <li><span class="tag tag-research">research</span>Owner's chart reading → pre-registered gate test</li>
+            </ul>
+          </div>
+
+          <div class="day milestone-low">
+            <div class="day-label">Aug 13 <span class="dow">Wed</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-apply">apply</span>❌ Mansukh Securities — resume rejected (36th entry)</li>
+              <li><span class="tag tag-gig">gig</span>Perle AI submitted ($10 first task) · uTest account · Wellfound profiles</li>
+            </ul>
+          </div>
+
+          <div class="day">
+            <div class="day-label">Aug 14 <span class="dow">Thu</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-research">research</span>Entry-lab deployed — entry-time signal snapshot on every trade</li>
+              <li><span class="tag tag-docs">docs</span>CORE cleanup (stable principles only) + STATE reset to Aug 10</li>
+            </ul>
+          </div>
+
+          <div class="day milestone-low">
+            <div class="day-label">Aug 16 <span class="dow">Sat</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-decision">decision</span>🚫 Dabba wapas aaya — phir bhi NAA (sabse kamzor pal me)</li>
+              <li><span class="tag tag-docs">docs</span>Vaibhav status clear — apps unsellable, farsh plan adhoora</li>
+              <li><span class="tag tag-docs">docs</span>Job search honest audit — 2 active, 0 income</li>
+            </ul>
+          </div>
+
+          <div class="day">
+            <div class="day-label">Aug 18-20 <span class="dow">Mon-Wed</span></div>
+            <ul class="day-items">
+              <li><span class="tag tag-docs">docs</span>Founder runway discussion (Gurgaon, ₹1L/90-day — HOLD)</li>
+              <li><span class="tag tag-docs">docs</span>MultiWorkWala model (multi-service, not market — HOLD)</li>
+              <li><span class="tag tag-docs">docs</span>Capital Control dashboard + MarketMantri Live Desk</li>
+              <li><span class="tag tag-research">research</span>All branches merged + pushed</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Outcomes + Activity -->
+    <div>
+      <div class="section">
+        <div class="section-title">📊 Commits Per Day</div>
+        <div class="bar-chart">
+          <div class="bar-col"><div class="bar-value">1</div><div class="bar" style="height:8%;background:#22d3ee"></div><div class="bar-label">1</div></div>
+          <div class="bar-col"><div class="bar-value">4</div><div class="bar" style="height:32%;background:#22d3ee"></div><div class="bar-label">2-3</div></div>
+          <div class="bar-col"><div class="bar-value">8</div><div class="bar" style="height:64%;background:#22d3ee"></div><div class="bar-label">4</div></div>
+          <div class="bar-col"><div class="bar-value">1</div><div class="bar" style="height:8%;background:#ff6b6b"></div><div class="bar-label">5</div></div>
+          <div class="bar-col"><div class="bar-value">3</div><div class="bar" style="height:24%;background:#4ade80"></div><div class="bar-label">6</div></div>
+          <div class="bar-col"><div class="bar-value">1</div><div class="bar" style="height:8%;background:#22d3ee"></div><div class="bar-label">7</div></div>
+          <div class="bar-col"><div class="bar-value">6</div><div class="bar" style="height:48%;background:#4ade80"></div><div class="bar-label">8-9</div></div>
+          <div class="bar-col"><div class="bar-value">12</div><div class="bar" style="height:100%;background:#e6b94f"></div><div class="bar-label">10</div></div>
+          <div class="bar-col"><div class="bar-value">1</div><div class="bar" style="height:8%;background:#22d3ee"></div><div class="bar-label">11</div></div>
+          <div class="bar-col"><div class="bar-value">10</div><div class="bar" style="height:80%;background:#22d3ee"></div><div class="bar-label">12</div></div>
+          <div class="bar-col"><div class="bar-value">7</div><div class="bar" style="height:56%;background:#ff6b6b"></div><div class="bar-label">13</div></div>
+          <div class="bar-col"><div class="bar-value">3</div><div class="bar" style="height:24%;background:#a78bfa"></div><div class="bar-label">14</div></div>
+          <div class="bar-col"><div class="bar-value">4</div><div class="bar" style="height:32%;background:#ff6b6b"></div><div class="bar-label">16</div></div>
+          <div class="bar-col"><div class="bar-value">2</div><div class="bar" style="height:16%;background:#a78bfa"></div><div class="bar-label">18</div></div>
+          <div class="bar-col"><div class="bar-value">1</div><div class="bar" style="height:8%;background:#a78bfa"></div><div class="bar-label">19</div></div>
+          <div class="bar-col"><div class="bar-value">4</div><div class="bar" style="height:32%;background:#4ade80"></div><div class="bar-label">20</div></div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:#6b7280;margin-top:4px;">
+          <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#22d3ee"></span> mixed</span>
+          <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#4ade80"></span> good days</span>
+          <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#ff6b6b"></span> tough days</span>
+          <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#e6b94f"></span> peak</span>
+          <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#a78bfa"></span> cleanup</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🏆 Key Outcomes</div>
+        <div class="outcome-grid">
+          <div class="outcome">
+            <div class="o-title green">Loss-Streak Filter</div>
+            <div class="o-desc">2+ consecutive losses → next trade +0.2443%. Reproduced on PRIOR.</div>
+            <div class="o-num green">11/11 years green</div>
+          </div>
+          <div class="outcome">
+            <div class="o-title amber">Chop-Gate Pre-registered</div>
+            <div class="o-desc">Market-only reframe of loss-streak gate. Rules written before test.</div>
+            <div class="o-num red">REJECTED</div>
+          </div>
+          <div class="outcome">
+            <div class="o-title cyan">PRIOR Expressiveness</div>
+            <div class="o-desc">Deployed engine expressible. 3 classes not (div, custom, trade-outcome).</div>
+            <div class="o-num purple">Josh: 2 primitives shipped</div>
+          </div>
+          <div class="outcome">
+            <div class="o-title red">Edge ÷ Cost Crisis</div>
+            <div class="o-desc">Day 8: 2.14×. Day 16: 0.43×. Fees now exceed gross.</div>
+            <div class="o-num red">0.43×</div>
+          </div>
+          <div class="outcome">
+            <div class="o-title amber">Dabba Trading</div>
+            <div class="o-desc">Rejected twice — Aug 4 (jeb khaali) + Aug 16 (sabse kamzor pal). NAA.</div>
+            <div class="o-num green">2/2 NAA</div>
+          </div>
+          <div class="outcome">
+            <div class="o-title green">NIFTY Bug Fixed</div>
+            <div class="o-desc">Two processes, two code versions, one state file. Single writer now.</div>
+            <div class="o-num green">Race closed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🔄 Open Threads → September</div>
+        <div class="outcome">
+          <div class="o-desc" style="font-size:13px;color:#c4c8d4;line-height:1.8;">
+            <strong>29 Aug</strong> — Basket checkpoint (gross/net resolve, exit split, edge÷cost)<br>
+            <strong>30 Aug</strong> — NIFTY verdict (fresh record, single-writer)<br>
+            <strong>25 Aug</strong> — Vaibhav baat deadline<br>
+            <strong>Founders</strong> — Josh (AutoQuant), quantdhawan, NeuralTechSoft<br>
+            <strong>Gigs</strong> — OneForma ($5/hr), uTest (awaiting invite)<br>
+            <strong>Founder runway</strong> — Gurgaon college friend (HOLD)<br>
+            <strong>MultiWorkWala</strong> — planning assets ready (HOLD)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Generated 20 Aug 2026 · Dilvergence + MarketMantri · 87 commits in August · "Chhota sach bade jhooth se behtar hai"
+  </div>
+</div>
+</body>
+</html>

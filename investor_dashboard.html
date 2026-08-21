@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MarketMantri — Dashboard</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #f5f5f5; color: #1a1a2e; font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 20px 60px; }
+  
+  .header { text-align: center; margin-bottom: 32px; }
+  .header h1 { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+  .header .sub { color: #666; font-size: 13px; }
+  .header .badge { display: inline-block; background: #dcfce7; color: #16a34a; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-top: 8px; }
+  
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .stat-card { background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; text-align: center; }
+  .stat-card .num { font-size: 28px; font-weight: 800; }
+  .stat-card .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+  .green { color: #16a34a; } .red { color: #dc2626; } .amber { color: #d97706; } .blue { color: #2563eb; }
+  
+  .section { background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .section-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #f0f0f0; }
+  
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f8f9fa; padding: 10px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid #e5e7eb; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+  
+  .rings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+  @media (max-width: 600px) { .rings { grid-template-columns: 1fr; } }
+  .ring { background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: center; }
+  .ring.active { border-color: #16a34a; background: #f0fdf4; }
+  .ring.ready { border-color: #d97706; background: #fffbeb; }
+  .ring.later { border-color: #d1d5db; background: #f9fafb; }
+  .ring .ring-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .ring .ring-amount { font-size: 24px; font-weight: 800; }
+  .ring .ring-status { font-size: 11px; font-weight: 600; margin-top: 8px; padding: 4px 12px; border-radius: 20px; display: inline-block; }
+  .ring.active .ring-status { background: #dcfce7; color: #16a34a; }
+  .ring.ready .ring-status { background: #fef3c7; color: #d97706; }
+  .ring.later .ring-status { background: #f3f4f6; color: #6b7280; }
+  
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #e5e7eb; }
+  .tl-item { position: relative; margin-bottom: 16px; }
+  .tl-item::before { content: ''; position: absolute; left: -20px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db; }
+  .tl-item.done::before { background: #16a34a; }
+  .tl-item.current::before { background: #d97706; }
+  .tl-date { font-size: 11px; color: #888; font-weight: 600; }
+  .tl-text { font-size: 13px; }
+  
+  .links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+  .link-btn { display: inline-block; background: #2563eb; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600; }
+  .link-btn:hover { background: #1d4ed8; }
+  .link-btn.secondary { background: white; color: #333; border: 1px solid #d1d5db; }
+  .link-btn.secondary:hover { background: #f9fafb; }
+  
+  .danger { background: #fee2e2; border-left: 4px solid #dc2626; padding: 16px 20px; border-radius: 8px; margin: 16px 0; font-size: 13px; }
+  .warning { background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; border-radius: 8px; margin: 16px 0; font-size: 13px; }
+  .success { background: #dcfce7; border-left: 4px solid #16a34a; padding: 16px 20px; border-radius: 8px; margin: 16px 0; font-size: 13px; }
+  .info { background: #dbeafe; border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 8px; margin: 16px 0; font-size: 13px; }
+  
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+  
+  .footer { text-align: center; color: #888; font-size: 11px; margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>MarketMantri</h1>
+    <div class="sub">Evidence-First Market Research System · Since April 2026</div>
+    <div class="badge">📄 PAPER TRADING — NO REAL CAPITAL DEPLOYED</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card"><div class="num blue">4</div><div class="label">Months Research</div></div>
+    <div class="stat-card"><div class="num amber">35+</div><div class="label">Ideas Tested</div></div>
+    <div class="stat-card"><div class="num red">30+</div><div class="label">Rejected</div></div>
+    <div class="stat-card"><div class="num green">114</div><div class="label">Paper Trades</div></div>
+    <div class="stat-card"><div class="num blue">46</div><div class="label">Stocks in Basket</div></div>
+    <div class="stat-card"><div class="num green">29</div><div class="label">Aug Checkpoint</div></div>
+  </div>
+
+  <!-- STEP 1: Market -->
+  <div class="section">
+    <div class="section-title">📊 Step 1: Market kya hai</div>
+    <p style="font-size: 13px; margin-bottom: 16px;">Market wo jagah hai jahan ownership aur capital milte hain. Company shares bechkar paisa jama karti hai, investors hissa lete hain.</p>
+    
+    <div class="danger">
+      <strong>SEBI ka data (FY22-FY24):</strong> 93% individual traders ko F&O me nuksaan hua. Aggregate losses ₹1.8 lakh crore se zyada.
+    </div>
+    
+    <div class="warning">
+      <strong>13 Aug 2026:</strong> Do companies mil kar Sensex expiry ke din manipulation kar rahi thin — SEBI ne pakda. Market me fraud bhi hota hai.
+    </div>
+    
+    <p style="font-size: 13px; color: #666; margin-top: 12px;"><strong>Key insight:</strong> "Hwa me kuch nahi hota. Jo log lagatar sikhta hai, aage badhta hai, system ke jaise dekhta hai — wohi abhi tak tike hain. Baaki sab hwa ho jaate hain."</p>
+  </div>
+
+  <!-- Capital Plan -->
+  <div class="section">
+    <div class="section-title">💰 Step 3: Capital Plan — Three Rings</div>
+    <div class="rings">
+      <div class="ring active">
+        <div class="ring-name">Options</div>
+        <div class="ring-amount">₹50,000</div>
+        <div class="ring-status">🟢 START HERE</div>
+      </div>
+      <div class="ring ready">
+        <div class="ring-name">Futures</div>
+        <div class="ring-amount">₹1,50,000</div>
+        <div class="ring-status">🟡 READY</div>
+      </div>
+      <div class="ring later">
+        <div class="ring-name">Stocks</div>
+        <div class="ring-amount">₹5,00,000</div>
+        <div class="ring-status">⚪ LATER</div>
+      </div>
+    </div>
+    <p style="font-size: 12px; color: #888; margin-top: 8px;">
+      Start with Options: weekly 2-3 positions, strategy-based, manually handled.
+      3-month plan — Month 1: Foundation · Month 2: Validation · Month 3: Gate decision.
+    </p>
+  </div>
+
+  <!-- Strategy -->
+  <div class="section">
+    <div class="section-title">📊 Strategy — Simple Language</div>
+    <div class="two-col">
+      <div>
+        <h3 style="font-size: 14px; margin-bottom: 8px;">Entry</h3>
+        <p style="font-size: 13px;">Jab stock ki momentum badhti hai aur koi negative signal nahi hota — tab entry. Automated system detect karta hai.</p>
+      </div>
+      <div>
+        <h3 style="font-size: 14px; margin-bottom: 8px;">Exit</h3>
+        <p style="font-size: 13px;">Jab momentum kam ho, ya loss 2% se zyada ho, ya 3 din ho jaye — tab exit. Rules pehle se likhe hain.</p>
+      </div>
+    </div>
+    <div class="success" style="margin-top: 16px;">
+      <strong>Key Principle:</strong> "Risk ko naapna zaroori hai — position limits, clean data, written rules, stop conditions."
+    </div>
+  </div>
+
+  <!-- Research Discipline -->
+  <div class="section">
+    <div class="section-title">🔬 Step 2: Research Discipline</div>
+    <table>
+      <tr><th>Kya kiya</th><th>Result</th><th>Status</th></tr>
+      <tr><td>MACD Momentum Strategy</td><td>Sharpe 2.998 (10yr, 46 stocks, cost-adjusted)</td><td>✅ Deployed (paper)</td></tr>
+      <tr><td>Divergence Filter</td><td>60-70% precision, false breakouts filter</td><td>✅ Live</td></tr>
+      <tr><td>Loss-Streak Filter</td><td>After 2 losses → next trade +0.2443%</td><td>✅ Verified on 2 engines</td></tr>
+      <tr><td>Position Sizing</td><td>Loss-2→2x anti-martingale</td><td>✅ Live</td></tr>
+      <tr><td>Chop-Gate (market-only)</td><td>REJECTED — fails on recent data</td><td>❌ Graveyard</td></tr>
+      <tr><td>Latency Analysis</td><td>15min delay = 26% edge loss</td><td>✅ Found + fixed</td></tr>
+      <tr><td>35+ other hypotheses</td><td>Most rejected — graveyard visible</td><td>📝 All documented</td></tr>
+    </table>
+  </div>
+
+  <!-- Safety Net -->
+  <div class="section">
+    <div class="section-title">🛡️ Safety Net — System ke saath</div>
+    <div class="two-col">
+      <div>
+        <h3 style="font-size: 14px; margin-bottom: 8px;">Negative ko dekhte hain</h3>
+        <ul style="font-size: 13px;">
+          <li>93% traders haarte hain — ye sabse pehle yaad rakhte hain</li>
+          <li>13 Aug manipulation hua — ye bhi dekhte hain</li>
+          <li>Apne paper record me bhi loss hai — chhupate nahi</li>
+          <li>Edge÷cost 0.43× hai — abhi fees gross se zyada</li>
+        </ul>
+        <p style="font-size: 12px; color: #666; margin-top: 8px;"><strong>Negative dekhna zaroori hai — par negative nahi hona.</strong></p>
+      </div>
+      <div>
+        <h3 style="font-size: 14px; margin-bottom: 8px;">Safety mechanisms</h3>
+        <ul style="font-size: 13px;">
+          <li><strong>Position limits</strong> — kitna risk lega, pehle set</li>
+          <li><strong>Stop loss</strong> — loss 2% se zyada ho to exit</li>
+          <li><strong>Written rules</strong> — baad me sochne ki zaroorat nahi</li>
+          <li><strong>Separate capital</strong> — sirf wo paisa jo haar sakte ho</li>
+          <li><strong>Paper first</strong> — pehle paper pe, phir real</li>
+          <li><strong>Gate system</strong> — record weak ho to rukenge</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- What we don't claim -->
+  <div class="section">
+    <div class="section-title">🚫 What We Don't Claim</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+      <div style="background: #fee2e2; padding: 12px 16px; border-radius: 8px; font-size: 13px;">
+        ❌ "Guaranteed profit" — No honest system can promise this
+      </div>
+      <div style="background: #fee2e2; padding: 12px 16px; border-radius: 8px; font-size: 13px;">
+        ❌ Live buy/sell calls — This is read-only evidence, not a trading terminal
+      </div>
+      <div style="background: #fee2e2; padding: 12px 16px; border-radius: 8px; font-size: 13px;">
+        ❌ Fake prices or fabricated results — Trust is the product
+      </div>
+      <div style="background: #fee2e2; padding: 12px 16px; border-radius: 8px; font-size: 13px;">
+        ❌ Shortcut to large capital — Evidence quality comes first
+      </div>
+    </div>
+  </div>
+
+  <!-- Links -->
+  <div class="section">
+    <div class="section-title">🔗 Live Proof</div>
+    <div class="links">
+      <a href="https://hearth.tranquilwaters.in/basket/" class="link-btn" target="_blank">📊 Live Dashboard</a>
+      <a href="https://marketmantri-research.vercel.app" class="link-btn secondary" target="_blank">🌐 Research Site</a>
+      <a href="https://github.com/Sunil-ghodela/marketmantri_research" class="link-btn secondary" target="_blank">💻 GitHub</a>
+    </div>
+    <p style="font-size: 11px; color: #888; margin-top: 12px;">
+      Dashboard pe live paper trading data dikhta hai — trades, P&L, positions. 
+      Research site pe rejected hypotheses bhi visible hain.
+    </p>
+  </div>
+
+  <!-- Timeline -->
+  <div class="section">
+    <div class="section-title">📅 Journey — 4 Months</div>
+    <div class="timeline">
+      <div class="tl-item done"><div class="tl-date">Apr 2026</div><div class="tl-text">Project start · First strategy (Sharpe 1.79)</div></div>
+      <div class="tl-item done"><div class="tl-date">May 2026</div><div class="tl-text">50+ hypotheses tested · Most rejected · Learning loop</div></div>
+      <div class="tl-item done"><div class="tl-date">Jun W1-2</div><div class="tl-text">MACD Momentum discovered · Sharpe ~1.9 · Generalizes across stocks</div></div>
+      <div class="tl-item done"><div class="tl-date">Jun W3</div><div class="tl-text">VPS deployed · Dashboard live · 90-stock breadth</div></div>
+      <div class="tl-item done"><div class="tl-date">Jul W1-2</div><div class="tl-text">Exit lab tuning · Position sizing · Basket-100 expanded</div></div>
+      <div class="tl-item done"><div class="tl-date">Jul W3</div><div class="tl-text">Look-ahead bug FIXED · Sharpe 6.08 → 2.998 (honest)</div></div>
+      <div class="tl-item done"><div class="tl-date">Jul 22</div><div class="tl-text">Sizing DEPLOYED LIVE · Anti-martingale active</div></div>
+      <div class="tl-item current"><div class="tl-date">Aug 2026</div><div class="tl-text">Paper trading continues · Entry lab added · Checkpoint 29 Aug</div></div>
+      <div class="tl-item"><div class="tl-date">Sep 2026</div><div class="tl-text">6-week paper record · Next gate decision</div></div>
+    </div>
+  </div>
+
+  <!-- Close -->
+  <div class="section" style="text-align: center; background: #f0fdf4; border-color: #bbf7d0;">
+    <div class="quote" style="font-size: 16px; font-style: italic; color: #166534;">
+      "Humein ek aisa system banana hai jahan <strong>evidence hero ho</strong> — claim nahi. Agar record strong hua to next gate khulega; agar record weak hua to hum time par rukenge."
+    </div>
+  </div>
+
+  <div class="footer">
+    MarketMantri · Evidence-First Research · No real capital deployed · Paper trading only<br>
+    Safety boundary: This is an educational presentation, not investment advice.
+  </div>
+
+</div>
+</body>
+</html>
