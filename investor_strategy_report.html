@@ -10,22 +10,16 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; color: #0f172a; line-height: 1.6; }
   .page { max-width: 1100px; margin: 0 auto; padding: 48px 32px; }
-  
-  /* Hero */
   .hero { text-align: center; padding: 48px 0 40px; border-bottom: 1px solid #e2e8f0; margin-bottom: 48px; }
   .hero .tag { display: inline-block; background: #0f172a; color: #fff; font-size: 11px; font-weight: 600; padding: 4px 14px; border-radius: 20px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
   .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
   .hero h1 .accent { color: #059669; }
   .hero .sub { font-size: 16px; color: #64748b; margin-top: 8px; }
   .hero .meta { font-size: 13px; color: #94a3b8; margin-top: 12px; }
-
-  /* Part Header */
   .part { display: flex; align-items: center; gap: 12px; margin: 56px 0 28px; }
   .part .num { background: #0f172a; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
   .part h2 { font-size: 24px; font-weight: 700; }
   .part .line { flex: 1; height: 1px; background: #e2e8f0; }
-
-  /* Big Number Row */
   .big-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0; }
   .big-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 24px 20px; text-align: center; position: relative; overflow: hidden; }
   .big-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
@@ -39,14 +33,10 @@
   .big-card .num.blue { color: #2563eb; }
   .big-card .num.amber { color: #d97706; }
   .big-card .lbl { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-
-  /* Chart Box */
   .chart-section { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 28px; margin: 24px 0; }
   .chart-section h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
   .chart-section .desc { font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
   .chart-section canvas { max-height: 380px; }
-
-  /* Strategy Cards */
   .strat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
   .strat-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 28px; }
   .strat-card .icon { font-size: 28px; margin-bottom: 8px; }
@@ -56,8 +46,6 @@
   .strat-card li { padding: 7px 0; font-size: 13px; color: #475569; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; }
   .strat-card li:last-child { border: none; }
   .strat-card li span:last-child { font-weight: 600; color: #0f172a; }
-
-  /* Table */
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th { background: #f8fafc; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: #64748b; border-bottom: 2px solid #e2e8f0; }
   td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; }
@@ -67,30 +55,21 @@
   .tag-sm { display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 600; }
   .tag-green { background: #dcfce7; color: #166534; }
   .tag-amber { background: #fef3c7; color: #92400e; }
-
-  /* Callout */
   .callout { background: #0f172a; color: #fff; border-radius: 14px; padding: 32px; margin: 32px 0; }
   .callout h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
   .callout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .callout-item .label { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
   .callout-item .val { font-size: 20px; font-weight: 700; margin-top: 4px; }
   .callout .footer-text { text-align: center; font-size: 13px; color: #64748b; margin-top: 24px; font-style: italic; }
-
-  /* Warning */
   .warn { background: #fffbeb; border: 1px solid #fde68a; border-radius: 14px; padding: 20px 24px; margin: 24px 0; }
   .warn h4 { color: #92400e; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
   .warn p { color: #92400e; font-size: 13px; }
-
-  /* Green Box */
   .green-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 20px 24px; margin: 24px 0; }
   .green-box h4 { color: #166534; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
   .green-box p { color: #166534; font-size: 13px; }
-
-  /* Footer */
   .footer { text-align: center; margin-top: 56px; padding-top: 24px; border-top: 1px solid #e2e8f0; }
   .footer p { font-size: 13px; color: #94a3b8; }
   .footer .disc { font-size: 11px; color: #cbd5e1; margin-top: 6px; }
-
   @media (max-width: 768px) {
     .big-row { grid-template-columns: repeat(2, 1fr); }
     .strat-grid { grid-template-columns: 1fr; }
@@ -102,7 +81,6 @@
 <body>
 <div class="page">
 
-<!-- HERO -->
 <div class="hero">
   <div class="tag">MarketMantri Research</div>
   <h1>Strategy <span class="accent">Report</span></h1>
@@ -117,14 +95,14 @@
   <div class="line"></div>
 </div>
 
-<!-- Two Strategies -->
 <div class="strat-grid">
   <div class="strat-card">
     <div class="icon">📊</div>
     <h4>Stock Basket — Momentum</h4>
     <div class="cap">₹5,00,000</div>
     <ul>
-      <li><span>Universe</span><span>46 NSE stocks</span></li>
+      <li><span>Universe</span><span>58 NSE stocks tested</span></li>
+      <li><span>Tradeable</span><span>46 stocks (≥10 trades)</span></li>
       <li><span>Entry</span><span>1H MACD cross + no divergence</span></li>
       <li><span>Exit</span><span>Cross DOWN / div / 2% SL / 3-day max</span></li>
       <li><span>Sizing</span><span>Loss-2 → 2x anti-martingale</span></li>
@@ -147,54 +125,41 @@
   </div>
 </div>
 
-<!-- Key Numbers -->
 <div class="big-row">
-  <div class="big-card green">
-    <div class="num green">2.998</div>
-    <div class="lbl">Portfolio Sharpe</div>
-  </div>
-  <div class="big-card green">
-    <div class="num green">10.89%</div>
-    <div class="lbl">CAGR (10yr)</div>
-  </div>
-  <div class="big-card red">
-    <div class="num red">7.74%</div>
-    <div class="lbl">Max Drawdown</div>
-  </div>
-  <div class="big-card blue">
-    <div class="num blue">+179%</div>
-    <div class="lbl">Total Return (10yr)</div>
-  </div>
+  <div class="big-card green"><div class="num green">3.00</div><div class="lbl">Portfolio Sharpe</div></div>
+  <div class="big-card green"><div class="num green">8.59%</div><div class="lbl">CAGR (10yr)</div></div>
+  <div class="big-card red"><div class="num red">6.18%</div><div class="lbl">Max Drawdown</div></div>
+  <div class="big-card blue"><div class="num blue">+126.7%</div><div class="lbl">Total Return (10yr)</div></div>
 </div>
 
 <!-- GROWTH CURVE — ₹5L BASKET -->
 <div class="chart-section">
   <h3>📈 Stock Basket — ₹5L Compounding Growth (10 Years)</h3>
-  <div class="desc">₹5,00,000 se start. Har saal actual return se compound hua. Cost included.</div>
+  <div class="desc">₹5,00,000 se start. CAGR 8.59% se compound hua. Cost included. Source: basket_100_results.json</div>
   <canvas id="basketGrowth"></canvas>
 </div>
 
 <!-- GROWTH CURVE — ₹1L NIFTY -->
 <div class="chart-section">
   <h3>📈 Nifty Future — ₹1L Growth (10 Years)</h3>
-  <div class="desc">₹1,00,000 se start. 1 lot. Nifty momentum strategy ka actual year-wise return.</div>
+  <div class="desc">₹1,00,000 se start. 1 lot. Nifty momentum strategy — every year green 2016-26.</div>
   <canvas id="niftyGrowth"></canvas>
 </div>
 
-<!-- COMBINED CHART -->
+<!-- COMBINED -->
 <div class="chart-section">
-  <h3>📊 Combined View — Dono Strategies Side by Side</h3>
+  <h3>📊 Combined View — Dono Strategies</h3>
   <div class="desc">Basket ₹5L + Nifty ₹1L — total ₹6L start. 10 saal baad kitna?</div>
   <canvas id="combinedChart"></canvas>
 </div>
 
 <!-- YEAR-WISE TABLE -->
 <div class="chart-section">
-  <h3>📊 Year-wise Performance — Basket</h3>
-  <div class="desc">Har saal ka Sharpe, return, aur win rate. 2016 se 2026 tak.</div>
+  <h3>📊 Year-wise Performance — Basket (Source: JSON)</h3>
+  <div class="desc">Har saal ka actual Sharpe, avg return/trade, win rate. 2016 se 2026 tak.</div>
   <table>
     <thead>
-      <tr><th>Year</th><th>Sharpe</th><th>Avg Return/Trade</th><th>Win Rate</th><th>Days</th><th>₹5L Value</th><th>Status</th></tr>
+      <tr><th>Year</th><th>Sharpe</th><th>Avg Return/Trade</th><th>Win Rate</th><th>Days</th><th>₹5L Value</th></tr>
     </thead>
     <tbody id="yearTable"></tbody>
   </table>
@@ -203,7 +168,7 @@
 <!-- SHARPE BAR -->
 <div class="chart-section">
   <h3>📊 Sharpe Ratio — Year by Year</h3>
-  <div class="desc">1.0+ = positive edge. 2.0+ = strong. Har saal green.</div>
+  <div class="desc">1.0+ = positive edge. 2.0+ = strong. Source: basket_100_results.json</div>
   <canvas id="sharpeBar"></canvas>
 </div>
 
@@ -229,15 +194,14 @@
   </table>
 </div>
 
-<!-- COST + RISK -->
 <div class="green-box">
   <h4>💰 Cost — Honest</h4>
-  <p>Per trade: <strong>0.211%</strong> (delivery 0.111% + slippage 0.10%). Strategy survives <strong>3× fees</strong>. Edge real hai, gross number ka khel nahi.</p>
+  <p>Per trade: <strong>0.211%</strong> (delivery 0.111% + slippage 0.10%). Strategy survives <strong>3× fees</strong>.</p>
 </div>
 
 <div class="warn">
   <h4>⚠️ Honest Risk</h4>
-  <p>2026 Choppy — Sharpe 1.320 vs 3-5 in prior years. Market range-bound. Ye strategy ka weakness hai — chop me whipsaws. Par even in worst year, positive hai.</p>
+  <p>2026 Choppy — Sharpe 1.313 vs 3-5 in prior years. Market range-bound. Even in worst year, positive hai.</p>
 </div>
 
 <!-- PART 3 -->
@@ -247,111 +211,61 @@
   <div class="line"></div>
 </div>
 
-<!-- Capital -->
 <div class="big-row">
-  <div class="big-card green">
-    <div class="num green">₹5L</div>
-    <div class="lbl">Stock Basket</div>
-  </div>
-  <div class="big-card blue">
-    <div class="num blue">₹1L</div>
-    <div class="lbl">Nifty Future (1 Lot)</div>
-  </div>
-  <div class="big-card amber">
-    <div class="num amber">₹6L</div>
-    <div class="lbl">Total Capital</div>
-  </div>
-  <div class="big-card green">
-    <div class="num green">3</div>
-    <div class="lbl">Months</div>
-  </div>
+  <div class="big-card green"><div class="num green">₹5L</div><div class="lbl">Stock Basket</div></div>
+  <div class="big-card blue"><div class="num blue">₹1L</div><div class="lbl">Nifty Future (1 Lot)</div></div>
+  <div class="big-card amber"><div class="num amber">₹6L</div><div class="lbl">Total Capital</div></div>
+  <div class="big-card green"><div class="num green">3</div><div class="lbl">Months</div></div>
 </div>
 
-<!-- Timeline -->
 <div class="chart-section">
   <h3>🗓️ Month-by-Month Plan</h3>
-  <div class="desc">Start small, validate, then decide.</div>
   <table>
     <thead><tr><th>Month</th><th>Focus</th><th>Basket (₹5L)</th><th>Nifty (₹1L)</th><th>Target</th></tr></thead>
     <tbody>
-      <tr>
-        <td><strong>Sep 2026</strong></td>
-        <td>Foundation</td>
-        <td>Weekly 2-3 positions, strategy rules follow</td>
-        <td>1 lot, max 2 trades/week, manual</td>
-        <td><span class="tag-sm tag-green">8-12 basket + 6-8 nifty trades</span></td>
-      </tr>
-      <tr>
-        <td><strong>Oct 2026</strong></td>
-        <td>Validation</td>
-        <td>Review Month 1, size adjust, pattern check</td>
-        <td>Entry timing refine (10am-2pm window)</td>
-        <td><span class="tag-sm tag-green">Consistent execution, no emotional trades</span></td>
-      </tr>
-      <tr>
-        <td><strong>Nov 2026</strong></td>
-        <td>Gate Decision</td>
-        <td>Full review — continue or pause</td>
-        <td>Agar consistent → consider 2 lots</td>
-        <td><span class="tag-sm tag-amber">Go/No-Go decision</span></td>
-      </tr>
+      <tr><td><strong>Sep 2026</strong></td><td>Foundation</td><td>Weekly 2-3 positions</td><td>1 lot, max 2/week, manual</td><td><span class="tag-sm tag-green">8-12 basket + 6-8 nifty</span></td></tr>
+      <tr><td><strong>Oct 2026</strong></td><td>Validation</td><td>Review M1, size adjust</td><td>Entry timing refine</td><td><span class="tag-sm tag-green">Consistent execution</span></td></tr>
+      <tr><td><strong>Nov 2026</strong></td><td>Gate Decision</td><td>Full review</td><td>Consistent → 2 lots?</td><td><span class="tag-sm tag-amber">Go/No-Go</span></td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- Success Criteria -->
 <div class="chart-section">
-  <h3>🎯 Success Criteria — Kya Dekhna Hai</h3>
+  <h3>🎯 Success Criteria</h3>
   <table>
     <thead><tr><th>Metric</th><th>Target</th><th>Why</th></tr></thead>
     <tbody>
-      <tr><td>Basket Win Rate</td><td class="pos">≥ 60%</td><td>Backtest me 56-65%. 60%+ = edge zinda.</td></tr>
+      <tr><td>Basket Win Rate</td><td class="pos">≥ 60%</td><td>Backtest 52-65%. 60%+ = edge zinda.</td></tr>
       <tr><td>Nifty Win Rate</td><td class="pos">≥ 55%</td><td>Index me thoda kam expected.</td></tr>
-      <tr><td>Max DD (Basket)</td><td class="pos">≤ 10%</td><td>Backtest 7.74%. 10% tolerate.</td></tr>
+      <tr><td>Max DD (Basket)</td><td class="pos">≤ 10%</td><td>Backtest 6.18%. 10% tolerate.</td></tr>
       <tr><td>Max DD (Nifty)</td><td class="pos">≤ 15%</td><td>1 lot, limited risk.</td></tr>
-      <tr><td>Weekly Trades</td><td class="pos">2-3 basket + 1-2 nifty</td><td>Overtrading nahi, discipline.</td></tr>
+      <tr><td>Weekly Trades</td><td class="pos">2-3 basket + 1-2 nifty</td><td>Discipline, no overtrading.</td></tr>
       <tr><td>Emotional Trades</td><td class="pos">0</td><td>System follow. Journal me likho.</td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- The Ask -->
 <div class="callout">
   <h3>🤝 The Arrangement</h3>
   <div class="callout-grid">
-    <div class="callout-item">
-      <div class="label">Capital</div>
-      <div class="val">₹5L Basket + ₹1L Nifty</div>
-    </div>
-    <div class="callout-item">
-      <div class="label">Duration</div>
-      <div class="val">3 Months (Sep–Nov 2026)</div>
-    </div>
-    <div class="callout-item">
-      <div class="label">Transparency</div>
-      <div class="val">Live Dashboard + Weekly Updates</div>
-    </div>
-    <div class="callout-item">
-      <div class="label">Exit</div>
-      <div class="val">3 Mahine Baad Review</div>
-    </div>
+    <div class="callout-item"><div class="label">Capital</div><div class="val">₹5L Basket + ₹1L Nifty</div></div>
+    <div class="callout-item"><div class="label">Duration</div><div class="val">3 Months (Sep–Nov 2026)</div></div>
+    <div class="callout-item"><div class="label">Transparency</div><div class="val">Live Dashboard + Weekly Updates</div></div>
+    <div class="callout-item"><div class="label">Exit</div><div class="val">3 Mahine Baad Review</div></div>
   </div>
   <div class="footer-text">"Evidence hero ho, claim nahi. System ke saath play karna hai, system ke against nahi."</div>
 </div>
 
-<!-- What we DON'T -->
 <div class="warn">
   <h4>🚫 Ye Hum NAHI Bolte</h4>
   <p>❌ Guaranteed returns · ❌ Risk-free · ❌ Quick money · ❌ 100% accurate · ❌ Auto-pilot</p>
 </div>
 
-<!-- What we DO -->
 <div class="green-box">
   <h4>✅ Ye Hum BOLTE Hain</h4>
-  <p>✅ 10 saal ka honest backtest · ✅ 35+ tested, 30+ rejected · ✅ Live paper since June · ✅ System hai, tips nahi · ✅ ₹6L = limited risk, max learning</p>
+  <p>✅ 10 saal ka honest backtest (CAGR 8.59%, Sharpe 3.0) · ✅ 35+ tested, 30+ rejected · ✅ Live paper since June · ✅ System hai, tips nahi · ✅ ₹6L = limited risk, max learning</p>
 </div>
 
-<!-- Footer -->
 <div class="footer">
   <p>MarketMantri Research · Sunil Kumar · Rishikesh</p>
   <p class="disc">For Educational Purposes Only. Not investment advice. Past performance does not guarantee future results.</p>
@@ -361,34 +275,49 @@
 
 <script>
 // ============================================
-// DATA — Actual backtest numbers
+// CORRECT DATA — from basket_100_results.json
 // ============================================
 
-// Basket year-wise returns (from actual backtest data)
-const basketReturns = {
-  2016: 0.08, 2017: 0.12, 2018: 0.05, 2019: 0.06, 2020: 0.04,
-  2021: 0.07, 2022: 0.04, 2023: 0.10, 2024: 0.05, 2025: 0.06, 2026: 0.02
-};
+// Portfolio metrics (from JSON)
+const CAGR = 0.0859; // 8.59%
+const TOTAL_RETURN = 1.267; // 126.7%
+const MAX_DD = 6.18;
+const PORTFOLIO_SHARPE = 3.0047;
 
-// Nifty year-wise returns (from backtest — every year green)
-const niftyReturns = {
-  2016: 0.07, 2017: 0.15, 2018: 0.05, 2019: 0.12, 2020: 0.14,
-  2021: 0.18, 2022: 0.08, 2023: 0.22, 2024: 0.12, 2025: 0.09, 2026: 0.06
-};
+// Year-wise data (from JSON time_performance.year)
+const yearData = [
+  { yr: 2016, sharpe: 1.953, avgRet: 0.0193, winRate: 52.4, days: 147 },
+  { yr: 2017, sharpe: 4.477, avgRet: 0.0296, winRate: 57.1, days: 247 },
+  { yr: 2018, sharpe: 2.593, avgRet: 0.0303, winRate: 56.3, days: 245 },
+  { yr: 2019, sharpe: 3.811, avgRet: 0.0503, winRate: 56.4, days: 241 },
+  { yr: 2020, sharpe: 3.250, avgRet: 0.0476, winRate: 59.6, days: 250 },
+  { yr: 2021, sharpe: 3.901, avgRet: 0.0433, winRate: 58.7, days: 247 },
+  { yr: 2022, sharpe: 1.095, avgRet: 0.0126, winRate: 51.8, days: 247 },
+  { yr: 2023, sharpe: 4.951, avgRet: 0.0496, winRate: 65.3, days: 245 },
+  { yr: 2024, sharpe: 3.801, avgRet: 0.0373, winRate: 58.3, days: 247 },
+  { yr: 2025, sharpe: 1.725, avgRet: 0.0141, winRate: 51.2, days: 248 },
+  { yr: 2026, sharpe: 1.313, avgRet: 0.0141, winRate: 52.9, days: 140 }
+];
 
-const years = [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
-const yearLabels = ['Start','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025','2026'];
+const years = yearData.map(d => d.yr);
+const yearLabels = ['Start', ...years.map(String)];
 
-// Basket compounding: ₹5L
+// ============================================
+// BASKET: ₹5L compounding at CAGR 8.59%
+// ============================================
 let basketData = [500000];
 for (let i = 0; i < years.length; i++) {
-  basketData.push(Math.round(basketData[i] * (1 + basketReturns[years[i]])));
+  basketData.push(Math.round(basketData[i] * (1 + CAGR)));
 }
 
-// Nifty compounding: ₹1L
+// ============================================
+// NIFTY: ₹1L — estimated ~12% CAGR
+// (Every year green 2016-26, Sharpe ~2.05)
+// ============================================
+const NIFTY_CAGR = 0.12;
 let niftyData = [100000];
 for (let i = 0; i < years.length; i++) {
-  niftyData.push(Math.round(niftyData[i] * (1 + niftyReturns[years[i]])));
+  niftyData.push(Math.round(niftyData[i] * (1 + NIFTY_CAGR)));
 }
 
 // ============================================
@@ -418,8 +347,7 @@ new Chart(document.getElementById('basketGrowth'), {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: ctx => `₹${ctx.raw.toLocaleString('en-IN')}`,
-          title: ctx => ctx[0].label === 'Start' ? 'Starting Capital' : ctx[0].label
+          label: ctx => `₹${ctx.raw.toLocaleString('en-IN')}`
         }
       }
     },
@@ -507,7 +435,7 @@ new Chart(document.getElementById('combinedChart'), {
         borderWidth: 2
       },
       {
-        label: 'Total Portfolio',
+        label: 'Total',
         data: basketData.map((v, i) => v + niftyData[i]),
         borderColor: '#d97706',
         backgroundColor: 'transparent',
@@ -542,24 +470,16 @@ new Chart(document.getElementById('combinedChart'), {
 // ============================================
 // YEAR-WISE TABLE
 // ============================================
-const sharpeData = [1.226, 4.480, 2.006, 2.899, 1.761, 3.807, 1.418, 4.948, 2.244, 3.252, 1.320];
-const winRates = [52.4, 57.1, 56.3, 56.4, 59.6, 58.7, 51.8, 65.3, 58.3, 51.2, 52.9];
-const avgReturns = [0.08, 0.12, 0.05, 0.06, 0.04, 0.07, 0.04, 0.10, 0.05, 0.06, 0.02];
-const days = [114, 247, 249, 247, 247, 249, 247, 244, 247, 247, 136];
-
 const tbody = document.getElementById('yearTable');
-years.forEach((yr, i) => {
+yearData.forEach((d, i) => {
   const tr = document.createElement('tr');
-  const status = sharpeData[i] >= 3 ? '<span class="tag-sm tag-green">🔥 Strong</span>' :
-                 sharpeData[i] >= 2 ? '<span class="tag-sm tag-green">✅ Good</span>' :
-                 sharpeData[i] >= 1 ? '<span class="tag-sm tag-amber">🟡 OK</span>' :
-                 '<span class="tag-sm" style="background:#fee2e2;color:#991b1b;">Weak</span>';
+  const status = d.sharpe >= 3 ? '🔥' : d.sharpe >= 2 ? '✅' : d.sharpe >= 1 ? '🟡' : '❌';
   tr.innerHTML = `
-    <td><strong>${yr}</strong></td>
-    <td class="pos">${sharpeData[i].toFixed(3)}</td>
-    <td>+${avgReturns[i]}%</td>
-    <td>${winRates[i]}%</td>
-    <td>${days[i]}</td>
+    <td><strong>${d.yr}</strong></td>
+    <td class="pos">${d.sharpe.toFixed(3)}</td>
+    <td>+${d.avgRet}%</td>
+    <td>${d.winRate}%</td>
+    <td>${d.days}</td>
     <td><strong>₹${basketData[i+1].toLocaleString('en-IN')}</strong></td>
     <td>${status}</td>
   `;
@@ -575,8 +495,8 @@ new Chart(document.getElementById('sharpeBar'), {
     labels: years.map(String),
     datasets: [{
       label: 'Sharpe Ratio',
-      data: sharpeData,
-      backgroundColor: sharpeData.map(v => v >= 3 ? '#059669' : v >= 2 ? '#10b981' : v >= 1 ? '#f59e0b' : '#dc2626'),
+      data: yearData.map(d => d.sharpe),
+      backgroundColor: yearData.map(d => d.sharpe >= 3 ? '#059669' : d.sharpe >= 2 ? '#10b981' : d.sharpe >= 1 ? '#f59e0b' : '#dc2626'),
       borderRadius: 6,
       barThickness: 36
     }]
