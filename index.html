@@ -28,5 +28,64 @@ Error generating stack: `+i.message+`
 </script>
   <script>(function(){function m(a){var h=a.getAttribute("href");if(!h)return;try{var u=new URL(h,document.baseURI);if((u.protocol==="http:"||u.protocol==="https:")&&u.host!==location.host){a.target="_blank";a.rel="noopener noreferrer";}}catch(e){}}function s(){document.querySelectorAll("a[href]").forEach(m);}if(document.readyState!=="loading"){s();}else{document.addEventListener("DOMContentLoaded",s);}document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest("a[href]");if(a){m(a);}},true);})();</script>
   
+<!-- Floating Navigation Bar -->
+<style>
+  .floating-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 8px 12px;
+    display: flex;
+    gap: 6px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    font-family: Inter, system-ui, sans-serif;
+  }
+  .floating-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .floating-nav a:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  .floating-nav a.active {
+    background: #f59e0b;
+    color: #0f172a;
+  }
+  @media (max-width: 640px) {
+    .floating-nav {
+      bottom: 10px;
+      padding: 6px 8px;
+      gap: 4px;
+      width: calc(100% - 20px);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .floating-nav a {
+      padding: 6px 10px;
+      font-size: 11px;
+    }
+  }
+</style>
+<nav class="floating-nav">
+  <a href="index.html" class="active">🏠 Home</a>
+  <a href="nav.html">📑 All Pages</a>
+  <a href="investor_ppt.html">📊 PPT</a>
+  <a href="investor_dashboard.html">📈 Dashboard</a>
+  <a href="investor_strategy_report.html">📋 Strategy</a>
+  <a href="why_3_months.html">🎯 3 Months</a>
+  <a href="images.html">🖼️ Images</a>
+</nav>
+
 </body>
 </html>
