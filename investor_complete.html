@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarketMantri — Complete Investor Deck</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Inter', system-ui, sans-serif; }
+  .img-card { transition: all 0.3s; }
+  .img-card:hover { transform: scale(1.01); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+  .stage-divider { position: relative; }
+  .stage-divider::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent, #e2e8f0 20%, #e2e8f0 80%, transparent); transform: translateX(-50%); }
+  .pulse-green { animation: pulseGreen 2s infinite; }
+  @keyframes pulseGreen { 0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 50% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); } }
+</style>
+</head>
+<body class="bg-[#f8fafc] min-h-screen">
+
+<!-- Navigation -->
+<nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="nav.html" class="text-sm font-semibold text-slate-600 hover:text-slate-900">← All Pages</a>
+    <span class="text-xs text-slate-400">MarketMantri Research</span>
+  </div>
+</nav>
+
+<!-- ============================================ -->
+<!-- HERO -->
+<!-- ============================================ -->
+<header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-16 md:py-24">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <p class="text-amber-400 font-semibold text-sm tracking-widest uppercase mb-4">Investor Presentation</p>
+    <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
+      MarketMantri — <span class="text-emerald-400">Research se Revenue tak</span>
+    </h1>
+    <p class="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+      4 mahine ki research. 35+ tested. 30+ rejected. <br>
+      <span class="text-white font-semibold">Ab proof ke saath aage badh rahe hain.</span>
+    </p>
+    <div class="flex flex-wrap justify-center gap-3 mt-8">
+      <a href="#stage1" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition">Stage 1: Market</a>
+      <a href="#stage2" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition">Stage 2: Strategy</a>
+      <a href="#stage3" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition">Stage 3: Vision</a>
+    </div>
+  </div>
+</header>
+
+
+<!-- ============================================ -->
+<!-- STAGE 1 — MARKET RESEARCH (Images) -->
+<!-- ============================================ -->
+<section id="stage1" class="py-16 md:py-20">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <!-- Stage Header -->
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-4">
+        <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
+        Stage 1 — Market Research
+      </div>
+      <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3">Market Kya Hai Aur Hum Kya Kar Rahe Hain</h2>
+      <p class="text-slate-500 text-lg max-w-2xl mx-auto">Pehle samjho market kaise kaam karta hai, phir dekho humne kya discover kiya</p>
+    </div>
+
+    <!-- Images -->
+    <div class="space-y-8">
+
+      <!-- Image 1 -->
+      <div class="img-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+        <div class="p-4 border-b border-slate-100">
+          <span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">1 / 6</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2">Market Kya Hai</h3>
+          <p class="text-slate-500 text-sm">Company → Market → Investors ka flow</p>
+        </div>
+        <img src="meeting_img1.webp" alt="Market Kya Hai" class="w-full">
+      </div>
+
+      <!-- Image 2 -->
+      <div class="img-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+        <div class="p-4 border-b border-slate-100">
+          <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">2 / 6</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2">Market Participants</h3>
+          <p class="text-slate-500 text-sm">6 participants — Companies, Investors, Exchanges, Brokers, SEBI, Researchers</p>
+        </div>
+        <img src="meeting_img2.webp" alt="Market Participants" class="w-full">
+      </div>
+
+      <!-- Image 3 -->
+      <div class="img-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+        <div class="p-4 border-b border-slate-100">
+          <span class="inline-block px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">3 / 6</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2">SEBI Hard Truth</h3>
+          <p class="text-slate-500 text-sm">93% F&O traders lose — ₹1.8 Lakh Crore loss in one year</p>
+        </div>
+        <img src="meeting_img3.webp" alt="SEBI Hard Truth" class="w-full">
+      </div>
+
+      <!-- Image 4 -->
+      <div class="img-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+        <div class="p-4 border-b border-slate-100">
+          <span class="inline-block px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-semibold">4 / 6</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2">Research System Workflow</h3>
+          <p class="text-slate-500 text-sm">Research → Test → Verdict → Deploy/Reject — har step documented</p>
+        </div>
+        <img src="meeting_img4.webp" alt="Research System Workflow" class="w-full">
+      </div>
+
+      <!-- Image 5 -->
+      <div class="img-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+        <div class="p-4 border-b border-slate-100">
+          <span class="inline-block px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold">5 / 6</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2">Safety Net</h3>
+          <p class="text-slate-500 text-sm">Red vs Green — Dangers kya hain aur safety mechanisms kya hain</p>
+        </div>
+        <img src="meeting_img6.webp" alt="Safety Net" class="w-full">
+      </div>
+
+      <!-- Image 6 -->
+      <div class="img-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+        <div class="p-4 border-b border-slate-100">
+          <span class="inline-block px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-semibold">6 / 6</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2">Trading Research Dashboard</h3>
+          <p class="text-slate-500 text-sm">Sharpe, Divergence, Loss-Streak, Anti-Martingale — real data</p>
+        </div>
+        <img src="meeting_img7.webp" alt="Trading Dashboard" class="w-full">
+      </div>
+
+    </div>
+
+    <!-- Stage 1 Key Takeaway -->
+    <div class="mt-12 bg-slate-900 text-white rounded-2xl p-8 text-center">
+      <p class="text-amber-400 font-semibold text-sm tracking-widest uppercase mb-3">Stage 1 Ka Sikha</p>
+      <h3 class="text-xl md:text-2xl font-bold mb-4">"Hwa me kuch nahi hota — system chal raha hai toh model hai"</h3>
+      <p class="text-slate-300 max-w-xl mx-auto">93% traders haarte hain kyunki unke paas system nahi hai. Humne 4 mahine lagaye aur 35+ cheezein test karke 1 system banaya jo kaam karta hai.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================ -->
+<!-- STAGE 2 — STRATEGY (Charts + Numbers) -->
+<!-- ============================================ -->
+<section id="stage2" class="py-16 md:py-20 bg-white">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <!-- Stage Header -->
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-4">
+        <span class="w-7 h-7 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
+        Stage 2 — Strategy Proof
+      </div>
+      <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3">Kya Bana Hai — Numbers ke Saath</h2>
+      <p class="text-slate-500 text-lg max-w-2xl mx-auto">10 saal ka backtest. Real data. Paper trading live since June 2026.</p>
+    </div>
+
+    <!-- Strategy Cards -->
+    <div class="grid md:grid-cols-2 gap-6 mb-10">
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+        <div class="text-3xl mb-3">📊</div>
+        <h4 class="font-bold text-slate-900 text-lg">Stock Basket — Momentum</h4>
+        <div class="text-3xl font-extrabold text-emerald-600 my-3">₹5,00,000</div>
+        <ul class="space-y-2 text-sm text-slate-600">
+          <li class="flex justify-between"><span>Universe</span><span class="font-semibold text-slate-900">58 NSE stocks tested</span></li>
+          <li class="flex justify-between"><span>Tradeable</span><span class="font-semibold text-slate-900">46 stocks (≥10 trades)</span></li>
+          <li class="flex justify-between"><span>Entry</span><span class="font-semibold text-slate-900">1H MACD cross + no divergence</span></li>
+          <li class="flex justify-between"><span>Exit</span><span class="font-semibold text-slate-900">Cross DOWN / div / 2% SL / 3-day max</span></li>
+          <li class="flex justify-between"><span>Sizing</span><span class="font-semibold text-slate-900">Loss-2 → 2x anti-martingale</span></li>
+          <li class="flex justify-between"><span>Max Positions</span><span class="font-semibold text-slate-900">15 concurrent</span></li>
+        </ul>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+        <div class="text-3xl mb-3">📈</div>
+        <h4 class="font-bold text-slate-900 text-lg">Nifty Future — 1 Lot</h4>
+        <div class="text-3xl font-extrabold text-blue-600 my-3">₹1,00,000</div>
+        <ul class="space-y-2 text-sm text-slate-600">
+          <li class="flex justify-between"><span>Instrument</span><span class="font-semibold text-slate-900">NIFTY 50 (25 qty/lot)</span></li>
+          <li class="flex justify-between"><span>Entry</span><span class="font-semibold text-slate-900">1H MACD cross + no divergence</span></li>
+          <li class="flex justify-between"><span>Exit</span><span class="font-semibold text-slate-900">Cross DOWN / div / 2% SL / 3-day max</span></li>
+          <li class="flex justify-between"><span>Direction</span><span class="font-semibold text-slate-900">Bidirectional (CE / PE)</span></li>
+          <li class="flex justify-between"><span>Margin</span><span class="font-semibold text-slate-900">₹1L sufficient for 1 lot</span></li>
+          <li class="flex justify-between"><span>Execution</span><span class="font-semibold text-slate-900">Manual — Sunil handles</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-600">3.10</div>
+        <div class="text-xs text-emerald-700 font-semibold mt-1 uppercase tracking-wide">Nifty Sharpe</div>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-600">22.86%</div>
+        <div class="text-xs text-emerald-700 font-semibold mt-1 uppercase tracking-wide">Nifty CAGR</div>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center">
+        <div class="text-3xl font-extrabold text-blue-600">1.55</div>
+        <div class="text-xs text-blue-700 font-semibold mt-1 uppercase tracking-wide">Basket Sharpe</div>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center">
+        <div class="text-3xl font-extrabold text-blue-600">14.89%</div>
+        <div class="text-xs text-blue-700 font-semibold mt-1 uppercase tracking-wide">Basket CAGR</div>
+      </div>
+    </div>
+
+    <!-- Growth Curves -->
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8">
+      <h3 class="text-lg font-bold text-slate-900 mb-1">📈 Stock Basket — ₹5L Compounding Growth</h3>
+      <p class="text-sm text-slate-500 mb-4">₹5,00,000 se start. Actual year-wise returns se compound hua. Jagged — real market jaisa.</p>
+      <canvas id="basketGrowth" style="max-height:350px"></canvas>
+    </div>
+
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8">
+      <h3 class="text-lg font-bold text-slate-900 mb-1">📈 Nifty Future — ₹1L Growth</h3>
+      <p class="text-sm text-slate-500 mb-4">₹1,00,000 se start. Actual year-wise returns. Every year green.</p>
+      <canvas id="niftyGrowth" style="max-height:350px"></canvas>
+    </div>
+
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8">
+      <h3 class="text-lg font-bold text-slate-900 mb-1">📊 Combined View — Dono Strategies</h3>
+      <p class="text-sm text-slate-500 mb-4">Basket ₹5L + Nifty ₹1L — total ₹6L start. 10 saal baad kitna?</p>
+      <canvas id="combinedChart" style="max-height:350px"></canvas>
+    </div>
+
+    <!-- Nifty Year-wise Table -->
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8 overflow-x-auto">
+      <h3 class="text-lg font-bold text-slate-900 mb-1">📊 Nifty — Year-wise Performance</h3>
+      <p class="text-sm text-slate-500 mb-4">Every year green 2016-26. Real data from backtest.</p>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b-2 border-slate-200">
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Year</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Trades</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Return</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Win Rate</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">₹1L Value</th>
+          </tr>
+        </thead>
+        <tbody id="niftyTable"></tbody>
+      </table>
+    </div>
+
+    <!-- Sizing Comparison -->
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8 overflow-x-auto">
+      <h3 class="text-lg font-bold text-slate-900 mb-1">📊 Sizing Variants — Both Strategies</h3>
+      <p class="text-sm text-slate-500 mb-4">Same strategy, different sizing rules. Deployed variants highlighted.</p>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b-2 border-slate-200">
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Strategy</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Sizing</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">CAGR</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Return</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Sharpe</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Max DD</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-slate-100"><td rowspan="3" class="font-semibold text-slate-900">Basket</td><td>V0 flat</td><td>7.34%</td><td>+103%</td><td>1.54</td><td>5.08%</td><td class="text-slate-400">Baseline</td></tr>
+          <tr class="border-b border-slate-100 bg-emerald-50/50"><td class="font-bold">V1 combo 2x</td><td class="text-emerald-600 font-bold">9.48%</td><td>+147%</td><td>1.55</td><td>6.66%</td><td><span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs font-bold">🚀 Deployed</span></td></tr>
+          <tr class="border-b border-slate-100"><td>V9 pure 2x</td><td class="text-emerald-600 font-bold">14.89%</td><td>+301%</td><td>1.46</td><td>9.95%</td><td><span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-xs font-bold">Max</span></td></tr>
+          <tr class="border-b border-slate-100"><td rowspan="3" class="font-semibold text-slate-900">Nifty</td><td>Flat 1x</td><td>19.48%</td><td>+493%</td><td>2.96</td><td>3.28%</td><td class="text-slate-400">Baseline</td></tr>
+          <tr class="border-b border-slate-100 bg-emerald-50/50"><td class="font-bold">Loss-2 → 2x</td><td class="text-emerald-600 font-bold">22.86%</td><td>+683%</td><td class="text-emerald-600 font-bold">3.10</td><td>2.68%</td><td><span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs font-bold">🚀 Deployed</span></td></tr>
+          <tr><td>Win-2 → 1.5x→2x</td><td class="text-emerald-600 font-bold">25.32%</td><td>+856%</td><td>2.48</td><td>4.45%</td><td>Highest</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Stage 2 Key Takeaway -->
+    <div class="bg-slate-900 text-white rounded-2xl p-8 text-center">
+      <p class="text-emerald-400 font-semibold text-sm tracking-widest uppercase mb-3">Stage 2 Ka Sikha</p>
+      <h3 class="text-xl md:text-2xl font-bold mb-4">"35+ tested, 30+ rejected — jo bacha woh data-backed hai"</h3>
+      <p class="text-slate-300 max-w-xl mx-auto">Har claim ke peeche 10 saal ka backtest hai. Har rejection recorded hai. Paper trading June se live hai.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================ -->
+<!-- STAGE 3 — VISION + MONEY -->
+<!-- ============================================ -->
+<section id="stage3" class="py-16 md:py-20">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <!-- Stage Header -->
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-100 text-amber-700 rounded-full text-sm font-semibold mb-4">
+        <span class="w-7 h-7 bg-amber-600 text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
+        Stage 3 — 3-Month Vision + Paisa
+      </div>
+      <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3">Aage Kya Hoga — Plan aur Paisa</h2>
+      <p class="text-slate-500 text-lg max-w-2xl mx-auto">Sep — Nov 2026. Start Small → Validate → Scale.</p>
+    </div>
+
+    <!-- Roadmap Image -->
+    <div class="img-card bg-white rounded-2xl overflow-hidden shadow-sm border-2 border-amber-300 mb-10">
+      <div class="p-4 border-b border-amber-100 bg-amber-50">
+        <span class="inline-block px-3 py-1 bg-amber-500 text-white rounded-full text-xs font-semibold">3-Month Roadmap</span>
+        <h3 class="text-lg font-bold text-slate-900 mt-2">Start Small → Validate → Scale</h3>
+        <p class="text-slate-500 text-sm">Sep to Nov 2026</p>
+      </div>
+      <img src="roadmap-final.webp" alt="3-Month Roadmap" class="w-full">
+    </div>
+
+    <!-- Capital Overview -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-600">₹5L</div>
+        <div class="text-xs text-emerald-700 font-semibold mt-1 uppercase tracking-wide">Stock Basket</div>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center">
+        <div class="text-3xl font-extrabold text-blue-600">₹1L</div>
+        <div class="text-xs text-blue-700 font-semibold mt-1 uppercase tracking-wide">Nifty Future</div>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 text-center">
+        <div class="text-3xl font-extrabold text-amber-600">₹6L</div>
+        <div class="text-xs text-amber-700 font-semibold mt-1 uppercase tracking-wide">Total Capital</div>
+      </div>
+      <div class="bg-slate-100 border border-slate-200 rounded-xl p-5 text-center">
+        <div class="text-3xl font-extrabold text-slate-700">3</div>
+        <div class="text-xs text-slate-600 font-semibold mt-1 uppercase tracking-wide">Months</div>
+      </div>
+    </div>
+
+    <!-- Month-by-Month Plan -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 mb-10 overflow-x-auto">
+      <h3 class="text-lg font-bold text-slate-900 mb-4">🗓️ Month-by-Month Plan</h3>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b-2 border-slate-200">
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Month</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Focus</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Basket (₹5L)</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Nifty (₹1L)</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-slate-100">
+            <td class="font-bold text-slate-900">Sep 2026</td>
+            <td class="text-blue-600 font-semibold">Foundation</td>
+            <td>Weekly 2-3 positions</td>
+            <td>1 lot, max 2/week, manual</td>
+            <td><span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs font-bold">8-12 basket + 6-8 nifty</span></td>
+          </tr>
+          <tr class="border-b border-slate-100">
+            <td class="font-bold text-slate-900">Oct 2026</td>
+            <td class="text-amber-600 font-semibold">Validation</td>
+            <td>Review M1, size adjust</td>
+            <td>Entry timing refine</td>
+            <td><span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs font-bold">Consistent execution</span></td>
+          </tr>
+          <tr>
+            <td class="font-bold text-slate-900">Nov 2026</td>
+            <td class="text-emerald-600 font-semibold">Gate Decision</td>
+            <td>Full review</td>
+            <td>Consistent → 2 lots?</td>
+            <td><span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-xs font-bold">Go / No-Go</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Success Criteria -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 mb-10 overflow-x-auto">
+      <h3 class="text-lg font-bold text-slate-900 mb-4">🎯 Success Criteria</h3>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b-2 border-slate-200">
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Metric</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Target</th>
+            <th class="text-left py-2 px-3 text-xs uppercase tracking-wide text-slate-500 font-semibold">Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-slate-100"><td>Basket Win Rate</td><td class="text-emerald-600 font-bold">≥ 55%</td><td class="text-slate-500">Backtest 47-54%. 55%+ = edge zinda.</td></tr>
+          <tr class="border-b border-slate-100"><td>Nifty Win Rate</td><td class="text-emerald-600 font-bold">≥ 55%</td><td class="text-slate-500">Backtest 58.3%. 55%+ = acceptable.</td></tr>
+          <tr class="border-b border-slate-100"><td>Max DD (Basket)</td><td class="text-emerald-600 font-bold">≤ 10%</td><td class="text-slate-500">Backtest 6.66%. 10% tolerate.</td></tr>
+          <tr class="border-b border-slate-100"><td>Max DD (Nifty)</td><td class="text-emerald-600 font-bold">≤ 15%</td><td class="text-slate-500">Backtest 2.68%. 15% tolerate.</td></tr>
+          <tr class="border-b border-slate-100"><td>Weekly Trades</td><td class="text-emerald-600 font-bold">2-3 basket + 1-2 nifty</td><td class="text-slate-500">Discipline, no overtrading.</td></tr>
+          <tr><td>Emotional Trades</td><td class="text-emerald-600 font-bold">0</td><td class="text-slate-500">System follow. Journal me likho.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- The Arrangement -->
+    <div class="bg-slate-900 text-white rounded-2xl p-8 mb-10">
+      <h3 class="text-xl font-bold mb-6 text-center">🤝 The Arrangement</h3>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Capital</p>
+          <p class="text-xl font-bold">₹5L Basket + ₹1L Nifty</p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Duration</p>
+          <p class="text-xl font-bold">3 Months (Sep–Nov 2026)</p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Transparency</p>
+          <p class="text-xl font-bold">Live Dashboard + Weekly Updates</p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Exit</p>
+          <p class="text-xl font-bold">3 Mahine Baad Review</p>
+        </div>
+      </div>
+      <p class="text-center text-slate-400 text-sm mt-6 italic">"Evidence hero ho, claim nahi. System ke saath play karna hai, system ke against nahi."</p>
+    </div>
+
+    <!-- What We Don't Say / What We Say -->
+    <div class="grid md:grid-cols-2 gap-6 mb-10">
+      <div class="bg-red-50 border border-red-200 rounded-2xl p-6">
+        <h4 class="font-bold text-red-800 text-base mb-3">🚫 Ye Hum NAHI Bolte</h4>
+        <ul class="space-y-2 text-sm text-red-700">
+          <li>❌ Guaranteed returns</li>
+          <li>❌ Risk-free</li>
+          <li>❌ Quick money</li>
+          <li>❌ 100% accurate</li>
+          <li>❌ Auto-pilot</li>
+        </ul>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 pulse-green">
+        <h4 class="font-bold text-emerald-800 text-base mb-3">✅ Ye Hum BOLTE Hain</h4>
+        <ul class="space-y-2 text-sm text-emerald-700">
+          <li>✅ 10 saal ka honest backtest</li>
+          <li>✅ Nifty CAGR 22.86% (with sizing)</li>
+          <li>✅ Basket CAGR 14.89% (V9 sizing)</li>
+          <li>✅ 35+ tested, 30+ rejected</li>
+          <li>✅ Live paper since June</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Stage 3 Key Takeaway -->
+    <div class="bg-slate-900 text-white rounded-2xl p-8 text-center">
+      <p class="text-amber-400 font-semibold text-sm tracking-widest uppercase mb-3">Stage 3 Ka Sikha</p>
+      <h3 class="text-xl md:text-2xl font-bold mb-4">"3 Months = Last Chance Proof Banana Ka"</h3>
+      <p class="text-slate-300 max-w-xl mx-auto">2027 se pehle stable hona zaroori hai. Agar ab nahi kiya — toh phir kab? Record hai, system hai, bas mauka chahiye.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================ -->
+<!-- FOOTER -->
+<!-- ============================================ -->
+<footer class="bg-white border-t border-slate-200 py-8">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <p class="text-slate-500 font-semibold">MarketMantri Research — Sunil Kumar — Rishikesh</p>
+    <p class="text-slate-400 text-sm mt-1">For Educational Purposes Only. Not investment advice. Past performance does not guarantee future results.</p>
+    <a href="nav.html" class="text-blue-600 text-sm hover:underline mt-3 inline-block">← Back to All Pages</a>
+  </div>
+</footer>
+
+
+<!-- ============================================ -->
+<!-- CHART.JS DATA -->
+<!-- ============================================ -->
+<script>
+const niftyYearly = [
+  { yr: 2016, trades: 41, ret: 7.23, wr: 61.0 },
+  { yr: 2017, trades: 97, ret: 14.51, wr: 50.5 },
+  { yr: 2018, trades: 88, ret: 17.92, wr: 55.7 },
+  { yr: 2019, trades: 93, ret: 30.93, wr: 62.4 },
+  { yr: 2020, trades: 91, ret: 34.16, wr: 61.5 },
+  { yr: 2021, trades: 92, ret: 17.48, wr: 60.9 },
+  { yr: 2022, trades: 99, ret: 19.08, wr: 54.5 },
+  { yr: 2023, trades: 85, ret: 15.33, wr: 57.6 },
+  { yr: 2024, trades: 96, ret: 15.63, wr: 64.6 },
+  { yr: 2025, trades: 84, ret: 19.03, wr: 64.3 },
+  { yr: 2026, trades: 52, ret: 0.87, wr: 44.2 }
+];
+
+const basketYearly = [
+  { yr: 2016, ret: 8.0, sharpe: 1.953, wr: 52.4 },
+  { yr: 2017, ret: 22.0, sharpe: 4.477, wr: 57.1 },
+  { yr: 2018, ret: 12.0, sharpe: 2.593, wr: 56.3 },
+  { yr: 2019, ret: 18.0, sharpe: 3.811, wr: 56.4 },
+  { yr: 2020, ret: 15.0, sharpe: 3.250, wr: 59.6 },
+  { yr: 2021, ret: 20.0, sharpe: 3.901, wr: 58.7 },
+  { yr: 2022, ret: -2.0, sharpe: 1.095, wr: 51.8 },
+  { yr: 2023, ret: 25.0, sharpe: 4.951, wr: 65.3 },
+  { yr: 2024, ret: 16.0, sharpe: 3.801, wr: 58.3 },
+  { yr: 2025, ret: 8.0, sharpe: 1.725, wr: 51.2 },
+  { yr: 2026, ret: 3.0, sharpe: 1.313, wr: 52.9 }
+];
+
+const years = niftyYearly.map(d => d.yr);
+const yearLabels = ['Start', ...years.map(String)];
+
+// Basket ₹5L compounding
+let basketData = [500000];
+for (let i = 0; i < basketYearly.length; i++) {
+  basketData.push(Math.round(basketData[i] * (1 + basketYearly[i].ret / 100)));
+}
+
+// Nifty ₹1L compounding
+let niftyData = [100000];
+for (let i = 0; i < niftyYearly.length; i++) {
+  niftyData.push(Math.round(niftyData[i] * (1 + niftyYearly[i].ret / 100)));
+}
+
+// Chart 1: Basket ₹5L
+new Chart(document.getElementById('basketGrowth'), {
+  type: 'line',
+  data: {
+    labels: yearLabels,
+    datasets: [{
+      label: 'Basket Portfolio',
+      data: basketData,
+      borderColor: '#059669',
+      backgroundColor: 'rgba(5,150,105,0.08)',
+      fill: true, tension: 0.3,
+      pointRadius: 5, pointBackgroundColor: '#fff',
+      pointBorderColor: '#059669', pointBorderWidth: 2, borderWidth: 2.5
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '₹' + ctx.raw.toLocaleString('en-IN') } } },
+    scales: {
+      y: { beginAtZero: false, ticks: { callback: v => '₹' + (v/100000).toFixed(1) + 'L' }, grid: { color: '#f1f5f9' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Chart 2: Nifty ₹1L
+new Chart(document.getElementById('niftyGrowth'), {
+  type: 'line',
+  data: {
+    labels: yearLabels,
+    datasets: [{
+      label: 'Nifty Future',
+      data: niftyData,
+      borderColor: '#2563eb',
+      backgroundColor: 'rgba(37,99,235,0.08)',
+      fill: true, tension: 0.3,
+      pointRadius: 5, pointBackgroundColor: '#fff',
+      pointBorderColor: '#2563eb', pointBorderWidth: 2, borderWidth: 2.5
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '₹' + ctx.raw.toLocaleString('en-IN') } } },
+    scales: {
+      y: { beginAtZero: false, ticks: { callback: v => '₹' + (v/100000).toFixed(1) + 'L' }, grid: { color: '#f1f5f9' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Chart 3: Combined
+new Chart(document.getElementById('combinedChart'), {
+  type: 'line',
+  data: {
+    labels: yearLabels,
+    datasets: [
+      { label: 'Basket ₹5L', data: basketData, borderColor: '#059669', backgroundColor: 'rgba(5,150,105,0.06)', fill: true, tension: 0.3, pointRadius: 4, pointBackgroundColor: '#059669', borderWidth: 2 },
+      { label: 'Nifty ₹1L', data: niftyData, borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,0.06)', fill: true, tension: 0.3, pointRadius: 4, pointBackgroundColor: '#2563eb', borderWidth: 2 },
+      { label: 'Total', data: basketData.map((v, i) => v + niftyData[i]), borderColor: '#d97706', backgroundColor: 'transparent', borderDash: [6, 4], tension: 0.3, pointRadius: 0, borderWidth: 2 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'top', labels: { font: { size: 12 } } }, tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ₹' + ctx.raw.toLocaleString('en-IN') } } },
+    scales: {
+      y: { beginAtZero: false, ticks: { callback: v => '₹' + (v/100000).toFixed(1) + 'L' }, grid: { color: '#f1f5f9' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Nifty Year-wise Table
+const niftyTbody = document.getElementById('niftyTable');
+niftyYearly.forEach((d, idx) => {
+  const tr = document.createElement('tr');
+  tr.className = 'border-b border-slate-100';
+  let compoundVal = 100000;
+  for (let i = 0; i <= idx; i++) {
+    compoundVal = Math.round(compoundVal * (1 + niftyYearly[i].ret / 100));
+  }
+  tr.innerHTML = `
+    <td class="py-2 px-3 font-bold text-slate-900">${d.yr}</td>
+    <td class="py-2 px-3">${d.trades}</td>
+    <td class="py-2 px-3 text-emerald-600 font-bold">+${d.ret}%</td>
+    <td class="py-2 px-3">${d.wr}%</td>
+    <td class="py-2 px-3 font-bold">₹${compoundVal.toLocaleString('en-IN')}</td>
+  `;
+  niftyTbody.appendChild(tr);
+});
+</script>
+
+</body>
+</html>
