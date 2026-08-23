@@ -9,8 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   * { font-family: 'Inter', system-ui, sans-serif; }
-  .img-card { transition: all 0.3s; }
-  .img-card:hover { transform: scale(1.01); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+  .img-card { transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .img-card:hover { transform: scale(1.01); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+  .section-card { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .section-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
   .stage-divider { position: relative; }
   .stage-divider::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent, #e2e8f0 20%, #e2e8f0 80%, transparent); transform: translateX(-50%); }
   .pulse-green { animation: pulseGreen 2s infinite; }
@@ -30,20 +32,27 @@
 <!-- ============================================ -->
 <!-- HERO -->
 <!-- ============================================ -->
-<header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-16 md:py-24">
-  <div class="max-w-4xl mx-auto px-6 text-center">
+<header class="relative text-white py-20 md:py-28 overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0f172a 100%);">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0" style="background-image: radial-gradient(circle at 20% 50%, rgba(16,185,129,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 50%), radial-gradient(circle at 50% 80%, rgba(245,158,11,0.05) 0%, transparent 50%);"></div>
+  <!-- Grid overlay -->
+  <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px;"></div>
+  <!-- Bottom fade -->
+  <div class="absolute bottom-0 left-0 right-0 h-24" style="background: linear-gradient(to top, #f8fafc, transparent);"></div>
+  
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
     <p class="text-amber-400 font-semibold text-sm tracking-widest uppercase mb-4">Investor Presentation</p>
-    <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
+    <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6" style="text-shadow: 0 2px 20px rgba(0,0,0,0.3);">
       MarketMantri — <span class="text-emerald-400">Research se Revenue tak</span>
     </h1>
-    <p class="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+    <p class="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style="text-shadow: 0 1px 8px rgba(0,0,0,0.2);">
       4 mahine ki research. 35+ tested. 30+ rejected. <br>
       <span class="text-white font-semibold">Ab proof ke saath aage badh rahe hain.</span>
     </p>
     <div class="flex flex-wrap justify-center gap-3 mt-8">
-      <a href="#stage1" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition">Stage 1: Market</a>
-      <a href="#stage2" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition">Stage 2: Strategy</a>
-      <a href="#stage3" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition">Stage 3: Vision</a>
+      <a href="#stage1" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition backdrop-blur-sm border border-white/10">Stage 1: Market</a>
+      <a href="#stage2" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition backdrop-blur-sm border border-white/10">Stage 2: Strategy</a>
+      <a href="#stage3" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition backdrop-blur-sm border border-white/10">Stage 3: Vision</a>
     </div>
   </div>
 </header>
@@ -57,8 +66,8 @@
 
     <!-- Stage Header -->
     <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-4">
-        <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
+      <div class="inline-flex items-center gap-2 px-5 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-4 shadow-sm">
+        <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-md">1</span>
         Stage 1 — Market Research
       </div>
       <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3">Market Kya Hai Aur Hum Kya Kar Rahe Hain</h2>
@@ -66,7 +75,7 @@
     </div>
 
     <!-- Images -->
-    <div class="space-y-8">
+    <div class="space-y-10">
 
       <!-- Image 1 -->
       <div class="img-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
@@ -149,8 +158,8 @@
 
     <!-- Stage Header -->
     <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-4">
-        <span class="w-7 h-7 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
+      <div class="inline-flex items-center gap-2 px-5 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-4 shadow-sm">
+        <span class="w-7 h-7 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-md">2</span>
         Stage 2 — Strategy Proof
       </div>
       <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3">Kya Bana Hai — Numbers ke Saath</h2>
@@ -159,7 +168,7 @@
 
     <!-- Strategy Cards -->
     <div class="grid md:grid-cols-2 gap-6 mb-10">
-      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 section-card">
         <div class="text-3xl mb-3">📊</div>
         <h4 class="font-bold text-slate-900 text-lg">Stock Basket — Momentum</h4>
         <div class="text-3xl font-extrabold text-emerald-600 my-3">₹5,00,000</div>
@@ -172,7 +181,7 @@
           <li class="flex justify-between"><span>Max Positions</span><span class="font-semibold text-slate-900">15 concurrent</span></li>
         </ul>
       </div>
-      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 section-card">
         <div class="text-3xl mb-3">📈</div>
         <h4 class="font-bold text-slate-900 text-lg">Nifty Future — 1 Lot</h4>
         <div class="text-3xl font-extrabold text-blue-600 my-3">₹1,00,000</div>
@@ -189,45 +198,45 @@
 
     <!-- Key Metrics -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center section-card">
         <div class="text-3xl font-extrabold text-emerald-600">3.10</div>
         <div class="text-xs text-emerald-700 font-semibold mt-1 uppercase tracking-wide">Nifty Sharpe</div>
       </div>
-      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center section-card">
         <div class="text-3xl font-extrabold text-emerald-600">22.86%</div>
         <div class="text-xs text-emerald-700 font-semibold mt-1 uppercase tracking-wide">Nifty CAGR</div>
       </div>
-      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center">
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center section-card">
         <div class="text-3xl font-extrabold text-blue-600">1.55</div>
         <div class="text-xs text-blue-700 font-semibold mt-1 uppercase tracking-wide">Basket Sharpe</div>
       </div>
-      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center">
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center section-card">
         <div class="text-3xl font-extrabold text-blue-600">14.89%</div>
         <div class="text-xs text-blue-700 font-semibold mt-1 uppercase tracking-wide">Basket CAGR</div>
       </div>
     </div>
 
     <!-- Growth Curves -->
-    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8">
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8 section-card">
       <h3 class="text-lg font-bold text-slate-900 mb-1">📈 Stock Basket — ₹5L Compounding Growth</h3>
       <p class="text-sm text-slate-500 mb-4">₹5,00,000 se start. Actual year-wise returns se compound hua. Jagged — real market jaisa.</p>
       <canvas id="basketGrowth" style="max-height:350px"></canvas>
     </div>
 
-    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8">
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8 section-card">
       <h3 class="text-lg font-bold text-slate-900 mb-1">📈 Nifty Future — ₹1L Growth</h3>
       <p class="text-sm text-slate-500 mb-4">₹1,00,000 se start. Actual year-wise returns. Every year green.</p>
       <canvas id="niftyGrowth" style="max-height:350px"></canvas>
     </div>
 
-    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8">
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8 section-card">
       <h3 class="text-lg font-bold text-slate-900 mb-1">📊 Combined View — Dono Strategies</h3>
       <p class="text-sm text-slate-500 mb-4">Basket ₹5L + Nifty ₹1L — total ₹6L start. 10 saal baad kitna?</p>
       <canvas id="combinedChart" style="max-height:350px"></canvas>
     </div>
 
     <!-- Nifty Year-wise Table -->
-    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8 overflow-x-auto">
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8 overflow-x-auto section-card">
       <h3 class="text-lg font-bold text-slate-900 mb-1">📊 Nifty — Year-wise Performance</h3>
       <p class="text-sm text-slate-500 mb-4">Every year green 2016-26. Real data from backtest.</p>
       <table class="w-full text-sm">
@@ -245,7 +254,7 @@
     </div>
 
     <!-- Sizing Comparison -->
-    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8 overflow-x-auto">
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8 overflow-x-auto section-card">
       <h3 class="text-lg font-bold text-slate-900 mb-1">📊 Sizing Variants — Both Strategies</h3>
       <p class="text-sm text-slate-500 mb-4">Same strategy, different sizing rules. Deployed variants highlighted.</p>
       <table class="w-full text-sm">
@@ -290,8 +299,8 @@
 
     <!-- Stage Header -->
     <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-100 text-amber-700 rounded-full text-sm font-semibold mb-4">
-        <span class="w-7 h-7 bg-amber-600 text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
+      <div class="inline-flex items-center gap-2 px-5 py-2 bg-amber-100 text-amber-700 rounded-full text-sm font-semibold mb-4 shadow-sm">
+        <span class="w-7 h-7 bg-amber-600 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-md">3</span>
         Stage 3 — 3-Month Vision + Paisa
       </div>
       <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3">Aage Kya Hoga — Plan aur Paisa</h2>
@@ -310,26 +319,26 @@
 
     <!-- Capital Overview -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center section-card">
         <div class="text-3xl font-extrabold text-emerald-600">₹5L</div>
         <div class="text-xs text-emerald-700 font-semibold mt-1 uppercase tracking-wide">Stock Basket</div>
       </div>
-      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center">
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center section-card">
         <div class="text-3xl font-extrabold text-blue-600">₹1L</div>
         <div class="text-xs text-blue-700 font-semibold mt-1 uppercase tracking-wide">Nifty Future</div>
       </div>
-      <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 text-center">
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 text-center section-card">
         <div class="text-3xl font-extrabold text-amber-600">₹6L</div>
         <div class="text-xs text-amber-700 font-semibold mt-1 uppercase tracking-wide">Total Capital</div>
       </div>
-      <div class="bg-slate-100 border border-slate-200 rounded-xl p-5 text-center">
+      <div class="bg-slate-100 border border-slate-200 rounded-xl p-5 text-center section-card">
         <div class="text-3xl font-extrabold text-slate-700">3</div>
         <div class="text-xs text-slate-600 font-semibold mt-1 uppercase tracking-wide">Months</div>
       </div>
     </div>
 
     <!-- Month-by-Month Plan -->
-    <div class="bg-white border border-slate-200 rounded-2xl p-6 mb-10 overflow-x-auto">
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 mb-10 overflow-x-auto section-card">
       <h3 class="text-lg font-bold text-slate-900 mb-4">🗓️ Month-by-Month Plan</h3>
       <table class="w-full text-sm">
         <thead>
@@ -368,7 +377,7 @@
     </div>
 
     <!-- Success Criteria -->
-    <div class="bg-white border border-slate-200 rounded-2xl p-6 mb-10 overflow-x-auto">
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 mb-10 overflow-x-auto section-card">
       <h3 class="text-lg font-bold text-slate-900 mb-4">🎯 Success Criteria</h3>
       <table class="w-full text-sm">
         <thead>
