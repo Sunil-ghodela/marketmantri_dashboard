@@ -17,9 +17,80 @@
   .stage-divider::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent, #e2e8f0 20%, #e2e8f0 80%, transparent); transform: translateX(-50%); }
   .pulse-green { animation: pulseGreen 2s infinite; }
   @keyframes pulseGreen { 0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 50% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); } }
+
+  /* Lightbox */
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out;
+    backdrop-filter: blur(4px);
+  }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-img {
+    max-width: 92vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 60px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease;
+    cursor: grab;
+  }
+  .lightbox-img.zoomed {
+    cursor: grabbing;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+  .lightbox-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    pointer-events: none;
+  }
+  .lightbox-title {
+    position: absolute;
+    top: 24px;
+    left: 28px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    pointer-events: none;
+  }
+  .img-card { cursor: pointer; }
 </style>
 </head>
-<body class="bg-[#f8fafc] min-h-screen">
+<body class="bg-[#f8fafc] min-height-screen">
+
+<!-- Lightbox Modal -->
+<div class="lightbox-overlay" id="lightbox">
+  <span class="lightbox-title" id="lightbox-title"></span>
+  <button class="lightbox-close" id="lightbox-close">&times;</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <span class="lightbox-hint">Scroll to zoom · Drag to pan · Click outside or press Esc to close</span>
+</div>
 
 <!-- Navigation -->
 <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -644,6 +715,85 @@ niftyYearly.forEach((d, idx) => {
   `;
   niftyTbody.appendChild(tr);
 });
+</script>
+
+<!-- Lightbox Script -->
+<script>
+(function() {
+  const overlay = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  const title = document.getElementById('lightbox-title');
+  const closeBtn = document.getElementById('lightbox-close');
+
+  let scale = 1;
+  let panX = 0, panY = 0;
+  let isDragging = false;
+  let startX, startY;
+
+  function updateTransform() {
+    img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+    img.classList.toggle('zoomed', scale > 1);
+  }
+
+  function openLightbox(src, imgTitle) {
+    img.src = src;
+    title.textContent = imgTitle || '';
+    scale = 1; panX = 0; panY = 0;
+    updateTransform();
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Click on any img-card to open
+  document.querySelectorAll('.img-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const imgEl = card.querySelector('img');
+      const h3 = card.querySelector('h3');
+      if (imgEl) openLightbox(imgEl.src, h3 ? h3.textContent : '');
+    });
+  });
+
+  // Close
+  closeBtn.addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // Scroll to zoom
+  img.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.15 : 0.15;
+    scale = Math.max(0.5, Math.min(5, scale + delta));
+    updateTransform();
+  }, { passive: false });
+
+  // Drag to pan (when zoomed)
+  img.addEventListener('mousedown', (e) => {
+    if (scale > 1) {
+      isDragging = true;
+      startX = e.clientX - panX;
+      startY = e.clientY - panY;
+      e.preventDefault();
+    }
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    panX = e.clientX - startX;
+    panY = e.clientY - startY;
+    updateTransform();
+  });
+
+  document.addEventListener('mouseup', () => { isDragging = false; });
+})();
 </script>
 
 </body>
