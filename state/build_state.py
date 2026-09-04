@@ -20,8 +20,9 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from matplotlib.patches import Patch
+from matplotlib.patches import Patch, FancyArrowPatch
 from matplotlib.lines import Line2D
+import scenario
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 XLSX = '/home/vaibhav/AI/yr2026/dilvergence/data/Nifty-4200-Days-2015-2026-Full.xlsx'
@@ -32,6 +33,7 @@ OUT_MONTHLY = os.path.join(HERE, 'nifty_monthly.csv')
 OUT_JSON = os.path.join(HERE, 'nifty_state_data.json')
 OUT_MAP = os.path.join(HERE, 'nifty_daily_map.png')
 OUT_ZOOM = os.path.join(HERE, 'nifty_today_zoom.png')
+OUT_CYCLE = os.path.join(HERE, 'nifty_state_cycle.png')
 NEWS = os.path.join(HERE, 'news_events.csv')
 
 REGIME_CODES = {'TREND UP': 0, 'TREND DOWN': 1, 'RANGE': 2, 'CHOP': 3}
@@ -311,6 +313,10 @@ def compute_analysis(df):
                    'close': round(sub.iloc[-1]['Close'], 1),
                    'regime_mode': sub['regime'].value_counts().idxmax()})
     A['last8w'] = lw
+
+    # stage map (scenario/action labels har din) + cadence
+    A['stages'] = scenario.stage_stats(df)
+    A['stage_meta'] = [scenario.META[k] for k in scenario.META]
 
     return A
 
@@ -646,12 +652,112 @@ def make_zoom_map(df):
     print('zoom ->', OUT_ZOOM)
 
 
+# ---------------------------------------------------------------- state cycle map
+def make_cycle_map(df, A):
+    """Ghoomta hua map — stage se stage tak market ka flow (counts)."""
+    import math
+    st = A['stages']
+    share = {s['stage']: s for s in st['share']}
+    meta_by_id = {m['id']: m for m in A['stage_meta']}
+    present = [m for m in A['stage_meta'] if m['name'] in share]
+
+    # wheel position per stage id (deg, 0 = +x-axis, ccw)
+    ang = {0: 290, 1: 318, 2: 346, 3: 14, 4: 42, 9: 74, 5: 150, 6: 184, 7: 218, 8: 252}
+    R = 1.0
+    pos = {}
+    for m in present:
+        rad = math.radians(ang[m['id']])
+        pos[m['name']] = (R * math.cos(rad), R * math.sin(rad))
+
+    fig = plt.figure(figsize=(16, 11), facecolor=BG)
+    ax = fig.add_axes([0.005, 0.0, 0.64, 1.0])
+    ax.set_facecolor(BG)
+    ax.axis('off')
+    ax.set_xlim(-1.6, 1.6)
+    ax.set_ylim(-1.55, 1.55)
+    ax.set_aspect('equal')
+
+    maxpct = max(s['pct'] for s in st['share'])
+    ring = plt.Circle((0, 0), R, fill=False, color=GRID, lw=1.2, ls=(0, (4, 4)), zorder=1)
+    ax.add_patch(ring)
+
+    # arrows: stage badalne wale transitions (top 14, self-loop nahi)
+    ts = [t for t in st['top_trans'] if t['f'] != t['t']][:14]
+    maxc = max((t['n'] for t in ts), default=1)
+    for t in ts:
+        pA, pB = pos.get(t['f']), pos.get(t['t'])
+        if pA is None or pB is None:
+            continue
+        # arrow color = jis stage pe gaye
+        tgt = next((m for m in present if m['name'] == t['t']), None)
+        if tgt is None:
+            continue
+        k = t['n'] / maxc
+        arr = FancyArrowPatch(pA, pB, connectionstyle='arc3,rad=0.16',
+                              arrowstyle='-|>', mutation_scale=9 + 7 * k,
+                              lw=1.1 + 2.8 * k, color=tgt['color'],
+                              alpha=0.30 + 0.55 * k, zorder=3)
+        ax.add_patch(arr)
+        mx, my = (pA[0] + pB[0]) / 2, (pA[1] + pB[1]) / 2
+        ax.text(mx * 1.06, my * 1.06, str(t['n']), color=tgt['color'],
+                fontsize=8.5, fontweight='bold', ha='center', va='center', zorder=4)
+
+    # nodes
+    latest = df.iloc[-1]['scenario']
+    for m in present:
+        x, y = pos[m['name']]
+        rd = 0.085 + 0.115 * math.sqrt(share[m['name']]['pct'] / maxpct)
+        ax.add_patch(plt.Circle((x, y), rd, color=m['color'], ec='#0b1120',
+                                lw=1.6, zorder=6))
+        if m['name'] == latest:
+            ax.add_patch(plt.Circle((x, y), rd + 0.045, fill=False, color='#fde047',
+                                    lw=2.2, zorder=5))
+        tx, ty = 1.26 * x, 1.26 * y
+        ha = 'left' if x >= 0.0 else 'right'
+        ax.text(tx, ty + 0.05, m['name'], color=FG, fontsize=11, fontweight='bold',
+                ha=ha, va='center', zorder=7)
+        ax.text(tx, ty - 0.09, f"{share[m['name']]['pct']}% din", color=MUT,
+                fontsize=9, ha=ha, va='center', zorder=7)
+
+    # legend (right side)
+    meta_lbl = {'BUY': 'entry (next open)', 'HOLD': 'hold', 'WATCH': 'watch-confirm',
+                'NO-NEW': 'no new', 'STAND-ASIDE': 'stand aside',
+                'NO-BUY': 'no buy', 'AVOID': 'avoid', 'NO-TOUCH': 'no touch',
+                'NO-DATA': '—'}
+    y0 = 0.90
+    fig.text(0.665, y0, 'HAR STAGE KA ACTION (v1 plan)', color='#f8fafc',
+             fontsize=12, fontweight='bold')
+    for i, m in enumerate(present):
+        y = y0 - 0.058 * (i + 1)
+        fig.text(0.665, y, '▮', color=m['color'], fontsize=13, va='center')
+        fig.text(0.692, y, f"{m['name']}   ", color=FG, fontsize=10.5,
+                 fontweight='bold', va='center')
+        fig.text(0.692 + 0.115, y, f"{share[m['name']]['pct']}% · "
+                 f"{meta_lbl.get(m['action'], m['action'])}", color=MUT,
+                 fontsize=9.5, va='center')
+    yb = y0 - 0.058 * (len(present) + 1.6)
+    fig.text(0.665, yb, f"Aaj ka stage: {latest}  (gold ring)", color='#fde047',
+             fontsize=10.5, fontweight='bold')
+    fig.text(0.665, yb - 0.045, 'Arrow = market ne stage badla (count)',
+             color=MUT, fontsize=9.5)
+    fig.text(0.665, yb - 0.088, 'Self-loop exclude (stage same rahe).',
+             color=MUT, fontsize=9.5)
+    fig.text(0.665, yb - 0.131, 'Data: 2015-2026, warmup ~200 din hatake.',
+             color=MUT, fontsize=9.5)
+
+    fig.suptitle('NIFTY STATE CYCLE — market kis stage se kis stage tak ghoomta hai (2015-2026)',
+                 color=FG, fontsize=15, fontweight='bold', y=0.965, x=0.30)
+    plt.savefig(OUT_CYCLE, dpi=130, facecolor=BG)
+    plt.close(fig)
+    print('cycle ->', OUT_CYCLE)
+
+
 # ---------------------------------------------------------------- outputs
 def write_outputs(df, A):
     keep = ['Date', 'Close', 'sma50', 'sma200', 'atr14', 'chop14', 'adx14',
             'macd', 'signal', 'macd_hist', 'rsi14', 'regime', 'macd_cross',
             'rsi_zone', 'div', 'month_so_far_pct', 'ytd_pct', 'ret_1y_pct',
-            'off_ath_pct', 'Event']
+            'off_ath_pct', 'scenario', 'action', 'sig', 'Event']
     df[keep].to_csv(OUT_DAILY, index=False, float_format='%.2f')
 
     w = df.groupby(df['Date'].dt.to_period('W')).agg(
@@ -681,7 +787,9 @@ def write_outputs(df, A):
                1 if r['macd_cross'] == 'CROSS_UP' else 2 if r['macd_cross'] == 'CROSS_DOWN' else 0,
                1 if r['div'] == 'BULL_DIV' else -1 if r['div'] == 'BEAR_DIV' else 0,
                round(r['month_so_far_pct'], 1), round(r['ytd_pct'], 1),
-               round(r['off_ath_pct'], 1)] for _, r in df.iterrows()]
+               round(r['off_ath_pct'], 1),
+               -1 if r['scenario'] == 'WARMUP' else scenario.META[r['scenario']]['id']
+               ] for _, r in df.iterrows()]
 
     out = {
         'updated': ld['Date'].strftime('%d %b %Y'),
@@ -691,6 +799,8 @@ def write_outputs(df, A):
             'date': ld['Date'].strftime('%Y-%m-%d'),
             'close': round(ld['Close'], 1),
             'regime': ld['regime'],
+            'stage': ld['scenario'],
+            'action': ld['action'],
             'adx': round(ld['adx14'], 0), 'chop': round(ld['chop14'], 0),
             'rsi': round(ld['rsi14'], 0), 'rsi_zone': ld['rsi_zone'],
             'macd_hist': round(ld['macd_hist'], 0),
@@ -714,6 +824,7 @@ def write_outputs(df, A):
 def main():
     df = load_prices()
     df = add_indicators(df)
+    scenario.assign_scenarios(df)
     A = compute_analysis(df)
     news = load_news()
     ev = compute_events(df, news)
@@ -722,6 +833,7 @@ def main():
     events = {r['Date']: str(r['Event']) for _, r in df.iterrows() if r['Event'] and str(r['Event']).strip()}
     make_master_map(df, events)
     make_zoom_map(df)
+    make_cycle_map(df, A)
     write_outputs(df, A)
     print('news events analysed:', len(ev['list']))
     print('done.')
