@@ -1,0 +1,181 @@
+{
+ "top5_15d": {
+  "name": "TOP5 \u00b7 15-din hold",
+  "total": -15.0,
+  "cagr": -1.4,
+  "mdd": -35.4,
+  "cycles": 192,
+  "span_years": 11.7,
+  "win": 50.0,
+  "avg_net": -0.0,
+  "avg_gross": 0.6,
+  "worst_cycle": -15.6,
+  "last_picks": [
+   "ICICIBANK",
+   "LT",
+   "SBIN",
+   "INFY",
+   "TCS"
+  ]
+ },
+ "top5_weekly": {
+  "name": "TOP5 \u00b7 weekly (5-din)",
+  "total": -95.1,
+  "cagr": -22.8,
+  "mdd": -95.3,
+  "cycles": 577,
+  "span_years": 11.7,
+  "win": 40.0,
+  "avg_net": -0.49,
+  "avg_gross": 0.11,
+  "worst_cycle": -16.8,
+  "last_picks": [
+   "ICICIBANK",
+   "INFY",
+   "TCS",
+   "RELIANCE",
+   "LT"
+  ]
+ },
+ "top3_15d": {
+  "name": "TOP3 \u00b7 15-din hold",
+  "total": 20.7,
+  "cagr": 1.6,
+  "mdd": -40.7,
+  "cycles": 192,
+  "span_years": 11.7,
+  "win": 55.0,
+  "avg_net": 0.18,
+  "avg_gross": 0.54,
+  "worst_cycle": -10.1,
+  "last_picks": [
+   "ICICIBANK",
+   "LT",
+   "SBIN"
+  ]
+ },
+ "all10": {
+  "name": "ALL-10 \u00b7 15-din",
+  "total": -69.2,
+  "cagr": -9.6,
+  "mdd": -70.5,
+  "cycles": 192,
+  "span_years": 11.7,
+  "win": 42.0,
+  "avg_net": -0.54,
+  "avg_gross": 0.66,
+  "worst_cycle": -19.8,
+  "last_picks": [
+   "ICICIBANK",
+   "LT",
+   "SBIN",
+   "INFY",
+   "TCS",
+   "BHARTIARTL",
+   "RELIANCE",
+   "HDFCBANK",
+   "ITC",
+   "HINDUNILVR"
+  ]
+ },
+ "m63_1mo": {
+  "name": "TOP5 \u00b7 1mo hold, 3mo-mom mix",
+  "total": 13.8,
+  "cagr": 1.1,
+  "mdd": -32.2,
+  "cycles": 137,
+  "span_years": 11.7,
+  "win": 53.0,
+  "avg_net": 0.22,
+  "avg_gross": 0.82,
+  "worst_cycle": -25.6,
+  "last_picks": [
+   "LT",
+   "ICICIBANK",
+   "SBIN",
+   "BHARTIARTL",
+   "RELIANCE"
+  ]
+ },
+ "m126_1mo": {
+  "name": "TOP5 \u00b7 1mo hold, 6mo-mom mix",
+  "total": 76.8,
+  "cagr": 5.0,
+  "mdd": -29.1,
+  "cycles": 137,
+  "span_years": 11.7,
+  "win": 55.0,
+  "avg_net": 0.54,
+  "avg_gross": 1.14,
+  "worst_cycle": -26.0,
+  "last_picks": [
+   "LT",
+   "ICICIBANK",
+   "SBIN",
+   "BHARTIARTL",
+   "RELIANCE"
+  ]
+ },
+ "pure3mo_1mo": {
+  "name": "TOP5 \u00b7 1mo hold, pure 3mo-mom",
+  "total": 31.4,
+  "cagr": 2.4,
+  "mdd": -35.0,
+  "cycles": 137,
+  "span_years": 11.7,
+  "win": 53.0,
+  "avg_net": 0.33,
+  "avg_gross": 0.93,
+  "worst_cycle": -25.6,
+  "last_picks": [
+   "LT",
+   "ICICIBANK",
+   "SBIN",
+   "BHARTIARTL",
+   "RELIANCE"
+  ]
+ },
+ "nifty_total_pct": 71.7,
+ "latest_rank": {
+  "RELIANCE": {
+   "score": 4.0,
+   "stage": "2.0"
+  },
+  "ICICIBANK": {
+   "score": 2.5,
+   "stage": "1.0"
+  },
+  "TCS": {
+   "score": 2.5,
+   "stage": "1.0"
+  },
+  "INFY": {
+   "score": 2.5,
+   "stage": "1.0"
+  },
+  "LT": {
+   "score": -1.0,
+   "stage": "-1.0"
+  },
+  "BHARTIARTL": {
+   "score": -1.0,
+   "stage": "-1.0"
+  },
+  "SBIN": {
+   "score": -1.0,
+   "stage": "-1.0"
+  },
+  "HDFCBANK": {
+   "score": -2.0,
+   "stage": "-2.0"
+  },
+  "ITC": {
+   "score": -2.0,
+   "stage": "-2.0"
+  },
+  "HINDUNILVR": {
+   "score": -2.0,
+   "stage": "-2.0"
+  }
+ }
+}
