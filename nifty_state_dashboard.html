@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarketMantri — NIFTY State Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Inter', system-ui, sans-serif; }
+  .card { transition: all .25s ease; box-shadow: 0 1px 5px rgba(0,0,0,.04); }
+  .card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.07); transform: translateY(-1px); }
+  .chip { transition: all .2s; cursor: pointer; user-select: none; }
+  .chip:hover { transform: translateY(-1px); }
+  .chip.active { box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor; }
+  .hm-cell { width: 100%; aspect-ratio: 1; border-radius: 1px; }
+  .hm-cell:hover { outline: 1.5px solid #0f172a; z-index: 5; position: relative; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .fade-up { animation: fadeUp .5s ease both; }
+
+  /* Lightbox */
+  .lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.93); z-index: 9999; justify-content: center; align-items: center; cursor: zoom-out; backdrop-filter: blur(4px); }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-img { max-width: 93vw; max-height: 90vh; object-fit: contain; border-radius: 8px; box-shadow: 0 0 60px rgba(0,0,0,.5); transition: transform .18s ease; cursor: grab; }
+  .lightbox-img.zoomed { cursor: grabbing; }
+  .lightbox-close { position: absolute; top: 18px; right: 22px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .lightbox-close:hover { background: rgba(255,255,255,.25); }
+  .lightbox-title { position: absolute; top: 26px; left: 28px; color: #fff; font-size: 15px; font-weight: 600; pointer-events: none; }
+  .lightbox-hint { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.5); font-size: 13px; pointer-events: none; }
+  .zoomable { cursor: zoom-in; }
+</style>
+</head>
+<body class="bg-[#f8fafc]">
+
+<div class="lightbox-overlay" id="lightbox">
+  <span class="lightbox-title" id="lightbox-title"></span>
+  <button class="lightbox-close" id="lightbox-close">&times;</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <span class="lightbox-hint">Scroll to zoom · Drag to pan · Click outside / Esc to close</span>
+</div>
+
+<!-- HERO -->
+<header class="relative text-white overflow-hidden" style="background:#0f172a url('mint_blue_dot_grid.webp') repeat; background-size:400px;">
+  <div class="absolute inset-0" style="background:rgba(15,23,42,.88);"></div>
+  <div class="relative z-10 max-w-6xl mx-auto px-5 py-10 md:py-14">
+    <div class="flex flex-wrap items-center gap-3 justify-between">
+      <div>
+        <p class="text-amber-400 font-semibold text-xs tracking-widest uppercase mb-2">MarketMantri Research · Daily State Map</p>
+        <h1 class="text-2xl md:text-4xl font-extrabold leading-tight">NIFTY <span class="text-cyan-300">State Dashboard</span></h1>
+        <p class="text-slate-300 text-sm md:text-base mt-2">3,047 din · har din ka regime · news ka flow · aaj kahan khade hain</p>
+      </div>
+      <div id="heroBadge" class="text-right"></div>
+    </div>
+    <div id="todayCard" class="mt-6 bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur"></div>
+    <div class="flex flex-wrap gap-2 mt-5" id="navChips"></div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-5 -mt-2 pb-16">
+
+  <!-- 10-yr heatmap -->
+  <section id="heatmap" class="mt-8">
+    <div class="flex items-end justify-between flex-wrap gap-2 mb-2">
+      <h2 class="text-xl font-extrabold text-slate-900">10 Saal ka Daily Map — <span class="text-slate-500 font-semibold text-base">har din ka regime ek cell mein</span></h2>
+    </div>
+    <div class="flex flex-wrap gap-3 mb-3 text-xs" id="regLegend"></div>
+    <div class="card bg-white rounded-2xl p-4 overflow-x-auto">
+      <div class="min-w-[900px]" id="heatmapGrid"></div>
+    </div>
+    <p class="text-xs text-slate-400 mt-2">Hover karke date + close dekho. Green = up-trend · Red = down-trend · Blue = range · Orange = chop.</p>
+  </section>
+
+  <!-- Maps -->
+  <section id="maps" class="mt-10">
+    <h2 class="text-xl font-extrabold text-slate-900 mb-1">Poori Picture — Master Map + Aaj ka Zoom</h2>
+    <p class="text-slate-500 text-sm mb-4">Image pe click karo → fullscreen zoom karke har detail dekh lo.</p>
+    <div class="grid md:grid-cols-2 gap-5">
+      <div class="card bg-white rounded-2xl overflow-hidden border border-slate-200">
+        <div class="p-3 border-b border-slate-100 flex items-center justify-between">
+          <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full text-[11px] font-bold">MASTER MAP · 2015 → Aaj</span>
+        </div>
+        <img src="state/nifty_daily_map.png" alt="NIFTY daily state master map" class="w-full zoomable img-open" data-title="Master Map — 2015 to today">
+      </div>
+      <div class="card bg-white rounded-2xl overflow-hidden border border-slate-200">
+        <div class="p-3 border-b border-slate-100 flex items-center justify-between">
+          <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full text-[11px] font-bold">ZOOM · Last 6 Months</span>
+        </div>
+        <img src="state/nifty_today_zoom.png" alt="NIFTY last 6 months zoom" class="w-full zoomable img-open" data-title="Zoom — last 6 months">
+      </div>
+    </div>
+  </section>
+
+  <!-- State patterns -->
+  <section id="patterns" class="mt-10">
+    <h2 class="text-xl font-extrabold text-slate-900 mb-1">11 Saal ke Patterns — kya repeat hota hai</h2>
+    <p class="text-slate-500 text-sm mb-4">Sirf limited states hain jo repeat hoti hain — trend/chop/range. Neeche unki frequencies, lengths, transitions aur quality.</p>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5" id="regimeShare"></div>
+
+    <div class="grid lg:grid-cols-2 gap-5 mb-5">
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5 overflow-x-auto">
+        <h3 class="font-bold text-slate-900 mb-3">🏃 Regime Runs (streaks) — ek regime kitne din chalta hai</h3>
+        <table class="w-full text-sm"><thead><tr class="border-b-2 border-slate-200 text-xs text-slate-500 uppercase tracking-wide">
+          <th class="text-left py-2 px-2">Regime</th><th class="text-right py-2 px-2">Runs</th><th class="text-right py-2 px-2">Avg din</th><th class="text-right py-2 px-2">Sabse lamba</th></tr></thead>
+          <tbody id="streakBody"></tbody></table>
+      </div>
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5">
+        <h3 class="font-bold text-slate-900 mb-3">🔄 Aaj ka regime → Kal kya chance (transition %)</h3>
+        <div id="transMatrix" class="text-xs"></div>
+        <div id="chopNext" class="mt-4 bg-orange-50 border border-orange-200 rounded-xl p-3 text-sm"></div>
+      </div>
+    </div>
+
+    <div class="card bg-white border border-slate-200 rounded-2xl p-5 mb-5">
+      <h3 class="font-bold text-slate-900 mb-1">🗓️ Month-wise Seasonality — kis month mein trend/chop zyada</h3>
+      <p class="text-xs text-slate-400 mb-3">Har month: regime mix (bar) + average month return + kitne % months green (2015-2026)</p>
+      <div id="seasonGrid" class="space-y-1.5"></div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-5 mb-5">
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5 overflow-x-auto">
+        <h3 class="font-bold text-slate-900 mb-3">🎯 Daily MACD Cross ki Quality — regime ke hisaab se</h3>
+        <p class="text-xs text-slate-400 mb-2">Cross ke din regime kya tha → agle 5 din ka average return</p>
+        <table class="w-full text-sm"><thead><tr class="border-b-2 border-slate-200 text-xs text-slate-500 uppercase tracking-wide">
+          <th class="text-left py-2 px-2">Cross</th><th class="text-left py-2 px-2">Regime</th><th class="text-right py-2 px-2">N</th><th class="text-right py-2 px-2">+5d avg</th><th class="text-right py-2 px-2">Win</th></tr></thead>
+          <tbody id="crossBody"></tbody></table>
+        <div class="mt-3 text-xs text-slate-500" id="crossInsight"></div>
+      </div>
+      <div class="space-y-5">
+        <div class="card bg-white border border-slate-200 rounded-2xl p-5">
+          <h3 class="font-bold text-slate-900 mb-2">📉 Divergence ke baad 10 din (RSI pivot)</h3>
+          <div class="grid grid-cols-2 gap-3" id="divCards"></div>
+        </div>
+        <div class="card bg-white border border-slate-200 rounded-2xl p-5 overflow-x-auto">
+          <h3 class="font-bold text-slate-900 mb-2">📆 Har Saal — return aur regime mix</h3>
+          <table class="w-full text-sm"><thead><tr class="border-b-2 border-slate-200 text-xs text-slate-500 uppercase tracking-wide">
+            <th class="text-left py-2 px-2">Year</th><th class="text-right py-2 px-2">Ret</th>
+            <th class="text-right py-2 px-2 text-green-600">Up%</th><th class="text-right py-2 px-2 text-red-600">Down%</th>
+            <th class="text-right py-2 px-2 text-blue-600">Range%</th><th class="text-right py-2 px-2 text-orange-600">Chop%</th></tr></thead>
+            <tbody id="yearBody"></tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section id="news" class="mt-12">
+    <h2 class="text-xl font-extrabold text-slate-900 mb-1">📰 News → Market ka Flow — same news, har baar kya hua</h2>
+    <p class="text-slate-500 text-sm mb-1">Har major news pe: <b>us din kitna gira/utha</b> + <b>agle 5/20 din</b> + <b>us waqt technical parameters kya bol rahe the</b> (regime, RSI, ADX, chop, MACD).</p>
+    <p class="text-xs text-slate-400 mb-4">Driver chip select karo → us type ki repeat news side-by-side compare karo (Budget × 11, RBI × 8, Elections × 6...).</p>
+
+    <div id="driverChips" class="flex flex-wrap gap-2 mb-3"></div>
+    <div id="driverSummary" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4"></div>
+
+    <div class="card bg-white border border-slate-200 rounded-2xl p-4 overflow-x-auto">
+      <table class="w-full text-[13px]">
+        <thead><tr class="border-b-2 border-slate-200 text-[11px] text-slate-500 uppercase tracking-wide">
+          <th class="text-left py-2 px-2 whitespace-nowrap">Date</th>
+          <th class="text-left py-2 px-2">News</th>
+          <th class="text-right py-2 px-2 whitespace-nowrap">Us din</th>
+          <th class="text-right py-2 px-2 whitespace-nowrap">+5d</th>
+          <th class="text-right py-2 px-2 whitespace-nowrap">+20d</th>
+          <th class="text-left py-2 px-2">Us waqt technical</th>
+        </tr></thead>
+        <tbody id="eventBody"></tbody>
+      </table>
+      <p id="eventEmpty" class="hidden text-center text-slate-400 text-sm py-6">Is driver ke koi events nahi.</p>
+    </div>
+  </section>
+
+  <!-- Weekly / Monthly -->
+  <section id="wm" class="mt-12 grid lg:grid-cols-2 gap-5">
+    <div class="card bg-white border border-slate-200 rounded-2xl p-5 overflow-x-auto">
+      <h3 class="font-bold text-slate-900 mb-3">🗓️ Last 8 Weeks</h3>
+      <table class="w-full text-sm"><thead><tr class="border-b-2 border-slate-200 text-xs text-slate-500 uppercase tracking-wide">
+        <th class="text-left py-2 px-2">Week end</th><th class="text-right py-2 px-2">Close</th><th class="text-right py-2 px-2">Ret</th><th class="text-left py-2 px-2">Regime</th></tr></thead>
+        <tbody id="weekBody"></tbody></table>
+    </div>
+    <div class="card bg-white border border-slate-200 rounded-2xl p-5 overflow-x-auto">
+      <h3 class="font-bold text-slate-900 mb-3">🗓️ Last 12 Months</h3>
+      <table class="w-full text-sm"><thead><tr class="border-b-2 border-slate-200 text-xs text-slate-500 uppercase tracking-wide">
+        <th class="text-left py-2 px-2">Month</th><th class="text-right py-2 px-2">Close</th><th class="text-right py-2 px-2">Ret</th><th class="text-left py-2 px-2">Regime</th><th class="text-right py-2 px-2">MACD</th></tr></thead>
+        <tbody id="monthBody"></tbody></table>
+    </div>
+  </section>
+
+  <footer class="mt-12 pb-10 text-center">
+    <p class="text-slate-500 text-sm font-semibold">MarketMantri Research — Sunil Kumar</p>
+    <p class="text-slate-400 text-xs mt-1 max-w-2xl mx-auto">Regime labels ADX(14) + Choppiness(14) se bane hain. Daily update: state/update_prices.py chalao — Yahoo ^NSEI se naye din append + sab kuch rebuild. Past data = research context; future returns ka promise nahi.</p>
+  </footer>
+</main>
+
+<script>
+const D = { };
+const REG = { 'TREND UP':'#16a34a', 'TREND DOWN':'#dc2626', 'RANGE':'#2563eb', 'CHOP':'#ea580c' };
+const REG_BG = { 'TREND UP':'bg-green-100 text-green-700', 'TREND DOWN':'bg-red-100 text-red-700', 'RANGE':'bg-blue-100 text-blue-700', 'CHOP':'bg-orange-100 text-orange-700' };
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+let state = { driver: 'All' };
+
+function h(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function fmt(n, d=1, sign=true){ if (n===null || n===undefined) return '—'; const v = Number(n).toFixed(d); return sign && Number(n)>0 ? '+' + v : v; }
+function chip(bg, txt){ return `<span class="inline-block px-2 py-0.5 rounded-md text-[11px] font-bold ${bg}">${txt}</span>`; }
+function regChip(r){ return chip(REG_BG[r]||'bg-slate-100 text-slate-600', r); }
+function lensMsg(regime){
+  return regime === 'TREND UP' ? 'momentum LONG-lean' :
+         regime === 'TREND DOWN' ? 'momentum SHORT-lean' :
+         regime === 'RANGE' ? 'RANGE — naya momentum entry nahi' :
+         'CHOP — fresh trade NAHI, wait for trend';
+}
+
+fetch('state/nifty_state_data.json').then(r => r.json()).then(data => {
+  Object.assign(D, data);
+  renderHero(); renderToday(); renderNav();
+  renderHeatmap(); renderShare(); renderStreaks(); renderTransitions();
+  renderSeason(); renderCross(); renderDiv(); renderYears();
+  renderNews(); renderWM();
+  document.querySelectorAll('.fade-up').forEach(el => el.classList.remove('fade-up'));
+}).catch(e => { document.body.innerHTML = '<div class="p-10 text-center text-red-500">Data load nahi hua: state/nifty_state_data.json — ' + h(e.message) + '</div>'; });
+
+/* ---------------- hero + today ---------------- */
+function renderHero(){
+  const u = D.updated;
+  document.getElementById('heroBadge').innerHTML =
+    `<span class="inline-flex items-center gap-2 text-[11px] font-semibold bg-white/10 border border-white/15 rounded-full px-3 py-1.5">
+       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>Data through ${h(u)} · ${D.n_days} trading days</span>`;
+}
+function renderToday(){
+  const l = D.latest;
+  const c = REG[l.regime];
+  const lens = lensMsg(l.regime);
+  const el = document.getElementById('todayCard');
+  el.innerHTML = `
+    <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
+      <div>
+        <div class="text-[11px] uppercase tracking-widest text-slate-400 font-semibold">${h(l.date)} · Close</div>
+        <div class="text-3xl md:text-4xl font-extrabold text-white mt-1">${Number(l.close).toLocaleString('en-IN')}</div>
+        <div class="text-xs text-slate-400 mt-0.5">SMA50 ${Number(l.sma50).toLocaleString('en-IN')} · SMA200 ${Number(l.sma200).toLocaleString('en-IN')}</div>
+      </div>
+      <div>
+        <span class="inline-block px-3.5 py-1.5 rounded-full text-sm font-extrabold text-white" style="background:${c}">${l.regime}</span>
+        <div class="text-cyan-300 font-bold text-sm mt-2">→ ${lens}</div>
+      </div>
+      <div class="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm min-w-[260px]">
+        <div class="flex justify-between gap-4 text-slate-300"><span class="text-slate-500">ADX</span><b>${l.adx}</b></div>
+        <div class="flex justify-between gap-4 text-slate-300"><span class="text-slate-500">Choppiness</span><b>${l.chop}</b></div>
+        <div class="flex justify-between gap-4 text-slate-300"><span class="text-slate-500">RSI 14</span><b>${l.rsi} <span class="text-slate-500 font-normal">(${l.rsi_zone.toLowerCase()})</span></b></div>
+        <div class="flex justify-between gap-4 text-slate-300"><span class="text-slate-500">MACD hist</span><b class="${l.macd_hist>=0?'text-emerald-400':'text-red-400'}">${fmt(l.macd_hist,0,true)}</b></div>
+        <div class="flex justify-between gap-4 text-slate-300"><span class="text-slate-500">Cross</span><b>${l.cross==='none'?'—':l.cross}</b></div>
+        <div class="flex justify-between gap-4 text-slate-300"><span class="text-slate-500">Divergence</span><b>${l.div==='none'?'—':l.div}</b></div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 ml-auto">
+        ${mCard('Month', fmt(l.month_pct,2), l.month_pct>=0)}
+        ${mCard('YTD', fmt(l.ytd_pct,2), l.ytd_pct>=0)}
+        ${mCard('1 Yr', fmt(l.ret_1y_pct,2), l.ret_1y_pct>=0)}
+        ${mCard('From ATH', fmt(l.off_ath_pct,2), false, true)}
+      </div>
+    </div>`;
+}
+function mCard(label, val, pos, gray){
+  return `<div class="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-center min-w-[86px]">
+    <div class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">${label}</div>
+    <div class="font-extrabold text-lg ${gray?'text-slate-300':pos?'text-emerald-400':'text-red-400'}">${val}</div></div>`;
+}
+function renderNav(){
+  const links = [['#heatmap','10-yr map'],['#maps','Maps'],['#patterns','Patterns'],['#news','News flow'],['#wm','Weekly/Monthly']];
+  document.getElementById('navChips').innerHTML = links.map(([href,t]) =>
+    `<a href="${href}" class="chip bg-white/10 hover:bg-white/20 border border-white/10 rounded-full px-3.5 py-1.5 text-xs font-semibold text-white">${t}</a>`).join('');
+}
+
+/* ---------------- heatmap ---------------- */
+function renderHeatmap(){
+  document.getElementById('regLegend').innerHTML = Object.entries(REG).map(([k,c]) =>
+    `<span class="inline-flex items-center gap-1.5 font-semibold text-slate-600"><span class="w-3 h-3 rounded" style="background:${c}"></span>${k}</span>`).join('');
+
+  const byYear = {};
+  const yrSet = [];
+  for (const r of D.series){
+    const d = r[0]; const y = +d.slice(0,4);
+    if (!byYear[y]){ byYear[y] = {}; yrSet.push(y); }
+    const dt = new Date(d + 'T00:00:00');
+    const start = new Date(y,0,1); const doy = Math.floor((dt-start)/86400000);
+    byYear[y][doy] = r;
+  }
+  yrSet.sort((a,b)=>a-b);
+  const colors = { 0:'#22c55e', 1:'#ef4444', 2:'#3b82f6', 3:'#fb923c' };
+  const NDAYS = { 2020:366 }; // leap years matter little for fill
+  const rows = yrSet.map(y => {
+    const cells = [];
+    const daysIn = (y%4===0 && y%100!==0) || y%400===0 ? 366 : 365;
+    for (let doy=0; doy<daysIn; doy++){
+      const r = byYear[y][doy];
+      if (!r){ cells.push('<div class="hm-cell" style="background:#f1f5f9"></div>'); continue; }
+      const tip = `${r[0]} · Close ${Number(r[1]).toLocaleString('en-IN')} · ${['TREND UP','TREND DOWN','RANGE','CHOP'][r[2]]} · RSI ${r[4]} · Chop ${r[5]}`;
+      cells.push(`<div class="hm-cell" style="background:${colors[r[2]]}" title="${tip}"></div>`);
+    }
+    const yRet = (D.analysis.yearly.find(v=>v.year===y)||{}).ret;
+    return `<div class="flex items-center gap-2">
+      <div class="w-10 text-[10px] font-bold text-slate-500 text-right">${y}${yRet!==undefined?` <span class="${yRet>=0?'text-emerald-500':'text-red-500'}">${fmt(yRet,0)}%</span>`:''}</div>
+      <div class="flex-1 grid gap-[1.5px]" style="grid-template-columns:repeat(${daysIn},1fr)">${cells.join('')}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('heatmapGrid').innerHTML = rows;
+}
+
+/* ---------------- patterns ---------------- */
+function renderShare(){
+  const a = D.analysis;
+  const tot = Object.values(a.regime_share).reduce((x,y)=>x+y,0);
+  const legend = { 'TREND UP':'text-green-700 border-green-200 bg-green-50', 'TREND DOWN':'text-red-700 border-red-200 bg-red-50', 'RANGE':'text-blue-700 border-blue-200 bg-blue-50', 'CHOP':'text-orange-700 border-orange-200 bg-orange-50' };
+  document.getElementById('regimeShare').innerHTML = Object.entries(a.regime_share).map(([k,v]) => `
+    <div class="card border border-slate-200 rounded-2xl p-4 text-center ${legend[k]}">
+      <div class="text-[10px] uppercase tracking-widest font-bold opacity-70">${k}</div>
+      <div class="text-3xl font-extrabold mt-1">${v}%</div>
+      <div class="text-[11px] opacity-60 font-semibold">${Math.round(v/100*D.n_days).toLocaleString('en-IN')} din</div>
+    </div>`).join('');
+}
+function renderStreaks(){
+  const s = D.analysis.streaks;
+  document.getElementById('streakBody').innerHTML = Object.entries(s).map(([k,v]) => `
+    <tr class="border-b border-slate-100">
+      <td class="py-2 px-2">${chip(REG_BG[k], k)}</td>
+      <td class="py-2 px-2 text-right font-semibold">${v.n}</td>
+      <td class="py-2 px-2 text-right">${v.avg} din</td>
+      <td class="py-2 px-2 text-right font-bold text-slate-900">${v.max} din</td>
+    </tr>`).join('');
+}
+function renderTransitions(){
+  const t = D.analysis.transitions;
+  const ks = ['TREND UP','TREND DOWN','RANGE','CHOP'];
+  let html = '<table class="w-full"><thead><tr><th class="p-1.5"></th>' + ks.map(k=>`<th class="p-1.5 text-center font-bold text-slate-600">${k.replace('TREND ','T-')}</th>`).join('') + '</tr></thead><tbody>';
+  ks.forEach(f => {
+    html += `<tr><td class="p-1.5 font-bold text-slate-500">${f.replace('TREND ','T-')}</td>` +
+      ks.map(t2 => { const v = t[f][t2]; return `<td class="p-1.5 text-center"><span class="inline-block min-w-[38px] px-1.5 py-0.5 rounded font-semibold ${v>=20?'bg-slate-800 text-white':v>=8?'bg-slate-200 text-slate-700':'text-slate-400'}">${v}%</span></td>`; }).join('') + '</tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('transMatrix').innerHTML = html;
+  const c = D.analysis.chop_to_trend;
+  const el = document.getElementById('chopNext');
+  if (c.runs_ge_10d){
+    el.innerHTML = `<div class="text-xs text-orange-600 font-bold uppercase tracking-wide mb-1">Chop-run (≥10 din) ke baad kya hota hai — ${c.runs_ge_10d} baar repeat hua</div>
+      <div class="grid grid-cols-3 gap-2 text-center">
+        <div><div class="text-2xl font-extrabold text-orange-600">${c.trend_within_5d_pct}%</div><div class="text-[10px] text-slate-500 font-semibold">5 din mein trend ban gaya</div></div>
+        <div><div class="text-2xl font-extrabold text-slate-900">${c.avg_10d_fwd!==null?fmt(c.avg_10d_fwd,1)+'%':'—'}</div><div class="text-[10px] text-slate-500 font-semibold">avg +10d move</div></div>
+        <div><div class="text-2xl font-extrabold text-slate-900">${c.win_10d_pct!==null?c.win_10d_pct+'%':'—'}</div><div class="text-[10px] text-slate-500 font-semibold">+10d win rate</div></div>
+      </div>
+      <p class="text-[11px] text-slate-500 mt-2">Chop khatam hone ka intezaar karna = trend entry ka best setup (humari momentum system ki bhi yahi philosophy hai).</p>`;
+  } else { el.innerHTML = '<div class="text-xs text-slate-500">Chop-run data abhi nahi.</div>'; }
+}
+function renderSeason(){
+  const ms = D.analysis.month_season;
+  const rows = MONTHS.map((mn,i) => {
+    const m = ms[String(i+1).padStart(2,'0')];
+    if (!m) return '';
+    const segs = [['TREND UP','#22c55e'],['TREND DOWN','#ef4444'],['RANGE','#3b82f6'],['CHOP','#fb923c']]
+      .map(([k,c]) => m.share[k]>0.1 ? `<div style="width:${m.share[k]}%;background:${c}" title="${k} ${m.share[k]}%"></div>` : '').join('');
+    return `<div class="flex items-center gap-3">
+      <div class="w-8 text-xs font-bold text-slate-600">${mn}</div>
+      <div class="flex-1 flex h-5 rounded overflow-hidden bg-slate-100">${segs}</div>
+      <div class="w-20 text-right text-xs font-semibold ${m.avg_ret>=0?'text-emerald-600':'text-red-500'}">${fmt(m.avg_ret,1)}%</div>
+      <div class="w-14 text-right text-[11px] text-slate-500">${m.pct_green}% green</div>
+    </div>`;
+  }).join('');
+  document.getElementById('seasonGrid').innerHTML = rows;
+}
+function renderCross(){
+  const cq = D.analysis.cross_quality;
+  document.getElementById('crossBody').innerHTML = cq.map(c => `
+    <tr class="border-b border-slate-100">
+      <td class="py-1.5 px-2 font-semibold">${c.kind==='CROSS_UP'?'▲ up':'▼ down'}</td>
+      <td class="py-1.5 px-2">${chip(REG_BG[c.regime], c.regime)}</td>
+      <td class="py-1.5 px-2 text-right">${c.n}</td>
+      <td class="py-1.5 px-2 text-right font-bold ${c.avg_5d>=0?'text-emerald-600':'text-red-500'}">${fmt(c.avg_5d,2)}%</td>
+      <td class="py-1.5 px-2 text-right">${c.win}%</td>
+    </tr>`).join('');
+  const best = cq.filter(c=>c.regime!=='CHOP').sort((a,b)=>b.avg_5d-a.avg_5d)[0];
+  const worst = cq.filter(c=>c.regime==='CHOP' || c.regime==='RANGE').sort((a,b)=>a.avg_5d-b.avg_5d)[0];
+  document.getElementById('crossInsight').innerHTML =
+    best ? `<b>${best.kind.replace('CROSS_','')} ${best.regime.toLowerCase()}</b> cross = best (${fmt(best.avg_5d,2)}% avg +5d) ·
+      chop mein cross = ${worst?fmt(worst.avg_5d,2)+'% avg — isliye paper chop mein kyun loss mein tha, yehi saboot hai.':''}` : '';
+}
+function renderDiv(){
+  const dq = D.analysis.div_quality;
+  const cards = {
+    'BULL_DIV': ['▲ Bullish divergence', '#059669', 'bg-emerald-50 border-emerald-200'],
+    'BEAR_DIV': ['▼ Bearish divergence', '#dc2626', 'bg-red-50 border-red-200']
+  };
+  document.getElementById('divCards').innerHTML = Object.entries(cards).map(([k,[name,color,bg]]) => {
+    const v = dq[k];
+    return `<div class="${bg} border rounded-xl p-3">
+      <div class="font-bold text-sm" style="color:${color}">${name}</div>
+      <div class="text-[11px] text-slate-500">${v?`${v.n} baar · avg +10d <b class="${v.avg_10d>=0?'text-emerald-600':'text-red-500'}">${fmt(v.avg_10d,2)}%</b> · win ${v.win}%`:'abhi data nahi'}</div>
+    </div>`;
+  }).join('');
+}
+function renderYears(){
+  document.getElementById('yearBody').innerHTML = D.analysis.yearly.map(y => `
+    <tr class="border-b border-slate-100">
+      <td class="py-1.5 px-2 font-bold text-slate-900">${y.year}</td>
+      <td class="py-1.5 px-2 text-right font-bold ${y.ret>=0?'text-emerald-600':'text-red-500'}">${fmt(y.ret,1)}%</td>
+      <td class="py-1.5 px-2 text-right text-green-600">${y.regime_mix['TREND UP']}%</td>
+      <td class="py-1.5 px-2 text-right text-red-600">${y.regime_mix['TREND DOWN']}%</td>
+      <td class="py-1.5 px-2 text-right text-blue-600">${y.regime_mix['RANGE']}%</td>
+      <td class="py-1.5 px-2 text-right text-orange-600">${y.regime_mix['CHOP']}%</td>
+    </tr>`).join('');
+}
+
+/* ---------------- news ---------------- */
+function renderNews(){
+  const a = D.analysis;
+  const drivers = a.drivers;
+  const chipsEl = document.getElementById('driverChips');
+  const all = ['All', ...Object.keys(drivers).sort()];
+  chipsEl.innerHTML = all.map(k => `
+    <button class="chip rounded-full px-3.5 py-1.5 text-xs font-bold border ${k===state.driver?'bg-slate-900 text-white border-slate-900':'bg-white text-slate-600 border-slate-200'}">${k}${k!=='All'?` <span class="opacity-60">${drivers[k].n}</span>`:''}</button>
+  `).join('');
+  chipsEl.querySelectorAll('.chip').forEach((b,i) => b.addEventListener('click', () => { state.driver = all[i]; renderNews(); }));
+
+  const sumEl = document.getElementById('driverSummary');
+  const list = state.driver==='All' ? Object.entries(drivers).map(([k,v])=>({driver:k,...v})) : [{driver:state.driver, ...drivers[state.driver]}];
+  sumEl.innerHTML = list.map(d => `
+    <div class="card bg-slate-50 border border-slate-200 rounded-xl p-3 text-center">
+      <div class="text-[10px] uppercase tracking-widest font-bold text-slate-500">${d.driver} · ${d.n}</div>
+      <div class="text-lg font-extrabold mt-0.5 ${d.avg_day!==null?(d.avg_day>=0?'text-emerald-600':'text-red-500'):'text-slate-400'}">${d.avg_day!==null?fmt(d.avg_day,2)+'%':'—'}</div>
+      <div class="text-[10px] text-slate-400 font-semibold">avg us din</div>
+      <div class="text-xs mt-1 font-bold text-slate-700">+5d ${d.avg_fwd5!==null?fmt(d.avg_fwd5,2)+'%':'—'} · +20d ${d.avg_fwd20!==null?fmt(d.avg_fwd20,2)+'%':'—'}</div>
+      <div class="text-[10px] text-slate-400 font-semibold">win +20d: ${d.win_fwd20!==null?d.win_fwd20+'%':'—'}</div>
+    </div>`).join('');
+
+  const evs = state.driver==='All' ? a.events : a.events.filter(e=>e.driver===state.driver);
+  const tbody = document.getElementById('eventBody');
+  document.getElementById('eventEmpty').classList.toggle('hidden', evs.length>0);
+  tbody.innerHTML = evs.slice().reverse().map(e => {
+    const regTxt = e.regime;
+    const snap = `${regChip(e.regime)} <span class="text-slate-400">RSI ${e.rsi}</span> <span class="text-slate-400">ADX ${e.adx}</span> <span class="text-slate-400">Chop ${e.chop}</span> <span class="${e.macd_hist>=0?'text-emerald-600':'text-red-500'} font-semibold">MACD ${fmt(e.macd_hist,0,true)}</span>`;
+    const dayCls = e.day_pct===null ? 'text-slate-400' : (e.day_pct>=0?'text-emerald-600':'text-red-500');
+    const f5c = e.fwd5===null ? 'text-slate-300' : (e.fwd5>=0?'text-emerald-600':'text-red-500');
+    const f20c = e.fwd20===null ? 'text-slate-300' : (e.fwd20>=0?'text-emerald-600':'text-red-500');
+    const note = e.impact ? `<span class="text-slate-400 font-normal">· ${h(e.impact)}</span>` : '';
+    const extra = e.note ? `<div class="text-[11px] text-slate-400 mt-0.5">${h(e.note)}</div>` : '';
+    return `<tr class="border-b border-slate-100 align-top">
+      <td class="py-2.5 px-2 whitespace-nowrap font-semibold text-slate-700">${h(e.date)}${e.tdate!==e.date?`<div class="text-[10px] text-slate-400">t+${h(e.tdate)}</div>`:''}</td>
+      <td class="py-2.5 px-2"><div class="font-semibold text-slate-800 text-[13px]">${h(e.title)}${note}</div>${extra}</td>
+      <td class="py-2.5 px-2 text-right font-extrabold ${dayCls}">${fmt(e.day_pct,2)}</td>
+      <td class="py-2.5 px-2 text-right font-bold ${f5c}">${fmt(e.fwd5,2)}</td>
+      <td class="py-2.5 px-2 text-right font-bold ${f20c}">${fmt(e.fwd20,2)}</td>
+      <td class="py-2.5 px-2 whitespace-nowrap">${snap}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ---------------- weekly / monthly ---------------- */
+function renderWM(){
+  document.getElementById('weekBody').innerHTML = D.analysis.last8w.slice().reverse().map(w => `
+    <tr class="border-b border-slate-100">
+      <td class="py-1.5 px-2 whitespace-nowrap">${h(w.week)}</td>
+      <td class="py-1.5 px-2 text-right">${Number(w.close).toLocaleString('en-IN')}</td>
+      <td class="py-1.5 px-2 text-right font-bold ${w.ret>=0?'text-emerald-600':'text-red-500'}">${fmt(w.ret,2)}%</td>
+      <td class="py-1.5 px-2">${regChip(w.regime_mode)}</td>
+    </tr>`).join('');
+  document.getElementById('monthBody').innerHTML = D.analysis.last12m.slice().reverse().map(m => `
+    <tr class="border-b border-slate-100">
+      <td class="py-1.5 px-2 whitespace-nowrap font-semibold text-slate-700">${h(m.month)}</td>
+      <td class="py-1.5 px-2 text-right">${Number(m.close).toLocaleString('en-IN')}</td>
+      <td class="py-1.5 px-2 text-right font-bold ${m.ret>=0?'text-emerald-600':'text-red-500'}">${fmt(m.ret,2)}%</td>
+      <td class="py-1.5 px-2">${regChip(m.regime_mode)}</td>
+      <td class="py-1.5 px-2 text-right ${m.macd_end>=0?'text-emerald-600':'text-red-500'}">${fmt(m.macd_end,0,true)}</td>
+    </tr>`).join('');
+}
+
+/* ---------------- lightbox zoom ---------------- */
+(function(){
+  const overlay = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  const title = document.getElementById('lightbox-title');
+  const closeBtn = document.getElementById('lightbox-close');
+  let scale=1, panX=0, panY=0, drag=false, sx=0, sy=0;
+  function update(){ img.style.transform=`translate(${panX}px,${panY}px) scale(${scale})`; img.classList.toggle('zoomed', scale>1); }
+  function open(src,t){ img.src=src; title.textContent=t||''; scale=1;panX=0;panY=0; update(); overlay.classList.add('active'); document.body.style.overflow='hidden'; }
+  function close(){ overlay.classList.remove('active'); document.body.style.overflow=''; }
+  document.querySelectorAll('.img-open').forEach(el=>el.addEventListener('click',()=>open(el.src, el.dataset.title)));
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) close(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+  img.addEventListener('wheel', e=>{ e.preventDefault(); scale=Math.max(0.5,Math.min(5,scale+(e.deltaY>0?-0.15:0.15))); update(); }, {passive:false});
+  img.addEventListener('mousedown', e=>{ if(scale>1){ drag=true; sx=e.clientX-panX; sy=e.clientY-panY; e.preventDefault(); } });
+  document.addEventListener('mousemove', e=>{ if(!drag) return; panX=e.clientX-sx; panY=e.clientY-sy; update(); });
+  document.addEventListener('mouseup', ()=>{ drag=false; });
+})();
+</script>
+</body>
+</html>
