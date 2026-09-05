@@ -23,7 +23,7 @@ import numpy as np
 import pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-FEATHER = "/home/vaibhav/AI/yr2026/MarketMantri/data/NIFTY50_15m.feather"
+FEATHER = os.path.join(HERE, "nifty_15m_full.feather")  # 15m + Yahoo recent (04 Sep tak)
 DAILY = os.path.join(HERE, "nifty_daily_state.csv")
 
 # ---------------- 1H bars from 15m ----------------
