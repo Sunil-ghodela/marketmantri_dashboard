@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarketMantri — New Strategy Docs (NIFTY + Universe)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Inter', system-ui, sans-serif; }
+  .card { transition: all .25s ease; box-shadow: 0 1px 5px rgba(0,0,0,.04); }
+  .card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.07); transform: translateY(-1px); }
+  .chip { transition: all .2s; cursor: pointer; user-select: none; }
+  .chip:hover { transform: translateY(-1px); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .fade-up { animation: fadeUp .5s ease both; }
+  table th { font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: #64748b; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+</style>
+</head>
+<body class="bg-[#f8fafc]">
+
+<!-- HERO -->
+<header class="relative text-white overflow-hidden" style="background:#0f172a url('mint_blue_dot_grid.webp') repeat; background-size:400px;">
+  <div class="absolute inset-0" style="background:rgba(15,23,42,.9);"></div>
+  <div class="relative z-10 max-w-6xl mx-auto px-5 py-12 md:py-16">
+    <p class="text-amber-400 font-semibold text-xs tracking-widest uppercase mb-2">MarketMantri Research · New Strategy Record · 7 Sep 2026</p>
+    <h1 class="text-2xl md:text-4xl font-extrabold leading-tight">New Strategy — <span class="text-cyan-300">NIFTY + Universe</span> Tests</h1>
+    <p class="text-slate-300 text-sm md:text-base mt-3 max-w-3xl">Dono taraf ke saare tests ka record ek jagah — NIFTY wale (live-engine verify + timeframe scan) aur Universe wale (90-name momentum + 10-stock tests). In-sample numbers <b class="text-white">claim nahi hain</b>; forward paper (30 Sep se) hi asli proof.</p>
+    <div class="flex flex-wrap gap-2 mt-6">
+      <a href="#verdict" class="chip bg-amber-400 text-slate-900 rounded-full px-4 py-2 text-xs font-bold">🎯 Ek line me nateeja</a>
+      <a href="#nifty" class="chip bg-white/10 hover:bg-white/20 border border-white/15 rounded-full px-4 py-2 text-xs font-semibold text-white">A · NIFTY Tests</a>
+      <a href="#universe" class="chip bg-white/10 hover:bg-white/20 border border-white/15 rounded-full px-4 py-2 text-xs font-semibold text-white">B · Universe Tests</a>
+      <a href="#strategy" class="chip bg-emerald-500 text-white rounded-full px-4 py-2 text-xs font-bold">C · 6M-MOM-21-SMA50</a>
+      <a href="#gates" class="chip bg-white/10 hover:bg-white/20 border border-white/15 rounded-full px-4 py-2 text-xs font-semibold text-white">E · Honest Gates</a>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-5 pb-16">
+
+  <!-- VERDICT -->
+  <section id="verdict" class="mt-8">
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5">
+        <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">NIFTY — Timeframe</div>
+        <div class="text-lg font-extrabold text-slate-900 mt-1">Edge <span class="text-cyan-600">30m–1h zone</span></div>
+        <p class="text-xs text-slate-500 mt-1">15m (−0.26) aur 4h (0.11) dead. 1h Sharpe 1.04 artefact nahi — zone ka asar hai.</p>
+      </div>
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5">
+        <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">NIFTY — State Gate</div>
+        <div class="text-lg font-extrabold text-slate-900 mt-1">Long-only + skip = <span class="text-emerald-600">Sharpe 1.04</span></div>
+        <p class="text-xs text-slate-500 mt-1">maxDD aadha (−18% vs −38%). Shorts bekaar — longs har bucket positive.</p>
+      </div>
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5">
+        <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Universe — Horizon</div>
+        <div class="text-lg font-extrabold text-slate-900 mt-1">6-mo momentum = <span class="text-emerald-600">Sharpe 1.35</span></div>
+        <p class="text-xs text-slate-500 mt-1">+1252% / 10.2 saal (NIFTY +240%). Green 10/11 saal — lambi baazi hi rasta.</p>
+      </div>
+    </div>
+    <div class="card bg-emerald-50 border border-emerald-200 rounded-2xl p-5 mt-4 fade-up">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="text-2xl">📋</span>
+        <div>
+          <div class="font-extrabold text-emerald-800">Nayi strategy LOCKED (5 Sep): <span class="mono">6M-MOM-21-SMA50</span> — NIFTY gate (SMA200 → 50%) ke saath</div>
+          <div class="text-sm text-emerald-700 mt-0.5">Pehli rebalance <b>30 Sep 2026</b> · runner `momentum_paper.py` ready · rules pre-registered (`docs/MOMENTUM_FORWARD_PAPER_PRE.md`)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A. NIFTY -->
+  <section id="nifty" class="mt-12">
+    <h2 class="text-xl md:text-2xl font-extrabold text-slate-900">A) NIFTY Wale Tests</h2>
+    <p class="text-sm text-slate-500 mb-4">Engine: 1H MACD(12/26/5) completed-bar cross · 2% stop · max-hold 18 wall-clock hours · 0.06% rt · no div. Data: 62,437 15m bars (2016-07-25 → 2026-09-04).</p>
+
+    <!-- A1 -->
+    <div class="card bg-white border border-slate-200 rounded-2xl p-5 mb-5 overflow-x-auto">
+      <h3 class="font-bold text-slate-900 mb-1">A1 · Live-engine verify — 3 books <span class="text-slate-400 font-semibold text-xs">(6 Sep)</span></h3>
+      <table class="w-full text-[13px] mt-3">
+        <thead><tr class="border-b-2 border-slate-200">
+          <th class="text-left py-2 px-2">Book</th><th class="text-right py-2 px-2">n</th><th class="text-right py-2 px-2">WR%</th>
+          <th class="text-right py-2 px-2">net%</th><th class="text-right py-2 px-2">maxDD</th><th class="text-right py-2 px-2">Sharpe</th>
+        </tr></thead>
+        <tbody>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2">flat 1x</td><td class="py-2 px-2 text-right">1594</td><td class="py-2 px-2 text-right">37.7</td><td class="py-2 px-2 text-right">+46.02</td><td class="py-2 px-2 text-right">25.61</td><td class="py-2 px-2 text-right">0.45</td></tr>
+          <tr class="border-b border-slate-100 bg-emerald-50/60"><td class="py-2 px-2 font-bold">B+sized (W/L 2x/2.5x/3x)</td><td class="py-2 px-2 text-right">1594</td><td class="py-2 px-2 text-right">37.7</td><td class="py-2 px-2 text-right font-bold text-emerald-600">+159.93</td><td class="py-2 px-2 text-right">37.59</td><td class="py-2 px-2 text-right font-bold">0.85</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2">filter(cl≥2) 1x</td><td class="py-2 px-2 text-right">1594</td><td class="py-2 px-2 text-right">14.9*</td><td class="py-2 px-2 text-right">+73.19</td><td class="py-2 px-2 text-right font-bold text-emerald-600">13.71</td><td class="py-2 px-2 text-right">0.96</td></tr>
+        </tbody>
+      </table>
+      <p class="text-xs text-slate-500 mt-2">* filter book ki WR sirf "taken" trades pe — haar-ke-baad wali leta hai, isliye % kam par avg zyada. <b>Sized 11/11 saal green</b> (2026 +6.0). 22 Jul–4 Sep ke CHOP din jodne se ~5% kam.</p>
+    </div>
+
+    <!-- A2 -->
+    <div class="grid lg:grid-cols-2 gap-5 mb-5">
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5 overflow-x-auto">
+        <h3 class="font-bold text-slate-900 mb-1">A2 · Entry-hour lab <span class="text-slate-400 font-semibold text-xs">(10 saal, flat 1x)</span></h3>
+        <table class="w-full text-[13px] mt-3">
+          <thead><tr class="border-b-2 border-slate-200">
+            <th class="text-left py-2 px-2">Hour</th><th class="text-right py-2 px-2">n</th><th class="text-right py-2 px-2">WR%</th><th class="text-right py-2 px-2">avg%</th>
+          </tr></thead>
+          <tbody>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2 font-semibold">9</td><td class="py-1.5 px-2 text-right">221</td><td class="py-1.5 px-2 text-right">39.4</td><td class="py-1.5 px-2 text-right font-bold text-emerald-600">+0.128</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2 font-semibold">10</td><td class="py-1.5 px-2 text-right">400</td><td class="py-1.5 px-2 text-right">41.2</td><td class="py-1.5 px-2 text-right font-bold text-emerald-600">+0.079</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2 font-semibold">11</td><td class="py-1.5 px-2 text-right">231</td><td class="py-1.5 px-2 text-right">30.7</td><td class="py-1.5 px-2 text-right font-bold text-red-500">−0.092 ❌</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2 font-semibold">12</td><td class="py-1.5 px-2 text-right">158</td><td class="py-1.5 px-2 text-right">40.5</td><td class="py-1.5 px-2 text-right">+0.074</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2 font-semibold">13</td><td class="py-1.5 px-2 text-right">191</td><td class="py-1.5 px-2 text-right">34.6</td><td class="py-1.5 px-2 text-right text-red-500">−0.023</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2 font-semibold">14</td><td class="py-1.5 px-2 text-right">171</td><td class="py-1.5 px-2 text-right">35.1</td><td class="py-1.5 px-2 text-right text-red-500">−0.022</td></tr>
+            <tr><td class="py-1.5 px-2 font-semibold">15</td><td class="py-1.5 px-2 text-right">218</td><td class="py-1.5 px-2 text-right">39.4</td><td class="py-1.5 px-2 text-right">+0.009</td></tr>
+          </tbody>
+        </table>
+        <p class="text-xs text-slate-500 mt-2">Subah 9–10 behtar, 11 sabse kharab. Weekday: Fri best (+0.158 avg), Wed sabse kharab. ⚠️ <b>Post-hoc tha — A4 ne rule ke taur pe REJECT kiya.</b></p>
+      </div>
+
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5 overflow-x-auto">
+        <h3 class="font-bold text-slate-900 mb-1">A3 · State-gate combine <span class="text-slate-400 font-semibold text-xs">(prev-day scenario, sized)</span></h3>
+        <table class="w-full text-[13px] mt-3">
+          <thead><tr class="border-b-2 border-slate-200">
+            <th class="text-left py-2 px-2">Variant</th><th class="text-right py-2 px-2">n</th><th class="text-right py-2 px-2">net%</th><th class="text-right py-2 px-2">maxDD</th><th class="text-right py-2 px-2">Sharpe</th>
+          </tr></thead>
+          <tbody>
+            <tr class="border-b border-slate-100"><td class="py-2 px-2">no-gate (live, flip)</td><td class="py-2 px-2 text-right">1594</td><td class="py-2 px-2 text-right">+159.93</td><td class="py-2 px-2 text-right">37.59</td><td class="py-2 px-2 text-right">0.85</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-2 px-2">bull→long / bear→short</td><td class="py-2 px-2 text-right">685</td><td class="py-2 px-2 text-right">+76.54</td><td class="py-2 px-2 text-right">30.83</td><td class="py-2 px-2 text-right">0.52</td></tr>
+            <tr class="bg-emerald-50/60"><td class="py-2 px-2 font-bold">long sirf (BEAR/AVOID-skip)</td><td class="py-2 px-2 text-right">389</td><td class="py-2 px-2 text-right">+81.16</td><td class="py-2 px-2 text-right font-bold text-emerald-600">18.28</td><td class="py-2 px-2 text-right font-bold">1.04</td></tr>
+          </tbody>
+        </table>
+        <p class="text-xs text-slate-500 mt-2"><b>Longs har bucket positive</b> (BEAR/AVOID +0.09, BULL-LEAN +0.11, CHOP +0.12) · <b>Shorts bekaar</b> (CHOP −0.18). Jawab: "long-only bano" — return aadha, DD aadha, Sharpe behtar.</p>
+      </div>
+    </div>
+
+    <!-- A4 -->
+    <div class="card bg-white border border-slate-200 rounded-2xl p-5 mb-5 overflow-x-auto">
+      <h3 class="font-bold text-slate-900 mb-1">A4 · Timeframe scan — 15m/30m/1h/2h/4h <span class="text-slate-400 font-semibold text-xs">(6 Sep) · long-only+skip, sized</span></h3>
+      <table class="w-full text-[13px] mt-3">
+        <thead><tr class="border-b-2 border-slate-200">
+          <th class="text-left py-2 px-2">tf</th><th class="text-right py-2 px-2">n</th><th class="text-right py-2 px-2">net%</th><th class="text-right py-2 px-2">maxDD%</th><th class="text-right py-2 px-2">Sharpe</th><th class="text-right py-2 px-2">WR%</th>
+        </tr></thead>
+        <tbody>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2 font-semibold">15m</td><td class="py-2 px-2 text-right">1511</td><td class="py-2 px-2 text-right text-red-500">−32.80</td><td class="py-2 px-2 text-right">55.21</td><td class="py-2 px-2 text-right font-bold text-red-500">−0.26 ❌</td><td class="py-2 px-2 text-right">35.3</td></tr>
+          <tr class="border-b border-slate-100 bg-emerald-50/40"><td class="py-2 px-2 font-semibold">30m</td><td class="py-2 px-2 text-right">765</td><td class="py-2 px-2 text-right font-bold text-emerald-600">+93.52</td><td class="py-2 px-2 text-right font-bold text-emerald-600">13.52</td><td class="py-2 px-2 text-right font-bold">0.87</td><td class="py-2 px-2 text-right">38.7</td></tr>
+          <tr class="border-b border-slate-100 bg-emerald-50/40"><td class="py-2 px-2 font-semibold">1h</td><td class="py-2 px-2 text-right">389</td><td class="py-2 px-2 text-right">+81.16</td><td class="py-2 px-2 text-right">18.28</td><td class="py-2 px-2 text-right font-bold">1.04</td><td class="py-2 px-2 text-right">40.1</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2 font-semibold">2h</td><td class="py-2 px-2 text-right">210</td><td class="py-2 px-2 text-right">+41.20</td><td class="py-2 px-2 text-right">17.92</td><td class="py-2 px-2 text-right">0.65</td><td class="py-2 px-2 text-right">46.7</td></tr>
+          <tr><td class="py-2 px-2 font-semibold">4h</td><td class="py-2 px-2 text-right">92</td><td class="py-2 px-2 text-right">+3.54</td><td class="py-2 px-2 text-right">10.45</td><td class="py-2 px-2 text-right font-bold text-red-500">0.11 ❌</td><td class="py-2 px-2 text-right">48.9</td></tr>
+        </tbody>
+      </table>
+      <div class="grid md:grid-cols-2 gap-4 mt-3">
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-600">
+          <b class="text-slate-800">Jawab:</b> Sharpe 1.04 1h ka artefact <b>NAHI</b> — edge "30m–1h zone" ka hai (30m: net zyada, DD kam). 15m = whipsaw + fees ka poison. 4h = signal hi nahi (92 trades/10 saal). 1h–2h = momentum engine ki natural frequency.
+        </div>
+        <div class="bg-red-50 border border-red-200 rounded-xl p-3 text-xs text-red-700">
+          <b>Entry-hour 9-10 filter: REJECTED.</b> Har timeframe pe Sharpe giraya — 1h 1.04→0.69, 30m 0.87→−0.14. Post-hoc bucket tha; rule banate hi kaat-ta hai. Ship mat karo.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- B. UNIVERSE -->
+  <section id="universe" class="mt-12">
+    <h2 class="text-xl md:text-2xl font-extrabold text-slate-900">B) Universe Wale Tests</h2>
+    <p class="text-sm text-slate-500 mb-4">Archive 5-min real prices (2015-08 → 2026-04-09), Yahoo .NS daily — sab in-sample.</p>
+
+    <!-- B1 -->
+    <div class="card bg-white border border-slate-200 rounded-2xl p-5 mb-5 overflow-x-auto">
+      <h3 class="font-bold text-slate-900 mb-1">B1 · Momentum horizon scan — 90-name universe <span class="text-slate-400 font-semibold text-xs">(5 Sep) · monthly top-25% (~21 names), 1-mo hold, 0.1% rt</span></h3>
+      <table class="w-full text-[13px] mt-3">
+        <thead><tr class="border-b-2 border-slate-200">
+          <th class="text-left py-2 px-2">Horizon</th><th class="text-right py-2 px-2">Total</th><th class="text-right py-2 px-2">CAGR</th><th class="text-right py-2 px-2">Sharpe</th><th class="text-right py-2 px-2">MDD</th>
+        </tr></thead>
+        <tbody>
+          <tr class="border-b border-slate-100"><td class="py-1.5 px-2">1-mo</td><td class="py-1.5 px-2 text-right">+559%</td><td class="py-1.5 px-2 text-right">19.5%</td><td class="py-1.5 px-2 text-right">1.03</td><td class="py-1.5 px-2 text-right">−34.8%</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-1.5 px-2">2-mo</td><td class="py-1.5 px-2 text-right">+780%</td><td class="py-1.5 px-2 text-right">23.0%</td><td class="py-1.5 px-2 text-right">1.19</td><td class="py-1.5 px-2 text-right">−30.2%</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-1.5 px-2">3-mo</td><td class="py-1.5 px-2 text-right">+814%</td><td class="py-1.5 px-2 text-right">23.7%</td><td class="py-1.5 px-2 text-right">1.18</td><td class="py-1.5 px-2 text-right">−23.8%</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-1.5 px-2">4-mo</td><td class="py-1.5 px-2 text-right">+751%</td><td class="py-1.5 px-2 text-right">23.0%</td><td class="py-1.5 px-2 text-right">1.09</td><td class="py-1.5 px-2 text-right">−33.0%</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-1.5 px-2">5-mo</td><td class="py-1.5 px-2 text-right">+1128%</td><td class="py-1.5 px-2 text-right">27.7%</td><td class="py-1.5 px-2 text-right">1.28</td><td class="py-1.5 px-2 text-right">−30.7%</td></tr>
+          <tr class="bg-emerald-50/60"><td class="py-1.5 px-2 font-bold">6-mo</td><td class="py-1.5 px-2 text-right font-bold text-emerald-600">+1252%</td><td class="py-1.5 px-2 text-right font-bold">29.2%</td><td class="py-1.5 px-2 text-right font-bold">1.35</td><td class="py-1.5 px-2 text-right">−31.4%</td></tr>
+        </tbody>
+      </table>
+      <div class="mt-3 text-xs text-slate-500">
+        Benchmarks (same window): <b>NIFTY50 +240%</b> (CAGR 12.8%, Sharpe 0.83) · <b>Universe EW B&H +641%</b> (multibaggers included) ·
+        6-mo yearly: 2016 +47.9 · 2017 +35.8 · 2018 +1.4 · 2019 +20.5 · 2020 +24.1 · 2021 +62.5 · 2022 +24.7 · 2023 +75.7 · 2024 +17.0 · 2025 +15.9 · 2026 −4.8 → <b class="text-slate-700">green 10/11 saal</b>.
+        <br>⚠️ Survivorship/universe bias + in-sample. Run ke beech mein /100 double-divide bug mila — fix ke baad ye numbers.
+      </div>
+    </div>
+
+    <!-- B2 + B3 -->
+    <div class="grid lg:grid-cols-2 gap-5 mb-5">
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5 overflow-x-auto">
+        <h3 class="font-bold text-slate-900 mb-1">B2 · 10-stock rank filter test <span class="text-slate-400 font-semibold text-xs">(4 Sep)</span></h3>
+        <table class="w-full text-[13px] mt-3">
+          <thead><tr class="border-b-2 border-slate-200">
+            <th class="text-left py-2 px-2">Strategy (net)</th><th class="text-right py-2 px-2">Total</th><th class="text-right py-2 px-2">CAGR</th><th class="text-right py-2 px-2">MDD</th>
+          </tr></thead>
+          <tbody>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2">TOP5 · 15-din (stage-score)</td><td class="py-1.5 px-2 text-right">−15.0%</td><td class="py-1.5 px-2 text-right">−1.4%</td><td class="py-1.5 px-2 text-right">−35.4%</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2">TOP5 · <b>weekly</b> 5-din</td><td class="py-1.5 px-2 text-right font-bold text-red-500">−95.1% ❌</td><td class="py-1.5 px-2 text-right">−22.8%</td><td class="py-1.5 px-2 text-right">−95.3%</td></tr>
+            <tr class="border-b border-slate-100 bg-emerald-50/60"><td class="py-1.5 px-2 font-bold">TOP5 · 1-mo hold, 6-mo momentum</td><td class="py-1.5 px-2 text-right font-bold text-emerald-600">+76.8%</td><td class="py-1.5 px-2 text-right">5.0%</td><td class="py-1.5 px-2 text-right">−29.1%</td></tr>
+            <tr><td class="py-1.5 px-2">NIFTY buy-hold (bench)</td><td class="py-1.5 px-2 text-right">+71.7%</td><td class="py-1.5 px-2 text-right">4.7%</td><td class="py-1.5 px-2 text-right">—</td></tr>
+          </tbody>
+        </table>
+        <p class="text-xs text-slate-500 mt-2"><b>Weekly churn = poison (−95%).</b> 6-mo momentum + monthly hold = index ke barabar/behtar. Selection ka fayda lambi hold me.</p>
+      </div>
+
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5">
+        <h3 class="font-bold text-slate-900 mb-1">B3 · 10-stock stage pipeline test <span class="text-slate-400 font-semibold text-xs">(4 Sep)</span></h3>
+        <div class="grid grid-cols-3 gap-3 mt-3 text-center">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3"><div class="text-2xl font-extrabold text-slate-900">825</div><div class="text-[10px] text-slate-500 font-semibold">quality entries / 12 saal</div></div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3"><div class="text-2xl font-extrabold text-slate-900">5.9</div><div class="text-[10px] text-slate-500 font-semibold">per month · 95% months ≥1</div></div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3"><div class="text-2xl font-extrabold text-red-500">+0.19%</div><div class="text-[10px] text-slate-500 font-semibold">avg/trade pre-cost (~0 edge)</div></div>
+        </div>
+        <p class="text-xs text-slate-500 mt-3"><b>Exit breakup:</b> stage-flip exit 530 × <span class="text-red-500">−1.88%</span> (pullback me bechta hai — barbaad) · stop 26 × −4.6% · <b>time-exit 15-din 269 × <span class="text-emerald-600">+4.72%</span></b> (saara paisa yahi). Aaj ka breadth: <b>0/10 BUY</b> — risk-off.</p>
+      </div>
+    </div>
+
+    <!-- B4 + B5 -->
+    <div class="grid lg:grid-cols-2 gap-5 mb-5">
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5 overflow-x-auto">
+        <h3 class="font-bold text-slate-900 mb-1">B4 · Stocks combo — 1H MACD + BULL-LEAN gate, 10 names <span class="text-slate-400 font-semibold text-xs">(Sep)</span></h3>
+        <table class="w-full text-[13px] mt-3">
+          <thead><tr class="border-b-2 border-slate-200">
+            <th class="text-left py-2 px-2"></th><th class="text-right py-2 px-2">Combo</th><th class="text-right py-2 px-2">EW B&H</th>
+          </tr></thead>
+          <tbody>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2">Total</td><td class="py-1.5 px-2 text-right">+100.3%</td><td class="py-1.5 px-2 text-right">+277.3%</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2">CAGR</td><td class="py-1.5 px-2 text-right">6.3%</td><td class="py-1.5 px-2 text-right">12.4%</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2">Sharpe</td><td class="py-1.5 px-2 text-right">0.77</td><td class="py-1.5 px-2 text-right">0.81</td></tr>
+            <tr class="bg-emerald-50/60"><td class="py-1.5 px-2 font-bold">MDD</td><td class="py-1.5 px-2 text-right font-bold text-emerald-600">−15.3%</td><td class="py-1.5 px-2 text-right">−34.5%</td></tr>
+          </tbody>
+        </table>
+        <p class="text-xs text-slate-500 mt-2">Absolute return har stock pe B&H se KAM (RELIANCE +380% vs +537%). Sharpe sirf 2-3 trending names pe behtar. <b>MDD ~2x chhota = combo ka sirf consistent fayda — gate suraksha deta hai, alpha nahi.</b></p>
+      </div>
+
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5 overflow-x-auto">
+        <h3 class="font-bold text-slate-900 mb-1">B5 · Gate variants — 6-mo momentum + regime gate <span class="text-slate-400 font-semibold text-xs">(5 Sep)</span></h3>
+        <table class="w-full text-[13px] mt-3">
+          <thead><tr class="border-b-2 border-slate-200">
+            <th class="text-left py-2 px-2">Variant</th><th class="text-right py-2 px-2">CAGR</th><th class="text-right py-2 px-2">Sharpe</th><th class="text-right py-2 px-2">MDD</th>
+          </tr></thead>
+          <tbody>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2">BASELINE (no gate)</td><td class="py-1.5 px-2 text-right">27.5%</td><td class="py-1.5 px-2 text-right">1.30</td><td class="py-1.5 px-2 text-right">−40.6%</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2">Prev-mo BEAR → CASH</td><td class="py-1.5 px-2 text-right">15.8% ❌</td><td class="py-1.5 px-2 text-right">0.93</td><td class="py-1.5 px-2 text-right">−40.6% (lagged)</td></tr>
+            <tr class="border-b border-slate-100"><td class="py-1.5 px-2">NIFTY &lt; SMA200 → CASH</td><td class="py-1.5 px-2 text-right">21.0%</td><td class="py-1.5 px-2 text-right">1.21</td><td class="py-1.5 px-2 text-right">−20.0%</td></tr>
+            <tr class="bg-emerald-50/60"><td class="py-1.5 px-2 font-bold">NIFTY &lt; SMA200 → 50%</td><td class="py-1.5 px-2 text-right font-bold">24.4%</td><td class="py-1.5 px-2 text-right font-bold">1.31</td><td class="py-1.5 px-2 text-right font-bold text-emerald-600">−27.4%</td></tr>
+          </tbody>
+        </table>
+        <p class="text-xs text-slate-500 mt-2">"CAGR 32-34%, Sharpe 1.45" wali suggestion <b>confirm nahi hui</b> (best 24-27% / 1.31). Prev-mo BEAR gate lagged — crash nahi pakadta. <b>SMA200-50% = best balance.</b> Sabse bada DD −40.6% = COVID (Feb-20 akela −25%; koi stop nahi — design choice).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- C. STRATEGY -->
+  <section id="strategy" class="mt-12">
+    <h2 class="text-xl md:text-2xl font-extrabold text-slate-900">C) Nayi Strategy — <span class="mono text-emerald-700">6M-MOM-21-SMA50</span></h2>
+    <p class="text-sm text-slate-500 mb-4">Rules 5 Sep 2026 ko <b>pre-registered</b> (paper shuru hone se pehle likhe) — beech me koi badlav nahi. Pehli rebalance <b>30 Sep 2026</b>.</p>
+
+    <div class="card bg-white border border-slate-200 rounded-2xl p-5 mb-5 overflow-x-auto">
+      <table class="w-full text-[13px]">
+        <thead><tr class="border-b-2 border-slate-200">
+          <th class="text-left py-2 px-2">Rule</th><th class="text-left py-2 px-2">Detail</th>
+        </tr></thead>
+        <tbody>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2 font-bold whitespace-nowrap">Universe</td><td class="py-2 px-2">90-name WATCH (archive-available names)</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2 font-bold whitespace-nowrap">Rebalance</td><td class="py-2 px-2">Har month-end (last trading day) close pe, monthly</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2 font-bold whitespace-nowrap">Signal</td><td class="py-2 px-2">6-mo momentum: close / close(6 mo pehle) − 1</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2 font-bold whitespace-nowrap">Selection</td><td class="py-2 px-2">Rank → <b>top-25% (≈21 names)</b>, equal weight</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2 font-bold whitespace-nowrap">Gate</td><td class="py-2 px-2">Rebalance din pe <b>NIFTY close &lt; SMA200 → exposure 50%</b> (aadha cash), warna 100%</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2 font-bold whitespace-nowrap">Hold &amp; Exit</td><td class="py-2 px-2">1 month (agle month-end tak) · <b>koi intra-month exit nahi, koi stop-loss nahi</b> — design choice (DD control gate se aata hai)</td></tr>
+          <tr><td class="py-2 px-2 font-bold whitespace-nowrap">Cost</td><td class="py-2 px-2">0.1% rt churn (0.05% entry + 0.05% exit) — gross AND net dono report</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-5">
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5 text-center">
+        <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Baseline (in-sample)</div>
+        <div class="text-xl font-extrabold text-slate-900 mt-1">CAGR 27.5% · Sh 1.30</div>
+        <div class="text-xs text-red-500 font-semibold">MDD −40.6%</div>
+      </div>
+      <div class="card bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-center">
+        <div class="text-[10px] uppercase tracking-widest text-emerald-600 font-bold">SMA50 (paper wala)</div>
+        <div class="text-xl font-extrabold text-emerald-800 mt-1">CAGR 24.4% · Sh 1.31</div>
+        <div class="text-xs text-emerald-600 font-semibold">MDD −27.4% · 2026 Q1 +2.8%</div>
+      </div>
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5 text-center">
+        <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">SMA-CASH</div>
+        <div class="text-xl font-extrabold text-slate-900 mt-1">CAGR 21.0% · Sh 1.21</div>
+        <div class="text-xs text-emerald-600 font-semibold">MDD −20.0%</div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-5">
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5">
+        <h3 class="font-bold text-slate-900 mb-2">📜 Paper protocol</h3>
+        <ul class="text-[13px] text-slate-600 space-y-1.5 list-disc pl-4">
+          <li>Har month-end: <span class="mono text-xs">momentum_paper_log.csv</span> me row — date, names, NIFTY vs SMA200, exposure, entry prices. Agle month-end: exit, month return, cumulative equity.</li>
+          <li>Monthly review: edge/cost + rolling Sharpe + MDD vs baseline (bina-gate paper bhi parallel).</li>
+          <li><b class="text-red-600">Fail conditions (paper rukega):</b> 6 consecutive red months · monthly MDD &gt; 12% · rolling Sharpe &lt; 0.5 for 6 months.</li>
+        </ul>
+      </div>
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5">
+        <h3 class="font-bold text-slate-900 mb-2">🚪 Gate (paper se hi claim)</h3>
+        <p class="text-[13px] text-slate-600">edge/cost <b class="text-slate-900">≥ 1.3x</b> ya rolling Sharpe <b class="text-slate-900">≥ 0.9</b> (12-mo) tabhi "kaam karta hai". In-sample numbers (1.31 / 1.35) <b>sirf reference hain — claim nahi</b>; asli proof 1-2 saal ka forward record hai.</p>
+        <div class="mt-3 bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-500">Runner ready: <span class="mono">state/multistock/momentum_paper.py</span> · Pre-reg doc: <span class="mono">docs/MOMENTUM_FORWARD_PAPER_PRE.md</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- D. ENGINE -->
+  <section id="engine" class="mt-12">
+    <h2 class="text-xl md:text-2xl font-extrabold text-slate-900">D) Engine par asar — kya decide hua</h2>
+    <div class="card bg-white border border-slate-200 rounded-2xl p-5 mt-4 overflow-x-auto">
+      <table class="w-full text-[13px]">
+        <thead><tr class="border-b-2 border-slate-200">
+          <th class="text-left py-2 px-2">Sawaal</th><th class="text-left py-2 px-2">Jawab</th>
+        </tr></thead>
+        <tbody>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2">1h Sharpe 1.04 artefact hai?</td><td class="py-2 px-2"><b>Nahi</b> — edge 30m–1h zone ka hai. 1h engine chalta rahega</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2">Entry-hour 9-10 filter?</td><td class="py-2 px-2"><b class="text-red-600">REJECT</b> — har timeframe pe Sharpe giraata hai, post-hoc tha</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2">Shorts?</td><td class="py-2 px-2"><b class="text-red-600">Bekaar</b> — longs har bucket positive, shorts BULL-LEAN/CHOP me nuksan</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2">Wed/Thu?</td><td class="py-2 px-2">Wed sabse kharab (NIFTY + basket dono) — <span class="mono">no_wed_thu</span> khada</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2">Sizing?</td><td class="py-2 px-2">B+sized 11/11 saal green par gaddha gehra (−37.6%) — cushion zaroori</td></tr>
+          <tr class="border-b border-slate-100"><td class="py-2 px-2">Stocks pe daily stage-chase?</td><td class="py-2 px-2"><b class="text-red-600">Bekaar</b> — edge ~zero pre-cost; asli candidate = 6-mo momentum rank filter</td></tr>
+          <tr><td class="py-2 px-2">Naya paisa?</td><td class="py-2 px-2"><b>ZERO</b> — backtest → paper → deploy order kabhi mat todo</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- E. GATES -->
+  <section id="gates" class="mt-12">
+    <h2 class="text-xl md:text-2xl font-extrabold text-slate-900">E) Honest Gates — kabhi mat toda</h2>
+    <div class="grid md:grid-cols-2 gap-4 mt-4">
+      <div class="card bg-red-50 border border-red-200 rounded-2xl p-4 text-[13px] text-red-800"><b>1.</b> Real capital <b>ZERO</b> · koi return/loss-control promise nahi.</div>
+      <div class="card bg-white border border-slate-200 rounded-2xl p-4 text-[13px] text-slate-600"><b>2.</b> Backtest → paper → deploy order kabhi mat todo.</div>
+      <div class="card bg-white border border-slate-200 rounded-2xl p-4 text-[13px] text-slate-600"><b>3.</b> Har faisla <b>pehle likho, phir test karo</b> (post-hoc wale 4 NIFTY resets ka lesson).</div>
+      <div class="card bg-white border border-slate-200 rounded-2xl p-4 text-[13px] text-slate-600"><b>4.</b> Live engine = backtest config.</div>
+    </div>
+    <p class="text-xs text-slate-400 mt-4">In-sample numbers sirf reference hain — forward paper hi asli proof. Har naye test ke baad ye doc update karna (purani entries mitana nahi, nayi add karni).</p>
+  </section>
+
+  <footer class="mt-12 pb-10 text-center">
+    <p class="text-slate-500 text-sm font-semibold">MarketMantri Research — Sunil Kumar</p>
+    <p class="text-slate-400 text-xs mt-1 max-w-2xl mx-auto">Ye page strategy research ka record hai — koi trading advice, return promise ya real-money signal nahi. Past data = research context; future returns ka koi guarantee nahi.</p>
+    <p class="text-slate-400 text-xs mt-2 mono">sources: state/multistock/*FINDINGS.md · docs/NEW_STRATEGY.md</p>
+  </footer>
+</main>
+</body>
+</html>
