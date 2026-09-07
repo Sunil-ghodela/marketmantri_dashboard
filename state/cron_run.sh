@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Daily NIFTY state auto-update (canonical — local ya VPS dono pe chalega).
 #
-#   1. git pull --ff-only  -> repo ka latest code + data origin se le lo
-#      (taaki naya code version bhi roz khud aa jaye, sirf data nahi)
+#   1. fetch + reset --hard origin/main -> latest code + data origin se
+#      (self-healing: pehle run ka fail-hua push commit discard hota hai,
+#      phir data naye sirre se rebuild hota hai — kuch khota nahi)
 #   2. state/update_prices.py -> Yahoo ^NSEI se naye din fetch karta hai,
 #      nifty_prices.csv mein append karta hai aur sab rebuild karta hai
 #      (CSVs + JSON + teeno maps + state cycle)
@@ -18,9 +19,10 @@ LOG="state/update.log"
 
 echo "===== $(date '+%Y-%m-%d %H:%M:%S %Z') =====" >> "$LOG"
 
-# 1. latest code + data
-git pull --ff-only --quiet >> "$LOG" 2>&1 \
-  || echo "git pull: no remote changes / offline — aage badho" >> "$LOG"
+# 1. origin se latest code + data — reset --hard isliye taaki koi pehle ka
+#    divergent commit (fail-hua push) aage ke runs ko na rok sake
+git fetch origin --quiet >> "$LOG" 2>&1
+git reset --hard origin/main >> "$LOG" 2>&1
 
 # 2. fetch + rebuild
 python3 state/update_prices.py >> "$LOG" 2>&1 || { echo "UPDATE FAILED" >> "$LOG"; exit 1; }
