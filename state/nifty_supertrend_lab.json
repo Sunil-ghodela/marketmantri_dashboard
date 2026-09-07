@@ -1,0 +1,140 @@
+{
+ "baseline": {
+  "n": 389,
+  "wr": 40.1,
+  "net": 46.15,
+  "avg": 0.1186,
+  "maxDD": 7.81,
+  "sharpe_m": 1.0
+ },
+ "1H ST(10,3) entry": {
+  "n": 222,
+  "wr": 40.5,
+  "net": 26.68,
+  "avg": 0.1202,
+  "maxDD": 4.57,
+  "sharpe_m": 0.82,
+  "exits": {
+   "MACD Cross": 199,
+   "Max Hold": 22,
+   "Stop": 1
+  }
+ },
+ "1H ST(10,2) entry": {
+  "n": 265,
+  "wr": 40.0,
+  "net": 26.44,
+  "avg": 0.0998,
+  "maxDD": 3.64,
+  "sharpe_m": 0.67,
+  "exits": {
+   "MACD Cross": 230,
+   "Max Hold": 33,
+   "Stop": 2
+  }
+ },
+ "1H ST(7,3) entry": {
+  "n": 215,
+  "wr": 39.5,
+  "net": 21.8,
+  "avg": 0.1014,
+  "maxDD": 4.43,
+  "sharpe_m": 0.64,
+  "exits": {
+   "MACD Cross": 195,
+   "Max Hold": 20
+  }
+ },
+ "1H ST(12,4) entry": {
+  "n": 231,
+  "wr": 39.4,
+  "net": 27.12,
+  "avg": 0.1174,
+  "maxDD": 4.3,
+  "sharpe_m": 0.76,
+  "exits": {
+   "MACD Cross": 211,
+   "Max Hold": 20
+  }
+ },
+ "1H ST(14,3) entry": {
+  "n": 226,
+  "wr": 40.3,
+  "net": 27.89,
+  "avg": 0.1234,
+  "maxDD": 4.3,
+  "sharpe_m": 0.86,
+  "exits": {
+   "MACD Cross": 202,
+   "Max Hold": 23,
+   "Stop": 1
+  }
+ },
+ "Daily ST(10,3) entry": {
+  "n": 320,
+  "wr": 40.3,
+  "net": 36.43,
+  "avg": 0.1138,
+  "maxDD": 9.19,
+  "sharpe_m": 0.96,
+  "exits": {
+   "Max Hold": 58,
+   "MACD Cross": 260,
+   "Stop": 2
+  }
+ },
+ "Daily ST(7,3) entry": {
+  "n": 310,
+  "wr": 40.0,
+  "net": 35.11,
+  "avg": 0.1133,
+  "maxDD": 9.2,
+  "sharpe_m": 0.95,
+  "exits": {
+   "Max Hold": 56,
+   "MACD Cross": 252,
+   "Stop": 2
+  }
+ },
+ "Daily ST(14,3) entry": {
+  "n": 327,
+  "wr": 40.4,
+  "net": 43.46,
+  "avg": 0.1329,
+  "maxDD": 7.67,
+  "sharpe_m": 1.13,
+  "exits": {
+   "Max Hold": 59,
+   "MACD Cross": 266,
+   "Stop": 2
+  }
+ },
+ "1H ST(10,3) exit-only": {
+  "n": 389,
+  "wr": 38.0,
+  "net": 18.95,
+  "avg": 0.0487,
+  "maxDD": 8.42,
+  "sharpe_m": 0.51,
+  "exits": {
+   "ST Flip": 167,
+   "MACD Cross": 195,
+   "Max Hold": 25,
+   "Stop": 2
+  }
+ },
+ "1H ST(10,3) entry+exit": {
+  "n": 222,
+  "wr": 40.5,
+  "net": 26.68,
+  "avg": 0.1202,
+  "maxDD": 4.57,
+  "sharpe_m": 0.82,
+  "exits": {
+   "MACD Cross": 188,
+   "Max Hold": 22,
+   "ST Flip": 11,
+   "Stop": 1
+  }
+ }
+}

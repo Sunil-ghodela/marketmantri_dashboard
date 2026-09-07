@@ -1,0 +1,860 @@
+{
+ "baseline": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 46.15,
+   "avg": 0.1186,
+   "maxDD": 7.81,
+   "sharpe_m": 1.0
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.7,
+    "net": 30.23,
+    "maxDD": 7.81,
+    "sharpe_m": 1.18
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 15.92,
+    "maxDD": 4.94,
+    "sharpe_m": 0.79
+   }
+  }
+ },
+ "ATR trail add m=1.5": {
+  "flat": {
+   "n": 389,
+   "wr": 39.8,
+   "net": 44.21,
+   "avg": 0.1137,
+   "maxDD": 7.6,
+   "sharpe_m": 0.99
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 42.6,
+    "net": 31.45,
+    "maxDD": 7.6,
+    "sharpe_m": 1.25
+   },
+   "val": {
+    "n": 147,
+    "wr": 35.4,
+    "net": 12.76,
+    "maxDD": 6.23,
+    "sharpe_m": 0.66
+   }
+  },
+  "survivor": false
+ },
+ "ATR trail add m=2": {
+  "flat": {
+   "n": 389,
+   "wr": 40.4,
+   "net": 44.64,
+   "avg": 0.1148,
+   "maxDD": 7.46,
+   "sharpe_m": 0.98
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 42.6,
+    "net": 30.15,
+    "maxDD": 7.46,
+    "sharpe_m": 1.17
+   },
+   "val": {
+    "n": 147,
+    "wr": 36.7,
+    "net": 14.49,
+    "maxDD": 4.11,
+    "sharpe_m": 0.73
+   }
+  },
+  "survivor": false
+ },
+ "ATR trail add m=2.5": {
+  "flat": {
+   "n": 389,
+   "wr": 40.6,
+   "net": 47.25,
+   "avg": 0.1215,
+   "maxDD": 7.97,
+   "sharpe_m": 1.02
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 42.6,
+    "net": 30.19,
+    "maxDD": 7.97,
+    "sharpe_m": 1.14
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 17.06,
+    "maxDD": 4.1,
+    "sharpe_m": 0.87
+   }
+  },
+  "survivor": false
+ },
+ "ATR trail add m=3": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 45.07,
+   "avg": 0.1159,
+   "maxDD": 7.8,
+   "sharpe_m": 0.98
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 42.1,
+    "net": 28.3,
+    "maxDD": 7.8,
+    "sharpe_m": 1.07
+   },
+   "val": {
+    "n": 147,
+    "wr": 36.7,
+    "net": 16.77,
+    "maxDD": 4.11,
+    "sharpe_m": 0.86
+   }
+  },
+  "survivor": false
+ },
+ "ATR trail add m=4": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 46.73,
+   "avg": 0.1201,
+   "maxDD": 7.39,
+   "sharpe_m": 1.01
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.7,
+    "net": 29.05,
+    "maxDD": 7.39,
+    "sharpe_m": 1.12
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 17.68,
+    "maxDD": 4.11,
+    "sharpe_m": 0.88
+   }
+  },
+  "survivor": false
+ },
+ "ATR trail add m=5": {
+  "flat": {
+   "n": 389,
+   "wr": 40.4,
+   "net": 48.68,
+   "avg": 0.1251,
+   "maxDD": 7.39,
+   "sharpe_m": 1.06
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 42.1,
+    "net": 31.06,
+    "maxDD": 7.39,
+    "sharpe_m": 1.21
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 17.62,
+    "maxDD": 4.11,
+    "sharpe_m": 0.88
+   }
+  },
+  "survivor": true
+ },
+ "ATR trail repl m=2": {
+  "flat": {
+   "n": 389,
+   "wr": 40.4,
+   "net": 44.64,
+   "avg": 0.1148,
+   "maxDD": 7.46,
+   "sharpe_m": 0.98
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 42.6,
+    "net": 30.15,
+    "maxDD": 7.46,
+    "sharpe_m": 1.17
+   },
+   "val": {
+    "n": 147,
+    "wr": 36.7,
+    "net": 14.49,
+    "maxDD": 4.11,
+    "sharpe_m": 0.73
+   }
+  },
+  "survivor": false
+ },
+ "ATR trail repl m=3": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 44.75,
+   "avg": 0.115,
+   "maxDD": 7.8,
+   "sharpe_m": 0.97
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 42.1,
+    "net": 27.98,
+    "maxDD": 7.8,
+    "sharpe_m": 1.07
+   },
+   "val": {
+    "n": 147,
+    "wr": 36.7,
+    "net": 16.77,
+    "maxDD": 4.11,
+    "sharpe_m": 0.86
+   }
+  },
+  "survivor": false
+ },
+ "ATR trail repl m=4": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 46.41,
+   "avg": 0.1193,
+   "maxDD": 7.39,
+   "sharpe_m": 1.01
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.7,
+    "net": 28.73,
+    "maxDD": 7.39,
+    "sharpe_m": 1.12
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 17.68,
+    "maxDD": 4.11,
+    "sharpe_m": 0.88
+   }
+  },
+  "survivor": false
+ },
+ "ATR trail repl m=5": {
+  "flat": {
+   "n": 389,
+   "wr": 40.4,
+   "net": 48.36,
+   "avg": 0.1243,
+   "maxDD": 7.39,
+   "sharpe_m": 1.06
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 42.1,
+    "net": 30.74,
+    "maxDD": 7.39,
+    "sharpe_m": 1.21
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 17.62,
+    "maxDD": 4.11,
+    "sharpe_m": 0.88
+   }
+  },
+  "survivor": true
+ },
+ "stop 1%": {
+  "flat": {
+   "n": 389,
+   "wr": 39.8,
+   "net": 45.92,
+   "avg": 0.118,
+   "maxDD": 8.26,
+   "sharpe_m": 0.95
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.3,
+    "net": 29.63,
+    "maxDD": 8.26,
+    "sharpe_m": 1.07
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 16.29,
+    "maxDD": 4.94,
+    "sharpe_m": 0.81
+   }
+  },
+  "survivor": false
+ },
+ "stop 1.5%": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 46.87,
+   "avg": 0.1205,
+   "maxDD": 7.39,
+   "sharpe_m": 1.01
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.7,
+    "net": 30.95,
+    "maxDD": 7.39,
+    "sharpe_m": 1.19
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 15.92,
+    "maxDD": 4.94,
+    "sharpe_m": 0.79
+   }
+  },
+  "survivor": false
+ },
+ "stop 2%": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 46.15,
+   "avg": 0.1186,
+   "maxDD": 7.81,
+   "sharpe_m": 1.0
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.7,
+    "net": 30.23,
+    "maxDD": 7.81,
+    "sharpe_m": 1.18
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 15.92,
+    "maxDD": 4.94,
+    "sharpe_m": 0.79
+   }
+  },
+  "survivor": false
+ },
+ "stop 2.5%": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 45.83,
+   "avg": 0.1178,
+   "maxDD": 7.78,
+   "sharpe_m": 1.0
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.7,
+    "net": 29.91,
+    "maxDD": 7.78,
+    "sharpe_m": 1.18
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 15.92,
+    "maxDD": 4.94,
+    "sharpe_m": 0.79
+   }
+  },
+  "survivor": false
+ },
+ "stop 3%": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 45.83,
+   "avg": 0.1178,
+   "maxDD": 7.78,
+   "sharpe_m": 1.0
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.7,
+    "net": 29.91,
+    "maxDD": 7.78,
+    "sharpe_m": 1.18
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 15.92,
+    "maxDD": 4.94,
+    "sharpe_m": 0.79
+   }
+  },
+  "survivor": false
+ },
+ "hold 10 bars": {
+  "flat": {
+   "n": 389,
+   "wr": 43.4,
+   "net": 30.08,
+   "avg": 0.0773,
+   "maxDD": 6.94,
+   "sharpe_m": 0.74
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 45.9,
+    "net": 24.4,
+    "maxDD": 6.94,
+    "sharpe_m": 1.05
+   },
+   "val": {
+    "n": 147,
+    "wr": 39.5,
+    "net": 5.68,
+    "maxDD": 5.48,
+    "sharpe_m": 0.33
+   }
+  },
+  "survivor": false
+ },
+ "hold 14 bars": {
+  "flat": {
+   "n": 389,
+   "wr": 41.1,
+   "net": 44.22,
+   "avg": 0.1137,
+   "maxDD": 7.5,
+   "sharpe_m": 0.97
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 43.0,
+    "net": 31.76,
+    "maxDD": 7.5,
+    "sharpe_m": 1.23
+   },
+   "val": {
+    "n": 147,
+    "wr": 38.1,
+    "net": 12.46,
+    "maxDD": 5.29,
+    "sharpe_m": 0.64
+   }
+  },
+  "survivor": false
+ },
+ "hold 18 bars": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 46.15,
+   "avg": 0.1186,
+   "maxDD": 7.81,
+   "sharpe_m": 1.0
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.7,
+    "net": 30.23,
+    "maxDD": 7.81,
+    "sharpe_m": 1.18
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 15.92,
+    "maxDD": 4.94,
+    "sharpe_m": 0.79
+   }
+  },
+  "survivor": false
+ },
+ "hold 24 bars": {
+  "flat": {
+   "n": 389,
+   "wr": 39.6,
+   "net": 47.92,
+   "avg": 0.1232,
+   "maxDD": 7.77,
+   "sharpe_m": 0.99
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.3,
+    "net": 26.94,
+    "maxDD": 7.77,
+    "sharpe_m": 1.06
+   },
+   "val": {
+    "n": 147,
+    "wr": 36.7,
+    "net": 20.98,
+    "maxDD": 4.94,
+    "sharpe_m": 0.92
+   }
+  },
+  "survivor": false
+ },
+ "hold 30 bars": {
+  "flat": {
+   "n": 389,
+   "wr": 39.6,
+   "net": 48.26,
+   "avg": 0.1241,
+   "maxDD": 7.39,
+   "sharpe_m": 0.99
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.3,
+    "net": 27.51,
+    "maxDD": 7.39,
+    "sharpe_m": 1.08
+   },
+   "val": {
+    "n": 147,
+    "wr": 36.7,
+    "net": 20.75,
+    "maxDD": 4.94,
+    "sharpe_m": 0.9
+   }
+  },
+  "survivor": false
+ },
+ "span 3": {
+  "flat": {
+   "n": 492,
+   "wr": 41.1,
+   "net": 55.29,
+   "avg": 0.1124,
+   "maxDD": 6.79,
+   "sharpe_m": 1.19
+  },
+  "tv": {
+   "train": {
+    "n": 304,
+    "wr": 41.1,
+    "net": 32.36,
+    "maxDD": 6.79,
+    "sharpe_m": 1.27
+   },
+   "val": {
+    "n": 188,
+    "wr": 41.0,
+    "net": 22.93,
+    "maxDD": 4.71,
+    "sharpe_m": 1.09
+   }
+  },
+  "survivor": true
+ },
+ "span 5": {
+  "flat": {
+   "n": 389,
+   "wr": 40.1,
+   "net": 46.15,
+   "avg": 0.1186,
+   "maxDD": 7.81,
+   "sharpe_m": 1.0
+  },
+  "tv": {
+   "train": {
+    "n": 242,
+    "wr": 41.7,
+    "net": 30.23,
+    "maxDD": 7.81,
+    "sharpe_m": 1.18
+   },
+   "val": {
+    "n": 147,
+    "wr": 37.4,
+    "net": 15.92,
+    "maxDD": 4.94,
+    "sharpe_m": 0.79
+   }
+  },
+  "survivor": false
+ },
+ "span 7": {
+  "flat": {
+   "n": 330,
+   "wr": 40.0,
+   "net": 35.98,
+   "avg": 0.109,
+   "maxDD": 6.08,
+   "sharpe_m": 0.75
+  },
+  "tv": {
+   "train": {
+    "n": 208,
+    "wr": 40.4,
+    "net": 22.02,
+    "maxDD": 6.08,
+    "sharpe_m": 0.75
+   },
+   "val": {
+    "n": 122,
+    "wr": 39.3,
+    "net": 13.96,
+    "maxDD": 4.15,
+    "sharpe_m": 0.77
+   }
+  },
+  "survivor": false
+ },
+ "span 9": {
+  "flat": {
+   "n": 303,
+   "wr": 42.2,
+   "net": 34.05,
+   "avg": 0.1124,
+   "maxDD": 6.39,
+   "sharpe_m": 0.68
+  },
+  "tv": {
+   "train": {
+    "n": 193,
+    "wr": 43.0,
+    "net": 21.35,
+    "maxDD": 6.39,
+    "sharpe_m": 0.7
+   },
+   "val": {
+    "n": 110,
+    "wr": 40.9,
+    "net": 12.7,
+    "maxDD": 4.74,
+    "sharpe_m": 0.68
+   }
+  },
+  "survivor": false
+ },
+ "skip 11h": {
+  "flat": {
+   "n": 333,
+   "wr": 41.1,
+   "net": 49.86,
+   "avg": 0.1497,
+   "maxDD": 7.64,
+   "sharpe_m": 1.05
+  },
+  "tv": {
+   "train": {
+    "n": 202,
+    "wr": 43.6,
+    "net": 35.87,
+    "maxDD": 7.64,
+    "sharpe_m": 1.33
+   },
+   "val": {
+    "n": 131,
+    "wr": 37.4,
+    "net": 13.99,
+    "maxDD": 4.94,
+    "sharpe_m": 0.69
+   }
+  },
+  "survivor": false
+ },
+ "skip 11,13,14h": {
+  "flat": {
+   "n": 267,
+   "wr": 41.6,
+   "net": 41.31,
+   "avg": 0.1547,
+   "maxDD": 7.47,
+   "sharpe_m": 1.06
+  },
+  "tv": {
+   "train": {
+    "n": 165,
+    "wr": 42.4,
+    "net": 27.21,
+    "maxDD": 7.47,
+    "sharpe_m": 1.25
+   },
+   "val": {
+    "n": 102,
+    "wr": 40.2,
+    "net": 14.1,
+    "maxDD": 3.84,
+    "sharpe_m": 0.83
+   }
+  },
+  "survivor": false
+ },
+ "span 2": {
+  "flat": {
+   "n": 585,
+   "wr": 41.0,
+   "net": 54.35,
+   "avg": 0.0929,
+   "maxDD": 6.71,
+   "sharpe_m": 1.07
+  },
+  "tv": {
+   "train": {
+    "n": 353,
+    "wr": 42.5,
+    "net": 34.89,
+    "maxDD": 6.71,
+    "sharpe_m": 1.21
+   },
+   "val": {
+    "n": 232,
+    "wr": 38.8,
+    "net": 19.46,
+    "maxDD": 4.53,
+    "sharpe_m": 0.89
+   }
+  }
+ },
+ "span 4": {
+  "flat": {
+   "n": 423,
+   "wr": 41.8,
+   "net": 53.26,
+   "avg": 0.1259,
+   "maxDD": 6.79,
+   "sharpe_m": 1.12
+  },
+  "tv": {
+   "train": {
+    "n": 263,
+    "wr": 43.3,
+    "net": 34.43,
+    "maxDD": 6.79,
+    "sharpe_m": 1.3
+   },
+   "val": {
+    "n": 160,
+    "wr": 39.4,
+    "net": 18.83,
+    "maxDD": 4.81,
+    "sharpe_m": 0.91
+   }
+  }
+ },
+ "span3+trail m5": {
+  "flat": {
+   "n": 492,
+   "wr": 40.9,
+   "net": 54.76,
+   "avg": 0.1113,
+   "maxDD": 6.79,
+   "sharpe_m": 1.19
+  },
+  "tv": {
+   "train": {
+    "n": 304,
+    "wr": 41.1,
+    "net": 33.2,
+    "maxDD": 6.79,
+    "sharpe_m": 1.31
+   },
+   "val": {
+    "n": 188,
+    "wr": 40.4,
+    "net": 21.56,
+    "maxDD": 4.71,
+    "sharpe_m": 1.05
+   }
+  }
+ },
+ "span3+hold24": {
+  "flat": {
+   "n": 492,
+   "wr": 40.9,
+   "net": 57.56,
+   "avg": 0.117,
+   "maxDD": 6.79,
+   "sharpe_m": 1.19
+  },
+  "tv": {
+   "train": {
+    "n": 304,
+    "wr": 41.1,
+    "net": 28.71,
+    "maxDD": 6.79,
+    "sharpe_m": 1.15
+   },
+   "val": {
+    "n": 188,
+    "wr": 40.4,
+    "net": 28.85,
+    "maxDD": 4.71,
+    "sharpe_m": 1.23
+   }
+  }
+ },
+ "span3+hold24+trail m5": {
+  "flat": {
+   "n": 492,
+   "wr": 40.7,
+   "net": 57.03,
+   "avg": 0.1159,
+   "maxDD": 6.79,
+   "sharpe_m": 1.19
+  },
+  "tv": {
+   "train": {
+    "n": 304,
+    "wr": 41.1,
+    "net": 29.55,
+    "maxDD": 6.79,
+    "sharpe_m": 1.18
+   },
+   "val": {
+    "n": 188,
+    "wr": 39.9,
+    "net": 27.48,
+    "maxDD": 4.71,
+    "sharpe_m": 1.2
+   }
+  }
+ }
+}
