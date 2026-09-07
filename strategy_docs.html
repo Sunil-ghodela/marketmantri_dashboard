@@ -29,6 +29,7 @@
     <p class="text-slate-300 text-sm md:text-base mt-3 max-w-3xl">Dono taraf ke saare tests ka record ek jagah — NIFTY wale (live-engine verify + timeframe scan) aur Universe wale (90-name momentum + 10-stock tests). In-sample numbers <b class="text-white">claim nahi hain</b>; forward paper (30 Sep se) hi asli proof.</p>
     <div class="flex flex-wrap gap-2 mt-6">
       <a href="#verdict" class="chip bg-amber-400 text-slate-900 rounded-full px-4 py-2 text-xs font-bold">🎯 Ek line me nateeja</a>
+      <a href="#market" class="chip bg-cyan-500 text-white rounded-full px-4 py-2 text-xs font-bold">📡 Current State</a>
       <a href="#nifty" class="chip bg-white/10 hover:bg-white/20 border border-white/15 rounded-full px-4 py-2 text-xs font-semibold text-white">A · NIFTY Tests</a>
       <a href="#universe" class="chip bg-white/10 hover:bg-white/20 border border-white/15 rounded-full px-4 py-2 text-xs font-semibold text-white">B · Universe Tests</a>
       <a href="#strategy" class="chip bg-emerald-500 text-white rounded-full px-4 py-2 text-xs font-bold">C · 6M-MOM-21-SMA50</a>
@@ -65,6 +66,60 @@
           <div class="font-extrabold text-emerald-800">Nayi strategy LOCKED (5 Sep): <span class="mono">6M-MOM-21-SMA50</span> — NIFTY gate (SMA200 → 50%) ke saath</div>
           <div class="text-sm text-emerald-700 mt-0.5">Pehli rebalance <b>30 Sep 2026</b> · runner `momentum_paper.py` ready · rules pre-registered (`docs/MOMENTUM_FORWARD_PAPER_PRE.md`)</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENT MARKET STATE -->
+  <section id="market" class="mt-12">
+    <h2 class="text-xl md:text-2xl font-extrabold text-slate-900">📡 Current Market State <span class="text-slate-400 font-semibold text-base">(07 Sep 2026 · real ^NSEI · 2,883 din)</span></h2>
+    <p class="text-sm text-slate-500 mb-4">Live dashboard data (`nifty_state_dashboard.html`) — roz 16:20 IST pe update hota hai. Aaj: <b>WEAK · NO-BUY</b> — no fresh long zone.</p>
+
+    <div class="card bg-white border border-slate-200 rounded-2xl p-5 mb-5">
+      <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
+        <div>
+          <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">07 Sep 2026 · Close</div>
+          <div class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1">23,779.2</div>
+          <div class="text-xs text-slate-500 mt-0.5">SMA50 24,200.9 · SMA200 24,601.2 — close <b class="text-red-500">dono ke neeche</b></div>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="inline-block px-3.5 py-1.5 rounded-full text-sm font-extrabold text-white bg-[#2563eb]">RANGE</span>
+          <span class="inline-block px-3.5 py-1.5 rounded-full text-sm font-extrabold text-white bg-slate-700">WEAK</span>
+          <span class="inline-block px-3.5 py-1.5 rounded-full text-sm font-extrabold text-white bg-rose-600">NO-BUY</span>
+        </div>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-sm min-w-[220px]">
+          <div class="flex justify-between gap-3 text-slate-500"><span>ADX</span><b class="text-slate-800">22</b></div>
+          <div class="flex justify-between gap-3 text-slate-500"><span>Chop</span><b class="text-slate-800">50</b></div>
+          <div class="flex justify-between gap-3 text-slate-500"><span>RSI 14</span><b class="text-slate-800">35</b></div>
+          <div class="flex justify-between gap-3 text-slate-500"><span>MACD hist</span><b class="text-red-500">−54</b></div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 ml-auto">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-center"><div class="text-[10px] uppercase text-slate-400 font-bold">Month</div><div class="font-extrabold text-red-500">−1.15%</div></div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-center"><div class="text-[10px] uppercase text-slate-400 font-bold">YTD</div><div class="font-extrabold text-red-500">−9.0%</div></div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-center"><div class="text-[10px] uppercase text-slate-400 font-bold">1 Yr</div><div class="font-extrabold text-red-500">−2.65%</div></div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-center"><div class="text-[10px] uppercase text-slate-400 font-bold">Off ATH</div><div class="font-extrabold text-slate-300">−9.68%</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-4">
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5">
+        <h3 class="font-bold text-slate-900 mb-2">🎯 Strategy lens — aaj ka matlab</h3>
+        <ul class="text-[13px] text-slate-600 space-y-1.5 list-disc pl-4">
+          <li><b>WEAK → NO-BUY:</b> trade andar ho to exit; naya long strictly NO (decision matrix, 11 saal).</li>
+          <li><b>NIFTY &lt; SMA200</b> — momentum paper gate (6M-MOM-21-SMA50) ke hisaab se agle month-end rebalance pe exposure <b>50%</b> rahega.</li>
+          <li>MACD hist −54, cross: none, div: none — koi fresh trigger nahi. YTD −9% — chop/weak market year.</li>
+        </ul>
+      </div>
+      <div class="card bg-white border border-slate-200 rounded-2xl p-5">
+        <h3 class="font-bold text-slate-900 mb-2">🛠️ Chop→Trend card (fix ho gaya)</h3>
+        <p class="text-[13px] text-slate-600">Pehle ye card galat number dikha raha tha (135.5% — flags aur forward-returns ek hi list me mix the). Ab alag-alag count hote hain:</p>
+        <div class="grid grid-cols-3 gap-3 mt-3 text-center">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3"><div class="text-xl font-extrabold text-orange-600">6</div><div class="text-[10px] text-slate-500 font-semibold">chop-runs ≥10 din</div></div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3"><div class="text-xl font-extrabold text-slate-900">0%</div><div class="text-[10px] text-slate-500 font-semibold">5 din me trend label</div></div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3"><div class="text-xl font-extrabold text-emerald-600">+2.15%</div><div class="text-[10px] text-slate-500 font-semibold">avg +10d (win 83%)</div></div>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-2">Chop khatam hone ke baad trend-label der se aata hai (0/6 5-din me), par 10 din ka fwd move positive (5/6) — bounce chhupa hua hai, label pehle nahi.</p>
       </div>
     </div>
   </section>

@@ -393,7 +393,7 @@ function renderTransitions(){
   if (c.runs_ge_10d){
     el.innerHTML = `<div class="text-xs text-orange-600 font-bold uppercase tracking-wide mb-1">Chop-run (≥10 din) ke baad kya hota hai — ${c.runs_ge_10d} baar repeat hua</div>
       <div class="grid grid-cols-3 gap-2 text-center">
-        <div><div class="text-2xl font-extrabold text-orange-600">${c.trend_within_5d_pct}%</div><div class="text-[10px] text-slate-500 font-semibold">5 din mein trend ban gaya</div></div>
+        <div><div class="text-2xl font-extrabold text-orange-600">${c.trend_within_5d_pct!==null?c.trend_within_5d_pct+'%':'—'}</div><div class="text-[10px] text-slate-500 font-semibold">5 din mein trend ban gaya</div></div>
         <div><div class="text-2xl font-extrabold text-slate-900">${c.avg_10d_fwd!==null?fmt(c.avg_10d_fwd,1)+'%':'—'}</div><div class="text-[10px] text-slate-500 font-semibold">avg +10d move</div></div>
         <div><div class="text-2xl font-extrabold text-slate-900">${c.win_10d_pct!==null?c.win_10d_pct+'%':'—'}</div><div class="text-[10px] text-slate-500 font-semibold">+10d win rate</div></div>
       </div>

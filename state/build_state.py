@@ -224,17 +224,20 @@ def compute_analysis(df):
         else:
             i += 1
     if chop_runs:
-        nxt = []
+        # flags (0/1) aur 10-din forward returns alag-alag lists me — pehle inhe
+        # ek hi `nxt` me mila raha tha, jisse trend_within_5d_pct 100% se upar
+        # aa jaata tha (returns ke floats flags me ghus jaate the).
+        flags = []
+        f10 = []
         for end in chop_runs:
             if end + 5 < n:
                 r5 = df.iloc[end + 5]['regime']
-                nxt.append(1 if r5 in ('TREND UP', 'TREND DOWN') else 0)
+                flags.append(1 if r5 in ('TREND UP', 'TREND DOWN') else 0)
             if end + 10 < n:
                 fr = fwd_return(df, end, 10)
                 if not np.isnan(fr):
-                    nxt.append(fr)
-        trend_in5 = round(100.0 * sum(nxt[:len(chop_runs)]) / max(len(chop_runs), 1), 1)
-        f10 = [v for v in nxt[len(chop_runs):] if not isinstance(v, int)]
+                    f10.append(fr)
+        trend_in5 = round(100.0 * sum(flags) / max(len(flags), 1), 1) if flags else None
         A['chop_to_trend'] = {'runs_ge_10d': len(chop_runs),
                               'trend_within_5d_pct': trend_in5,
                               'avg_10d_fwd': round(float(np.mean(f10)), 2) if f10 else None,
@@ -793,7 +796,7 @@ def write_outputs(df, A):
 
     out = {
         'updated': ld['Date'].strftime('%d %b %Y'),
-        'source': '4,200-day xlsx (2015–Sep 2026) + Yahoo ^NSEI daily',
+        'source': f"Yahoo ^NSEI daily (real) — {len(df):,} din, {df.iloc[0]['Date'].strftime('%Y-%m-%d')} → {ld['Date'].strftime('%Y-%m-%d')}",
         'n_days': len(df),
         'latest': {
             'date': ld['Date'].strftime('%Y-%m-%d'),
